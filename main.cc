@@ -11,7 +11,7 @@
 #include "ENUTAG_Construction.hh"
 #include "ENUTAG_ActionInitialization.hh"
 
-//this is proof I pushed on my online GitHub page
+//this is proof that I pushed on my online GitHub page
 
 int main(int argc, char** argv){
 
