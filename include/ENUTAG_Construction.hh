@@ -52,6 +52,16 @@ private:
 
     virtual void ConstructSDandField();
 
+    void DefineRotations();
+
+    void DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld);
+    void DoQuadrupole(G4int quadrupoleNumber, G4LogicalVolume* lWorld);
+    void DoEC(G4int ECNumber, G4LogicalVolume* lWorld);
+    void DoDrifts(G4LogicalVolume* lWorld);
+    void DoTarget(G4LogicalVolume* lWorld);
+    void DoDetectors(G4LogicalVolume* lWorld);
+    void DoShielding(G4LogicalVolume* lWorld);
+
 };
 
 #endif

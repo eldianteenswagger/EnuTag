@@ -20,42 +20,15 @@
 /vis/geometry/set/colour logicDrift2 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDrift3 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDrift4 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicQuadrupole1 0 1 0 0
-/vis/geometry/set/colour logicQuadrupole2 0 1 0 0
-/vis/geometry/set/colour logicQuadrupole3 0 1 0 0
-/vis/geometry/set/colour logicDipole1up 0 0 0 1
-/vis/geometry/set/colour logicDipole1down 0 0 0 1
 /vis/geometry/set/colour logicDriftDipole1 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicDipole2up 0 0 0 1
-/vis/geometry/set/colour logicDipole2down 0 0 0 1
 /vis/geometry/set/colour logicDrift5 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicQuadrupole5 0 1 0 0
-/vis/geometry/set/colour logicEC1 0 0.5 1 0.5
 /vis/geometry/set/colour logicDrift6 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicEC2 0 0.5 1 0.5
-/vis/geometry/set/colour logicDipole3up 0 0 0 1
-/vis/geometry/set/colour logicDipole3down 0 0 0 1
 /vis/geometry/set/colour logicDriftDipole2 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicDipole4up 0 0 0 1
-/vis/geometry/set/colour logicDipole4down 0 0 0 1
 /vis/geometry/set/colour logicDrift7 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicEC3 0 0.5 1 0.5
-/vis/geometry/set/colour logicQuadrupole6 0 1 0 0
 /vis/geometry/set/colour logicDrift8 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicEC4 0 0.5 1 0.5
-/vis/geometry/set/colour logicQuadrupole8 0 1 0 0
 /vis/geometry/set/colour logicDrift9 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicEC5 0 0.5 1 0.5
-/vis/geometry/set/colour logicQuadrupole9 0 1 0 0
 /vis/geometry/set/colour logicDriftBUFF 0 0.6 0.6 0.6
-/vis/geometry/set/colour logicECLAST 0 0.5 1 0.5
 /vis/geometry/set/colour logicDriftDecay 0 0.4 0.3 0.3
-
-#/vis/geometry/set/colour logicSilicon1 0 1 1 0
-#/vis/geometry/set/colour logicSilicon2 0 1 1 0
-#/vis/geometry/set/colour logicSilicon3 0 1 1 0
-#/vis/geometry/set/colour logicSilicon4 0 1 1 0
-#/vis/geometry/set/colour logicSilicon5 0 1 1 0
 
 /vis/geometry/set/colour logicDetector1 0 1 0.7 0
 /vis/geometry/set/colour logicDetector2 0 1 0.7 0
@@ -66,15 +39,20 @@
 /vis/geometry/set/colour logicDSVD2 0 1 1 0
 /vis/geometry/set/colour logicUSVD 0 1 1 0
 
+/vis/geometry/set/colour logicDipoleup 0 0 0 1
+/vis/geometry/set/colour logicDipoledown 0 0 0 1
+/vis/geometry/set/colour logicQuadrupole 0 1 0 0
+/vis/geometry/set/colour logicEC 0 0.5 1 0.5
+
 
 /vis/filtering/trajectories/create/particleFilter
 #/vis/filtering/trajectories/particleFilter-0/add gamma
 #/vis/filtering/trajectories/particleFilter-0/add e+
 #/vis/filtering/trajectories/particleFilter-0/add e-
 #/vis/filtering/trajectories/particleFilter-0/add neutron
-#/vis/filtering/trajectories/particleFilter-0/add proton
+/vis/filtering/trajectories/particleFilter-0/add proton
 #/vis/filtering/trajectories/particleFilter-0/add neutron
-#/vis/filtering/trajectories/particleFilter-0/add pi+
+/vis/filtering/trajectories/particleFilter-0/add pi+
 #/vis/filtering/trajectories/particleFilter-0/add pi-
 #/vis/filtering/trajectories/particleFilter-0/add pi0
 #/vis/filtering/trajectories/particleFilter-0/add kaon+
