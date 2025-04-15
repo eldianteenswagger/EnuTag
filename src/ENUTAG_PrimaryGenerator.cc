@@ -8,14 +8,14 @@ ENUTAG_PrimaryGenerator::ENUTAG_PrimaryGenerator(){
     G4double z = 0. * m;
     G4ThreeVector pos(x,y,z);
     //particle momentum
-    G4double px = 8.5 * GeV;
-    //G4double px = 400. * GeV;
+    //G4double px = 8.5 * GeV;
+    G4double px = 400. * GeV;
     G4double py = 0.;
     G4double pz = 0.;
     G4ThreeVector mom(px,py,pz);
     //particle type
     G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-    G4ParticleDefinition *particle = particleTable -> FindParticle("pi+");
+    G4ParticleDefinition *particle = particleTable -> FindParticle("proton");
     fParticleGun -> SetParticlePosition(pos);
     fParticleGun -> SetParticleMomentum(mom);
     fParticleGun -> SetParticleDefinition(particle);

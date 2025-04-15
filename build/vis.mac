@@ -11,11 +11,8 @@
 /vis/scene/add/trajectories smooth
 /vis/scene/endOfEventAction accumulate
 
-/vis/geometry/set/colour logicTargetBlock1 0 0.6 0.7 0.5
-/vis/geometry/set/colour logicTargetBlock2 0 0.6 0.7 0.5
-/vis/geometry/set/colour logicTargetBlock3 0 0.6 0.7 0.5
-/vis/geometry/set/colour logicTargetBlock4 0 0.6 0.7 0.5
-/vis/geometry/set/colour logicTarget 0 0 0 0
+/vis/geometry/set/colour logicTargetBlock 0 0.6 0.7 0.5
+/vis/geometry/set/colour logicTarget 0 0.2 0.2 0.2
 /vis/geometry/set/colour logicDrift1 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDrift2 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDrift3 0 0.6 0.6 0.6
@@ -44,20 +41,28 @@
 /vis/geometry/set/colour logicQuadrupole 0 1 0 0
 /vis/geometry/set/colour logicEC 0 0.5 1 0.5
 
+/vis/geometry/set/colour logicConcreteST 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteUT 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteFT 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteD1 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcrete1 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteD2 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcrete2 0 0.4 0.4 0.4
+
 
 /vis/filtering/trajectories/create/particleFilter
-#/vis/filtering/trajectories/particleFilter-0/add gamma
-#/vis/filtering/trajectories/particleFilter-0/add e+
-#/vis/filtering/trajectories/particleFilter-0/add e-
+/vis/filtering/trajectories/particleFilter-0/add gamma
+/vis/filtering/trajectories/particleFilter-0/add e+
+/vis/filtering/trajectories/particleFilter-0/add e-
+/vis/filtering/trajectories/particleFilter-0/add neutron
+#/vis/filtering/trajectories/particleFilter-0/add proton
 #/vis/filtering/trajectories/particleFilter-0/add neutron
-/vis/filtering/trajectories/particleFilter-0/add proton
-#/vis/filtering/trajectories/particleFilter-0/add neutron
-/vis/filtering/trajectories/particleFilter-0/add pi+
+#/vis/filtering/trajectories/particleFilter-0/add pi+
 #/vis/filtering/trajectories/particleFilter-0/add pi-
 #/vis/filtering/trajectories/particleFilter-0/add pi0
 #/vis/filtering/trajectories/particleFilter-0/add kaon+
 #/vis/filtering/trajectories/particleFilter-0/add kaon-
-/vis/filtering/trajectories/particleFilter-0/invert false
+/vis/filtering/trajectories/particleFilter-0/invert true
 /vis/filtering/trajectories/particleFilter-0/active true
 
 /vis/modeling/trajectories/create/drawByParticleID

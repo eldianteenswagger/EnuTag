@@ -34,10 +34,7 @@ class ENUTAG_Construction : public G4VUserDetectorConstruction
 public:
     ENUTAG_Construction();
     virtual ~ENUTAG_Construction();
-
     virtual G4VPhysicalVolume *Construct();
-
-    G4Material *Material(std::string materialName);
 
 private:
 
@@ -49,6 +46,8 @@ private:
     G4LogicalVolume *logicDSVD1;
     G4LogicalVolume *logicDSVD2;
     G4LogicalVolume *logicUSVD;
+
+    G4Material *Material(std::string materialName);
 
     virtual void ConstructSDandField();
 
