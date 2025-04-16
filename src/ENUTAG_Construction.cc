@@ -105,27 +105,6 @@
     G4double Si4pos = 0.25 * m;
     G4double SiRadius = driftRadius;
 
-    //Shielding stuff
-    G4double concreteSTwidth = 1.5 * m / 2;
-    G4double concreteUTwidth = 1.39 * m / 2;
-    G4double concreteFTwidth = concreteSTwidth + concreteSTwidth + concreteSTwidth;
-    G4double concreteFTheight = 0.6 * m / 2;
-    G4double concreteLength = 8.0 * m / 2;
-
-    G4double concreteBigLength = 42.6 * m / 2;
-    G4double concreteBigWidth1 = 0.9 * m / 2;
-    G4double concreteBigWidth2 = 2.0 * m / 2;
-
-    G4double CD1radius = 19.56 * m;
-    G4double CD2radius = 19.62 * m;
-    G4double CD1InnerRadius = CD1radius - concreteFTwidth;
-    G4double CD1OuterRadius = CD1radius + concreteFTwidth;
-    G4double CD2InnerRadius = CD2radius - concreteFTwidth;
-    G4double CD2OuterRadius = CD2radius + concreteFTwidth;
-
-    G4double concrete1Length = drift5Length + quadrupole5Length + EC1Thickness + drift6Length + EC2Thickness;
-    G4double concrete2Length = drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
-
     //world stuff
     G4double worldMargin = 0.1 * m;
 
@@ -230,16 +209,32 @@
 
     //target iron blocks 
     G4double targetY = 0.;
-    G4double targetBlockX_offset = -0. * m;
     G4double targetBlockY_offset = (0.12 * m) + targetBlockSize;
-    G4double targetBlock1X = targetX + targetBlockX_offset;
     G4double targetBlock1Y = targetY + targetBlockY_offset;
     G4double targetBlock1Z = targetZ;
-    G4double targetBlock2X = targetX + targetBlockX_offset;
     G4double targetBlock2Y = targetY - targetBlockY_offset;
     G4double targetBlock2Z = targetZ;
 
-    //shielding positions
+
+
+    //Concrete stuff
+    G4double concreteSTwidth = 1.5 * m / 2;
+    G4double concreteFTwidth = concreteSTwidth + concreteSTwidth + concreteSTwidth;
+    G4double concreteFTheight = 0.6 * m / 2;
+
+    G4double CD1radius = 19.56 * m;
+    G4double CD2radius = 19.62 * m;
+    G4double CD1InnerRadius = CD1radius - concreteFTwidth;
+    G4double CD1OuterRadius = CD1radius + concreteFTwidth;
+    G4double CD2InnerRadius = CD2radius - concreteFTwidth;
+    G4double CD2OuterRadius = CD2radius + concreteFTwidth;
+
+    G4double concreteFTLength = targetBlockLength + drift1Length;
+    G4double concrete0Length = (dipole1X + targetBlockLength)*0.5;
+    G4double concrete1Length = drift5Length + quadrupole5Length + EC1Thickness + drift6Length + EC2Thickness;
+    G4double concrete2Length = drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
+
+    //Concrete positions
     G4double concrete_t_X_offset = 1.0 * m;
     G4double concrete_t_Y_offset = 1.501 * m;
     G4double concrete_t_Z_offset = 1.45 * m;
@@ -247,45 +242,43 @@
     G4double quad2Y = 0. * m;
     G4double quad2Z = 0. * m;
 
-    G4double rtX = quad2X + concrete_t_X_offset - quadrupole1Length;
-    G4double rtY = quad2Y;// + concrete_t_Y_offset;
-    G4double rtZ = quad2Z + concrete_t_Z_offset;
-    G4double ltX = quad2X + concrete_t_X_offset - quadrupole1Length;
-    G4double ltY = quad2Y;// + concrete_t_Y_offset;
-    G4double ltZ = quad2Z - concrete_t_Z_offset;
-    G4double utX = quad2X + concrete_t_X_offset - quadrupole1Length;
-    G4double utY = quad2Y + concrete_t_Z_offset;
-    G4double utZ = quad2Z;
-
     G4double concrete_tf_Xoffset = 1. * m;
     G4double concrete_tf_Yoffset = -1.1 * m;
 
-    G4double ftX = quad2X + concrete_tf_Xoffset - quadrupole1Length;
+    //G4double ftX = quad2X + concrete_tf_Xoffset - quadrupole1Length;
     G4double ftY = quad2Y + concrete_tf_Yoffset;
     G4double ftZ = quad2Z;
 
-    G4double dipole1refY = 0.;
-    G4double bigUpper1X = dipole1X;
-    G4double bigUpper1Y = dipole1refY + (1.3 * m);
-    G4double bigUpper1Z = dipole1Z - (0.2 * m) - dipole1Radius; 
-    G4double bigLower1X = dipole1X;
-    G4double bigLower1Y = dipole1refY - (1.3 * m);
-    G4double bigLower1Z = dipole1Z - (0.2 * m) - dipole1Radius;
-    G4double bigUpper2X = dipole1X;
-    G4double bigUpper2Y = dipole1refY + (1.0 * m);
-    G4double bigUpper2Z = dipole1Z - (1.7 * m) - dipole1Radius; 
-    G4double bigLower2X = dipole1X;
-    G4double bigLower2Y = dipole1refY - (1.0 * m);
-    G4double bigLower2Z = dipole1Z - (1.7 * m) - dipole1Radius;
+    //G4double utX = quad2X + concrete_t_X_offset - quadrupole1Length;
+    G4double utY = quad2Y + concrete_t_Z_offset;
+    G4double utZ = quad2Z;
 
+    G4double rtX = 0.;
+    G4double rtY = (utY+ftY)*0.5;
+    G4double rtZ = concreteFTwidth - concreteSTwidth;
+    G4double ltX = quad2X + concrete_t_X_offset - quadrupole1Length;
+    G4double ltY = quad2Y;
+    G4double ltZ = quad2Z - concrete_t_Z_offset;
+
+    G4double concreteSheight = (utY-ftY-concreteFTheight-concreteFTheight) * 0.5;
+
+    G4double concrete0X = (dipole1X - targetBlockLength) * 0.5;
     G4double D1X = dipole1X;
     G4double D1Z = CD1radius;
     G4double concrete1X = dipole2X + (dipole2Radius * dz2) + (concrete1Length * dx2);
     G4double concrete1Z = dipole2Z - (dipole2Radius * dx2) + (concrete1Length * dz2);
+    G4double concrete1XR = concrete1X - (2 * concreteSTwidth * dz2);
+    G4double concrete1XL = concrete1X + (2 * concreteSTwidth * dz2);
+    G4double concrete1ZR = concrete1Z + (2 * concreteSTwidth * dx2);
+    G4double concrete1ZL = concrete1Z - (2 * concreteSTwidth * dx2);
     G4double D2X = concrete1X + (concrete1Length * dx2) - (CD2radius * dz2);
     G4double D2Z = concrete1Z + (concrete1Length * dz2) + (CD2radius * dx2);
     G4double concrete2X = (EC6X + (EC6Thickness * dx4) + drift7X - (drift7Length * dx4)) * 0.5;
     G4double concrete2Z = (EC6Z + (EC6Thickness * dz4) + drift7Z - (drift7Length * dz4)) * 0.5;
+    G4double concrete2XR = concrete2X - (2 * concreteSTwidth * dz4);
+    G4double concrete2XL = concrete2X + (2 * concreteSTwidth * dz4);
+    G4double concrete2ZR = concrete2Z + (2 * concreteSTwidth * dx4);
+    G4double concrete2ZL = concrete2Z - (2 * concreteSTwidth * dx4);
 
     //world stuff
     G4double xWorld = 200. * m / 2;
@@ -322,8 +315,11 @@
     G4double dipoleField = 1.789;
 
     //custom materials
+    G4NistManager *nist = G4NistManager::Instance();
     G4Material* my_vacuum = new G4Material("Galactic", 1., 1.01*g/mole,1.e-25*g/cm3,kStateGas, 2.73*kelvin, 3.e-18*pascal);
     G4Material* my_graphite = new G4Material("myGraphite",6.,12.01*g/mole,1.85*g/cm3);
+    G4Material* target_helium = nist->ConstructNewGasMaterial("targetHelium","G4_He",300.*kelvin,0.5*bar);
+    G4Material* target_aluminum = new G4Material("Al5083",2.66*g/cm3,3);
 
 ENUTAG_Construction::ENUTAG_Construction(){}
 ENUTAG_Construction::~ENUTAG_Construction(){}
@@ -363,9 +359,13 @@ G4Material* ENUTAG_Construction::Material(std::string materialName){
         {"copper",nist->FindOrBuildMaterial("G4_Cu")},
         {"tungsten",nist->FindOrBuildMaterial("G4_W")},
         {"silicon",nist->FindOrBuildMaterial("G4_Si")},
+        {"carbon",nist->FindOrBuildMaterial("G4_C")},
+        {"carbon",nist->FindOrBuildMaterial("G4_C")},
+        {"beryllium",nist->FindOrBuildMaterial("G4_Be")},
         //defined
         {"vacuum", my_vacuum},
-        {"ENUTAG_graphite", my_graphite}
+        {"ENUTAG_graphite", my_graphite},
+        {"target_aluminum", target_aluminum},
     };
     return materials[materialName];
 }
@@ -396,9 +396,14 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
 
     //define rotations before placing
 
-    G4cout << "Defining rotations..." << G4endl;
+    G4cout << "Defining rotations and stuff..." << G4endl;
 
     DefineRotations();
+    //aluminum definition
+    //G4NistManager *nist = G4NistManager::Instance();
+    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Al"),0.948);
+    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Mg"),0.045);
+    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Mn"),0.007);
     
     //PLACING...
 
@@ -425,7 +430,7 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
     DoDrifts(logicWorld);
     DoTarget(logicWorld);
     DoDetectors(logicWorld);
-    DoShielding(logicWorld);
+    DoConcrete(logicWorld);
 
     G4cout << "...done!" << G4endl;
 
@@ -800,8 +805,25 @@ void ENUTAG_Construction::DoDrifts(G4LogicalVolume* lWorld){
 
 void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
 
+    //stuff not needed outside
+    /*G4double thickness1 = 0.38 * mm;
+    G4double thickness1 = 0.63 * mm;
+    G4double pressure = 0.5 * bar;*/
+    //1.5" enter,4" esc
+
     //SOLID
+    //main target
     G4Tubs *solidTarget = new G4Tubs("solidTarget",0.,targetDiameter,thicknessTarget,0.*deg,360.*deg);
+    //helium atmosphere
+    /*G4Tubs *solidTargetATM = new G4Tubs("solidTargetATM",targetDiameter,targetOuterDiameter,thicknessTarget,0.*deg,360.*deg);
+    //carbon support
+    G4Tubs *solidTargetC = new G4Tubs("solidTargetC",targetOuterDiameter,targetCarbonDiameter,thicknessTarget,0.*deg,360.*deg);
+    //aluminum container
+    G4Tubs *solidTargetAL = new G4Tubs("solidTargetAL",targetCarbonDiameter,targetAlDiameter,thicknessTarget,0.*deg,360.*deg);
+    //beriullium caps
+    G4Tubs *solidTargetBE = new G4Tubs("solidTargetBE",0.,targetAlDiameter,BEThickness,0.*deg,360.*deg);*/
+    //nickel coatings (NOT USED BUT IMPLEMENTABLE)
+    //G4Tubs *solidTargetNI = new G4Tubs("solidTargetNI",0.,targetAlDiameter,NIThickness,0.*deg,360.*deg);
     //steel around target
     G4Box *solidTargetBlock = new G4Box("solidTargetBlock",targetBlockLength,2.*targetBlockSize,targetBlockSize);
 
@@ -813,8 +835,8 @@ void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
     
     //PHYS
     G4VPhysicalVolume *physTarget = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,targetY,targetZ),logicTarget,"physTarget",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlock1 = new G4PVPlacement(0,G4ThreeVector(targetBlock1X,targetBlock1Y,targetBlock1Z),logicTargetBlock,"physTargetBlock1",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlock2 = new G4PVPlacement(0,G4ThreeVector(targetBlock2X,targetBlock2Y,targetBlock2Z),logicTargetBlock,"physTargetBlock2",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlock1 = new G4PVPlacement(0,G4ThreeVector(targetX,targetBlock1Y,targetZ),logicTargetBlock,"physTargetBlock1",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlock2 = new G4PVPlacement(0,G4ThreeVector(targetX,targetBlock2Y,targetZ),logicTargetBlock,"physTargetBlock2",lWorld,false,checkOverlaps);
 
     G4cout << "Target built;" << G4endl;
 
@@ -855,39 +877,46 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     return;
 };
 
-void ENUTAG_Construction::DoShielding(G4LogicalVolume* lWorld){
+void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //SOLID
     //concrete blocks
-    G4Box *solidConcreteST = new G4Box("solidConcreteST",concreteLength,2.*concreteSTwidth,concreteSTwidth);
-    //G4Box *solidConcreteUT = new G4Box("solidConcreteUT",concreteLength,concreteUTwidth,concreteUTwidth);
-    G4Box *solidConcreteFT = new G4Box("solidConcreteFT",concreteLength,concreteFTheight,concreteFTwidth);
-    G4Box *solidConcrete1 = new G4Box("solidConcreteFT",concrete1Length,concreteFTheight,concreteFTwidth);
-    G4Box *solidConcrete2 = new G4Box("solidConcreteFT",concrete2Length,concreteFTheight,concreteFTwidth);
-
-    /*G4Box *solidConcreteBig1 = new G4Box("solidConcreteFT",concreteBigLength,concreteBigWidth1,concreteBigWidth1);
-    G4Box *solidConcreteBig2 = new G4Box("solidConcreteFT",concreteBigLength,concreteBigWidth2,concreteBigWidth2);*/
-
+    G4Box *solidConcrete0 = new G4Box("solidConcrete0",concrete0Length,concreteFTheight,concreteFTwidth);
+    G4Box *solidConcrete1 = new G4Box("solidConcrete1",concrete1Length,concreteFTheight,concreteFTwidth);
+    G4Box *solidConcrete2 = new G4Box("solidConcrete2",concrete2Length,concreteFTheight,concreteFTwidth);
+    //dipoles
     G4Tubs *solidConcreteD1 = new G4Tubs("solidConcreteD1",CD1InnerRadius,CD1OuterRadius,concreteFTheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
     G4Tubs *solidConcreteD2 = new G4Tubs("solidConcreteD2",CD2InnerRadius,CD2OuterRadius,concreteFTheight,90. * deg - (4. * dipole1Deg),2. * dipole1Deg);
+    //sides
+    G4Box *solidConcreteS0 = new G4Box("solidConcreteS0",concrete0Length,concreteSheight,concreteSTwidth);
+    G4Tubs *solidConcreteSD1L = new G4Tubs("solidConcreteSD1L",CD1InnerRadius,CD1InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
+    G4Tubs *solidConcreteSD1R = new G4Tubs("solidConcreteSD1R",CD1OuterRadius - (2 * concreteSTwidth),CD1OuterRadius,concreteSheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
+    G4Box *solidConcreteS1 = new G4Box("solidConcreteS1",concrete1Length,concreteSheight,concreteSTwidth);
+    G4Tubs *solidConcreteSD2L = new G4Tubs("solidConcreteSD2L",CD2InnerRadius,CD2InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
+    G4Tubs *solidConcreteSD2R = new G4Tubs("solidConcreteSD2R",CD2OuterRadius - (2 * concreteSTwidth),CD2OuterRadius,concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
+    G4Box *solidConcreteS2 = new G4Box("solidConcreteS2",concrete2Length,concreteSheight,concreteSTwidth);
+
 
     //LOGIC
-    G4LogicalVolume *logicConcreteST = new G4LogicalVolume(solidConcreteST,Material("concrete"),"logicConcreteST");
-    //G4LogicalVolume *logicConcreteUT = new G4LogicalVolume(solidConcreteUT,Material("concrete"),"logicConcreteUT");
-    G4LogicalVolume *logicConcreteFT = new G4LogicalVolume(solidConcreteFT,Material("concrete"),"logicConcreteFT");
+    G4LogicalVolume *logicConcrete0 = new G4LogicalVolume(solidConcrete0,Material("concrete"),"logicConcrete0");
     G4LogicalVolume *logicConcreteD1 = new G4LogicalVolume(solidConcreteD1,Material("concrete"),"logicConcreteD1");
     G4LogicalVolume *logicConcrete1 = new G4LogicalVolume(solidConcrete1,Material("concrete"),"logicConcrete1");
     G4LogicalVolume *logicConcreteD2 = new G4LogicalVolume(solidConcreteD2,Material("concrete"),"logicConcreteD2");
     G4LogicalVolume *logicConcrete2 = new G4LogicalVolume(solidConcrete2,Material("concrete"),"logicConcrete2");
 
-    /*G4LogicalVolume *logicConcreteBig1 = new G4LogicalVolume(solidConcreteBig1,Material("concrete"),"logicConcreteBig1");
-    G4LogicalVolume *logicConcreteBig2 = new G4LogicalVolume(solidConcreteBig2,Material("concrete"),"logicConcreteBig2");*/
+    //sides
+    G4LogicalVolume *logicConcreteS0 = new G4LogicalVolume(solidConcreteS0,Material("concrete"),"logicConcreteS0");
+    G4LogicalVolume *logicConcreteSD1L = new G4LogicalVolume(solidConcreteSD1L,Material("concrete"),"logicConcreteSD1L");
+    G4LogicalVolume *logicConcreteSD1R = new G4LogicalVolume(solidConcreteSD1R,Material("concrete"),"logicConcreteSD1R");
+    G4LogicalVolume *logicConcreteS1 = new G4LogicalVolume(solidConcreteS1,Material("concrete"),"logicConcreteS1");
+    G4LogicalVolume *logicConcreteSD2L = new G4LogicalVolume(solidConcreteSD2L,Material("concrete"),"logicConcreteSD2L");
+    G4LogicalVolume *logicConcreteSD2R = new G4LogicalVolume(solidConcreteSD2R,Material("concrete"),"logicConcreteSD2R");
+    G4LogicalVolume *logicConcreteS2 = new G4LogicalVolume(solidConcreteS2,Material("concrete"),"logicConcreteS2");
 
     //PHYS
-    G4PVPlacement *physRTConcrete = new G4PVPlacement(0,G4ThreeVector(rtX,rtY,rtZ),logicConcreteST,"physRTConcrete",lWorld,false,checkOverlaps);
-    G4PVPlacement *physLTConcrete = new G4PVPlacement(0,G4ThreeVector(ltX,ltY,ltZ),logicConcreteST,"physLTConcrete",lWorld,false,checkOverlaps);
-    G4PVPlacement *physUTConcrete = new G4PVPlacement(0,G4ThreeVector(utX,utY,utZ),logicConcreteFT,"physUTConcrete",lWorld,false,checkOverlaps);
-    G4PVPlacement *physFTConcrete = new G4PVPlacement(0,G4ThreeVector(ftX,ftY,ftZ),logicConcreteFT,"physFTConcrete",lWorld,false,checkOverlaps);
+    //up and downs
+    G4PVPlacement *physConcrete0up = new G4PVPlacement(0,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
+    G4PVPlacement *physConcrete0dn = new G4PVPlacement(0,G4ThreeVector(concrete0X,ftY,ftZ),logicConcrete0,"physConcrete0dn",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1upConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,utY,D1Z),logicConcreteD1,"physD1upConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1dnConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,ftY,D1Z),logicConcreteD1,"physD1dnConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physConcrete1up = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(concrete1X,utY,concrete1Z),logicConcrete1,"physConcrete1up",lWorld,false,checkOverlaps);
@@ -897,12 +926,21 @@ void ENUTAG_Construction::DoShielding(G4LogicalVolume* lWorld){
     G4PVPlacement *physConcrete2up = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2X,utY,concrete2Z),logicConcrete2,"physConcrete2up",lWorld,false,checkOverlaps);
     G4PVPlacement *physConcrete2dn = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2X,ftY,concrete2Z),logicConcrete2,"physConcrete2dn",lWorld,false,checkOverlaps);
 
-    /*G4PVPlacement *physConcreteBigUpper1 = new G4PVPlacement(BigConcrete1Rotation,G4ThreeVector(bigUpper1X,bigUpper1Y,bigUpper1Z),logicConcreteBig1,"physConcreteBigUpper1",lWorld,false,checkOverlaps);
-    G4PVPlacement *physConcreteBigLower1 = new G4PVPlacement(BigConcrete1Rotation,G4ThreeVector(bigLower1X,bigLower1Y,bigLower1Z),logicConcreteBig1,"physConcreteBigLower1",lWorld,false,checkOverlaps);
-    G4PVPlacement *physConcreteBigUpper2 = new G4PVPlacement(BigConcrete1Rotation,G4ThreeVector(bigUpper2X,bigUpper2Y,bigUpper2Z),logicConcreteBig2,"physConcreteBigUpper2",lWorld,false,checkOverlaps);
-    G4PVPlacement *physConcreteBigLower2 = new G4PVPlacement(BigConcrete1Rotation,G4ThreeVector(bigLower2X,bigLower2Y,bigLower2Z),logicConcreteBig2,"physConcreteBigLower2",lWorld,false,checkOverlaps);
-*/
-    G4cout << "Shieldings built;" << G4endl;
+    //sides
+    G4PVPlacement *physR0Concrete = new G4PVPlacement(0,G4ThreeVector(concrete0X,rtY,rtZ),logicConcreteS0,"physR0Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physL0Concrete = new G4PVPlacement(0,G4ThreeVector(concrete0X,rtY,(-1.)*rtZ),logicConcreteS0,"physL0Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSD1LConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicConcreteSD1L,"physSD1LConcrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSD1RConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicConcreteSD1R,"physSD1RConcrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physR1Concrete = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(concrete1XR,rtY,concrete1ZR),logicConcreteS1,"physR1Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physL1Concrete = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(concrete1XL,rtY,concrete1ZL),logicConcreteS1,"physL1Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSD2LConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicConcreteSD2L,"physSD2LConcrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSD2RConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicConcreteSD2R,"physSD2RConcrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physR2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XR,rtY,concrete2ZR),logicConcreteS2,"physR2Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physL2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XL,rtY,concrete2ZL),logicConcreteS2,"physL2Concrete",lWorld,false,checkOverlaps);
+
+
+
+    G4cout << "Concrete poured;" << G4endl;
 
     return;
 };

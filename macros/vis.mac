@@ -11,7 +11,7 @@
 /vis/scene/add/trajectories smooth
 /vis/scene/endOfEventAction accumulate
 
-/vis/geometry/set/colour logicTargetBlock 0 0.6 0.7 0.5
+/vis/geometry/set/colour logicTargetBlock 0 0.3 0.2 0.2
 /vis/geometry/set/colour logicTarget 0 0.2 0.2 0.2
 /vis/geometry/set/colour logicDrift1 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDrift2 0 0.6 0.6 0.6
@@ -41,13 +41,18 @@
 /vis/geometry/set/colour logicQuadrupole 0 1 0 0
 /vis/geometry/set/colour logicEC 0 0.5 1 0.5
 
-/vis/geometry/set/colour logicConcreteST 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteUT 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteFT 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcrete0 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteD1 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcrete1 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteD2 0 0.4 0.4 0.4
-
+/vis/geometry/set/colour logicConcrete2 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteS0 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteS1 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteS2 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteSD1L 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteSD1R 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteSD2L 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteSD2R 0 0.4 0.4 0.4
 
 /vis/filtering/trajectories/create/particleFilter
 /vis/filtering/trajectories/particleFilter-0/add gamma

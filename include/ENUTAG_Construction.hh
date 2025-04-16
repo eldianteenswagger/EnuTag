@@ -59,7 +59,7 @@ private:
     void DoDrifts(G4LogicalVolume* lWorld);
     void DoTarget(G4LogicalVolume* lWorld);
     void DoDetectors(G4LogicalVolume* lWorld);
-    void DoShielding(G4LogicalVolume* lWorld);
+    void DoConcrete(G4LogicalVolume* lWorld);
 
 };
 
