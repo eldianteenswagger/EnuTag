@@ -52,6 +52,7 @@ private:
     virtual void ConstructSDandField();
 
     void DefineRotations();
+    void DefineMaterials();
 
     void DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld);
     void DoQuadrupole(G4int quadrupoleNumber, G4LogicalVolume* lWorld);
@@ -60,6 +61,7 @@ private:
     void DoTarget(G4LogicalVolume* lWorld);
     void DoDetectors(G4LogicalVolume* lWorld);
     void DoConcrete(G4LogicalVolume* lWorld);
+    void DoSoil(G4LogicalVolume* lWorld);
 
 };
 
