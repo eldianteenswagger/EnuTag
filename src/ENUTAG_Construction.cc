@@ -318,7 +318,7 @@
     G4Material* my_graphite = new G4Material("myGraphite",6.,12.01*g/mole,1.85*g/cm3);
     G4Material* target_helium = nist->ConstructNewGasMaterial("targetHelium","G4_He",300.*kelvin,0.5*bar);
     G4Material* target_aluminum = new G4Material("Al5083",2.66*g/cm3,3);
-    G4Material* molasse = new G4Material("molasse",2.66*g/cm3,3);
+    G4Material* molasse = new G4Material("molasse",2.784*g/cm3,6);
 
 ENUTAG_Construction::ENUTAG_Construction(){}
 ENUTAG_Construction::~ENUTAG_Construction(){}
@@ -363,7 +363,7 @@ G4Material* ENUTAG_Construction::Material(std::string materialName){
         {"beryllium",nist->FindOrBuildMaterial("G4_Be")},
         //defined
         {"vacuum", my_vacuum},
-        {"stone", molasse},
+        {"stone", molasse},//da cambiare
         {"ENUTAG_graphite", my_graphite},
         {"target_aluminum", target_aluminum},
     };
@@ -375,8 +375,13 @@ void ENUTAG_Construction::DefineMaterials(){
     G4NistManager *nist = G4NistManager::Instance();
 
     //define elements
-    G4Element* elO  = new G4Element("Oxygen","O" ,8.,16.00*g/mole);
-    G4Element* elSi  = new G4Element("Silicon","Si",14.,28.085*g/mole);
+    G4Element* elO  = new G4Element("Oxygen","O" ,8,16.00*g/mole);
+    G4Element* elMg  = new G4Element("Magnesium","Mg",12,24.31*g/mole);
+    G4Element* elAl  = new G4Element("Aluminium","Al",13,26.98*g/mole);
+    G4Element* elSi  = new G4Element("Silicon","Si",14,28.085*g/mole);
+    G4Element* elS  = new G4Element("Sulfur","S",16,32.065*g/mole);
+    G4Element* elK  = new G4Element("Potassium","K" ,19,39.09*g/mole);
+    G4Element* elCa  = new G4Element("Calcium","Ca",20,40.078*g/mole);
 
     //aluminum definition
     target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Al"),0.948);
@@ -385,11 +390,46 @@ void ENUTAG_Construction::DefineMaterials(){
 
     //molasse definition
     //AS IN M. HAAS PAPER, depth = 100m;
-    /*G4Material* Si02 = new G4Material("Si02",0.1*g/cm3,2);
-    Si02->AddElement("elSi",2);
-    Si02->AddElement("elO",1);*/
-    //ANCORA NON FUNZIA
-    //molasse->AddMaterial();
+    G4double Si02perc = 28.51;
+    G4double Al2O3perc = 8.56;
+    G4double MgOperc = 3.43;
+    G4double CaOperc = 25.48;
+    G4double K2Operc = 1.88;
+    G4double SO3perc = 5.66;
+
+    G4double percTot = Si02perc + Al2O3perc + MgOperc + CaOperc + K2Operc + SO3perc;
+
+    G4Material* Si02 = new G4Material("Si02",2.2*g/cm3,2);
+    Si02->AddElement(elSi,2);
+    Si02->AddElement(elO,1);
+
+    G4Material* Al2O3 = new G4Material("Al2O3",3.94*g/cm3,2);
+    Al2O3->AddElement(elAl,2);
+    Al2O3->AddElement(elO,3);
+
+    G4Material* MgO = new G4Material("MgO",3.58*g/cm3,2);
+    MgO->AddElement(elMg,1);
+    MgO->AddElement(elO,1);
+
+    G4Material* CaO = new G4Material("CaO",3.37*g/cm3,2);
+    CaO->AddElement(elCa,1);
+    CaO->AddElement(elO,1);
+
+    G4Material* K2O = new G4Material("K2O",2.35*g/cm3,2);
+    K2O->AddElement(elK,2);
+    K2O->AddElement(elO,1);
+
+    G4Material* SO3 = new G4Material("SO3",1.92*g/cm3,2);
+    SO3->AddElement(elS,1);
+    SO3->AddElement(elO,3);
+
+    molasse->AddMaterial(Si02,Si02perc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(Al2O3,Al2O3perc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(MgO,MgOperc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(CaO,CaOperc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(K2O,K2Operc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(SO3,SO3perc/percTot);G4cout << "ok" << G4endl;
+
     return;
 }
 
@@ -419,9 +459,12 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
 
     //define rotations before placing
 
-    G4cout << "Defining rotations and stuff..." << G4endl;
+    G4cout << "Defining rotations..." << G4endl;
 
     DefineRotations();
+
+    G4cout << "Defining materials..." << G4endl;
+
     DefineMaterials();
     
     //PLACING...
@@ -449,6 +492,7 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
     DoDrifts(logicWorld);
     DoTarget(logicWorld);
     DoDetectors(logicWorld);
+
     DoConcrete(logicWorld);
     DoSoil(logicWorld);
 
@@ -900,6 +944,13 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
 void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //SOLID
+
+    G4double concreteRadius = 3.5 * m;
+
+    /*G4Tubs *solidConcreteTube = new G4Tubs("solidConcreteTube",concreteRadius,concreteRadius+concreteFTwidth,concrete0Length,0.*deg,360.*deg);
+    G4Box *solidConcreteBase = new G4Box("solidConcrete0",concrete0Length,2*concreteFTheight,concreteFTwidth);
+    G4UnionSolid *solidConcrete0 = new G4UnionSolid("solidConcrete0",solidConcreteTube,solidConcreteBase,TubeRotation,G4ThreeVector(0.,-2.81*m,0.));*/
+
     //concrete blocks
     G4Box *solidConcrete0 = new G4Box("solidConcrete0",concrete0Length,concreteFTheight,concreteFTwidth);
     G4Box *solidConcrete1 = new G4Box("solidConcrete1",concrete1Length,concreteFTheight,concreteFTwidth);
@@ -935,7 +986,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //PHYS
     //up and downs
-    G4PVPlacement *physConcrete0up = new G4PVPlacement(0,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
+    G4PVPlacement *physConcrete0up = new G4PVPlacement(TubeRotation,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
     G4PVPlacement *physConcrete0dn = new G4PVPlacement(0,G4ThreeVector(concrete0X,ftY,ftZ),logicConcrete0,"physConcrete0dn",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1upConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,utY,D1Z),logicConcreteD1,"physD1upConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1dnConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,ftY,D1Z),logicConcreteD1,"physD1dnConcrete",lWorld,false,checkOverlaps);
@@ -1009,7 +1060,6 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
     G4PVPlacement *physL2Soil = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilL2x,rtY,SoilL2z),logicSoilS2,"physL2Soil",lWorld,false,checkOverlaps);
 
     //big chunks
-
     G4double soilBigSize = 15. * m;
 
     G4Box *solidSoilBig = new G4Box("solidSoilBig",soilBigSize,soilBigSize,soilBigSize);
@@ -1022,6 +1072,11 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
     G4PVPlacement *physSoilBigUp = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilBigX,SoilBigYup,SoilBigZ),logicSoilBig,"physSoilBigUp",lWorld,false,checkOverlaps);
     G4PVPlacement *physSoilBigDn = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilBigX,SoilBigYdn,SoilBigZ),logicSoilBig,"physSoilBigDn",lWorld,false,checkOverlaps);
+
+    //soil around decay tunnel
+    G4Tubs *solidSoilDecay = new G4Tubs("solidSoilDecay",driftDecayRadius+driftThick,driftDecayRadius+driftThick+soilBigSize,driftDecayLength,0.*deg,360*deg);
+    G4LogicalVolume *logicSoilDecay = new G4LogicalVolume(solidSoilDecay,Material("stone"),"logicSoilDecay");
+    G4VPhysicalVolume *physSoilDecay = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(driftDecayX,0.,driftDecayZ),logicSoilDecay,"physSoilDecay",lWorld,false,checkOverlaps);
 
     G4cout << "Cobblestone generated!;" << G4endl;
 

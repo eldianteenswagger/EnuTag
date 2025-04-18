@@ -6,6 +6,7 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4Material.hh"
+#include "G4Element.hh"
 
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
@@ -23,6 +24,7 @@
 #include "G4QuadrupoleMagField.hh"
 #include "G4UniformMagField.hh"
 #include "G4SubtractionSolid.hh"
+#include "G4UnionSolid.hh"
 #include "G4EllipticalTube.hh"
 
 #include "ENUTAG_SensitiveDetector.hh"
