@@ -494,7 +494,7 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
     DoDetectors(logicWorld);
 
     DoConcrete(logicWorld);
-    DoSoil(logicWorld);
+    //DoSoil(logicWorld);
 
     G4cout << "...done!" << G4endl;
 
@@ -986,7 +986,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //PHYS
     //up and downs
-    G4PVPlacement *physConcrete0up = new G4PVPlacement(TubeRotation,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
+    G4PVPlacement *physConcrete0up = new G4PVPlacement(0,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
     G4PVPlacement *physConcrete0dn = new G4PVPlacement(0,G4ThreeVector(concrete0X,ftY,ftZ),logicConcrete0,"physConcrete0dn",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1upConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,utY,D1Z),logicConcreteD1,"physD1upConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physD1dnConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,ftY,D1Z),logicConcreteD1,"physD1dnConcrete",lWorld,false,checkOverlaps);
