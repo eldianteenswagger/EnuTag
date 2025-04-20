@@ -245,7 +245,7 @@
     G4double CD2OuterRadius = CD2radius + concreteFTwidth;
 
     G4double concreteFTLength = targetBlockLength + drift1Length;
-    G4double concrete0Length = (dipole1X - targetBlockLength)*0.5;
+    G4double concrete0Length = (dipole1X - 2.*drift1Length - targetBlockLength)*0.5;
     G4double concrete1Length = drift5Length + quadrupole5Length + EC1Thickness + drift6Length + EC2Thickness;
     G4double concrete2Length = drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
 
@@ -279,9 +279,11 @@
 
     G4double concreteSheight = (utY-ftY-concreteFTheight-concreteFTheight) * 0.5;
 
-    G4double concreteTargetY = tbaseY - (1.6 * m) + concreteRadius;
-    G4double concreteTargetZ = targetZ + (0.99 * m);
-    G4double concrete0X = (dipole1X + targetBlockLength) * 0.5;
+    G4double concreteTargetYOffset = (1.6 * m) - concreteRadius;
+    G4double concreteTargetZOffset = 0.99 * m;
+    G4double concreteTargetY = tbaseY - concreteTargetYOffset;
+    G4double concreteTargetZ = targetZ + concreteTargetZOffset;
+    G4double concrete0X = (dipole1X + targetBlockLength + 2.*drift1Length) * 0.5;
     G4double D1X = dipole1X;
     G4double D1Z = CD1radius;
     G4double concrete1X = dipole2X + (dipole2Radius * dz2) + (concrete1Length * dx2);
@@ -514,7 +516,7 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
     DoDetectors(logicWorld);
 
     DoConcrete(logicWorld);
-    //DoSoil(logicWorld);
+    DoSoil(logicWorld);
 
     G4cout << "...done!" << G4endl;
 
@@ -984,9 +986,14 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
 void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //SOLID
-    G4Tubs *solidConcreteTube = new G4Tubs("solidConcreteTube",concreteRadius,concreteRadius+concreteFTwidth,targetBlockLength,0.*deg,360.*deg);
-    G4Box *solidConcreteBase = new G4Box("solidConcrete0",targetBlockLength,2*concreteFTheight - (0.1 * m),2*concreteFTwidth);
-    G4UnionSolid *solidConcreteTARGET = new G4UnionSolid("solidConcreteTARGET",solidConcreteTube,solidConcreteBase,TubeRotation,G4ThreeVector(0.,-2.91*m,0.));
+    //target concrete
+    G4Tubs *solidConcreteTUBE = new G4Tubs("solidConcreteTUBE",concreteRadius,concreteRadius+concreteFTwidth,targetBlockLength,0.*deg,360.*deg);
+    G4Box *solidConcreteBASE = new G4Box("solidConcreteBASE",targetBlockLength,2*concreteFTheight - (0.1 * m),2*concreteFTwidth);
+    G4UnionSolid *solidConcreteTARGET = new G4UnionSolid("solidConcreteTARGET",solidConcreteTUBE,solidConcreteBASE,TubeRotation,G4ThreeVector(0.,-2.91*m,0.));
+
+    G4Tubs *solidConcreteCAP = new G4Tubs("solidConcreteCAP",0.,concreteRadius+concreteFTwidth,drift1Length,0.*deg,360.*deg);
+    G4Tubs *solidConcreteREMOVE = new G4Tubs("solidConcreteREMOVE",0.,utY,drift1Length+2,0.*deg,360.*deg);
+    G4SubtractionSolid *solidConcreteCLOSE = new G4SubtractionSolid("solidConcreteCLOSE",solidConcreteCAP,solidConcreteREMOVE,0,G4ThreeVector(-concreteTargetZOffset,concreteTargetYOffset+1.4*m,0.));
 
     //concrete blocks
     G4Box *solidConcrete0 = new G4Box("solidConcrete0",concrete0Length,concreteFTheight,concreteFTwidth);
@@ -1003,7 +1010,6 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4Tubs *solidConcreteSD2L = new G4Tubs("solidConcreteSD2L",CD2InnerRadius,CD2InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
     G4Tubs *solidConcreteSD2R = new G4Tubs("solidConcreteSD2R",CD2OuterRadius - (2 * concreteSTwidth),CD2OuterRadius,concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
     G4Box *solidConcreteS2 = new G4Box("solidConcreteS2",concrete2Length,concreteSheight,concreteSTwidth);
-
 
     //LOGIC
     G4LogicalVolume *logicConcrete0 = new G4LogicalVolume(solidConcrete0,Material("concrete"),"logicConcrete0");
@@ -1023,6 +1029,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //target
     G4LogicalVolume *logicConcreteTARGET = new G4LogicalVolume(solidConcreteTARGET,Material("concrete"),"logicConcreteTARGET");
+    G4LogicalVolume *logicConcreteCLOSE = new G4LogicalVolume(solidConcreteCLOSE,Material("concrete"),"logicConcreteCLOSE");
 
     //PHYS
     //up and downs
@@ -1051,6 +1058,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //target
     G4PVPlacement *physConcreteTARGET = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,concreteTargetY,concreteTargetZ),logicConcreteTARGET,"physConcreteTARGET",lWorld,false,checkOverlaps);
+    G4PVPlacement *physConcreteCLOSE = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,concreteTargetY,concreteTargetZ),logicConcreteCLOSE,"physConcreteCLOSE",lWorld,false,checkOverlaps);
 
     G4cout << "Concrete poured;" << G4endl;
 
@@ -1103,23 +1111,37 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
     G4PVPlacement *physL2Soil = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilL2x,rtY,SoilL2z),logicSoilS2,"physL2Soil",lWorld,false,checkOverlaps);
 
     //big chunks
-    G4double soilBigSize = 15. * m;
+    G4double soilBigSize = 8. * m;
+    G4double distance = sqrt(((EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length)*(EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length))+((EC6Z + (EC6Thickness * dz4) - targetZ)*(EC6Z + (EC6Thickness * dz4) - targetZ)));
+    G4cout << "DISTANCE " << distance/m <<G4endl;
 
-    G4Box *solidSoilBig = new G4Box("solidSoilBig",soilBigSize,soilBigSize,soilBigSize);
+    //SISTEMARE QUI
+    G4double soilBigRadius = 73.108 * m;
+    G4Tubs *solidSoilBig = new G4Tubs("solidSoilBig",soilBigRadius - CD1InnerRadius,soilBigRadius + CD1OuterRadius,soilBigSize,90. * deg - (4. * dipole1Deg),4. * dipole1Deg);
+
+    /*G4Box *solidSoilBig = new G4Box("solidSoilBig",soilBigSize,soilBigSize,soilBigSize);*/
     G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"solidSoilBig");
 
-    G4double SoilBigX = driftDecayX - (soilBigSize * dx4) - (driftDecayLength * dx4);
-    G4double SoilBigZ = driftDecayZ - (soilBigSize * dz4) - (driftDecayLength * dz4);
+    G4double SoilBigX = USVDX + 2 * drift1Length;
+    G4double SoilBigZ = targetZ + soilBigRadius + EC6Z;
     G4double SoilBigYup = rtY + solidSoilHeight + soilBigSize;
     G4double SoilBigYdn = rtY - solidSoilHeight - soilBigSize;
 
-    G4PVPlacement *physSoilBigUp = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilBigX,SoilBigYup,SoilBigZ),logicSoilBig,"physSoilBigUp",lWorld,false,checkOverlaps);
-    G4PVPlacement *physSoilBigDn = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(SoilBigX,SoilBigYdn,SoilBigZ),logicSoilBig,"physSoilBigDn",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSoilBigUp = new G4PVPlacement(DipoleRotation,G4ThreeVector(SoilBigX,SoilBigYup,SoilBigZ),logicSoilBig,"physSoilBigUp",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSoilBigDn = new G4PVPlacement(DipoleRotation,G4ThreeVector(SoilBigX,SoilBigYdn,SoilBigZ),logicSoilBig,"physSoilBigDn",lWorld,false,checkOverlaps);
 
     //soil around decay tunnel
-    G4Tubs *solidSoilDecay = new G4Tubs("solidSoilDecay",driftDecayRadius+driftThick,driftDecayRadius+driftThick+soilBigSize,driftDecayLength,0.*deg,360*deg);
+    G4Tubs *solidSoilDecay = new G4Tubs("solidSoilDecay",driftDecayRadius+driftThick,driftDecayRadius+driftThick+2.*soilBigSize,driftDecayLength,0.*deg,360*deg);
     G4LogicalVolume *logicSoilDecay = new G4LogicalVolume(solidSoilDecay,Material("stone"),"logicSoilDecay");
     G4VPhysicalVolume *physSoilDecay = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(driftDecayX,0.,driftDecayZ),logicSoilDecay,"physSoilDecay",lWorld,false,checkOverlaps);
+
+    //soil around target
+    G4Tubs *solidSoilTargetA = new G4Tubs("solidSoilTargetA",concreteRadius+concreteFTwidth,concreteRadius+concreteFTwidth+(1.5 * soilBigSize),targetBlockLength,0.*deg,360*deg);
+    G4Tubs *solidSoilTargetB = new G4Tubs("solidSoilTargetB",concreteRadius+concreteFTwidth,concreteRadius+concreteFTwidth+(1.5 * soilBigSize),drift1Length,0.*deg,360*deg);
+    G4LogicalVolume *logicSoilTargetA = new G4LogicalVolume(solidSoilTargetA,Material("stone"),"logicSoilTargetA");
+    G4LogicalVolume *logicSoilTargetB = new G4LogicalVolume(solidSoilTargetB,Material("stone"),"logicSoilTargetB");
+    G4PVPlacement *physSoilTargetA = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,concreteTargetY,concreteTargetZ),logicSoilTargetA,"physSoilTargetA",lWorld,false,checkOverlaps);
+    G4PVPlacement *physSoilTargetB = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,concreteTargetY,concreteTargetZ),logicSoilTargetB,"physSoilTargetB",lWorld,false,checkOverlaps);
 
     G4cout << "Cobblestone generated!;" << G4endl;
 

@@ -8,7 +8,7 @@
 
 /vis/drawVolume
 
-/vis/scene/add/trajectories smooth
+/vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate
 
 /vis/geometry/set/colour logicTargetBlock 0 0.3 0.2 0.2
@@ -54,6 +54,7 @@
 /vis/geometry/set/colour logicConcreteSD2L 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteSD2R 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteTARGET 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteCLOSE 0 0.4 0.4 0.4
 
 /vis/geometry/set/colour logicTargetBlockSteel 0 0.1 0.1 0.5
 /vis/geometry/set/colour logicTargetBlockIron 0 0.1 0.1 0.4
