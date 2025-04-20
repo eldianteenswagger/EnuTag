@@ -53,20 +53,28 @@
 /vis/geometry/set/colour logicConcreteSD1R 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteSD2L 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteSD2R 0 0.4 0.4 0.4
+/vis/geometry/set/colour logicConcreteTARGET 0 0.4 0.4 0.4
+
+/vis/geometry/set/colour logicTargetBlockSteel 0 0.1 0.1 0.5
+/vis/geometry/set/colour logicTargetBlockIron 0 0.1 0.1 0.4
+/vis/geometry/set/colour logicTargetBase 0 0.1 0.1 0.4
+/vis/geometry/set/colour logicTargetUppers 0 0.1 0.1 0.4
+/vis/geometry/set/colour logicTargetRoof 0 0.1 0.1 0.4
+/vis/geometry/set/colour logicTargetTopper 0 0.1 0.1 0.4
 
 /vis/filtering/trajectories/create/particleFilter
-/vis/filtering/trajectories/particleFilter-0/add gamma
+#/vis/filtering/trajectories/particleFilter-0/add gamma
 /vis/filtering/trajectories/particleFilter-0/add e+
 /vis/filtering/trajectories/particleFilter-0/add e-
-/vis/filtering/trajectories/particleFilter-0/add neutron
-#/vis/filtering/trajectories/particleFilter-0/add proton
 #/vis/filtering/trajectories/particleFilter-0/add neutron
-#/vis/filtering/trajectories/particleFilter-0/add pi+
-#/vis/filtering/trajectories/particleFilter-0/add pi-
-#/vis/filtering/trajectories/particleFilter-0/add pi0
+/vis/filtering/trajectories/particleFilter-0/add proton
+#/vis/filtering/trajectories/particleFilter-0/add neutron
+/vis/filtering/trajectories/particleFilter-0/add pi+
+/vis/filtering/trajectories/particleFilter-0/add pi-
+/vis/filtering/trajectories/particleFilter-0/add pi0
 #/vis/filtering/trajectories/particleFilter-0/add kaon+
 #/vis/filtering/trajectories/particleFilter-0/add kaon-
-/vis/filtering/trajectories/particleFilter-0/invert true
+/vis/filtering/trajectories/particleFilter-0/invert false
 /vis/filtering/trajectories/particleFilter-0/active true
 
 /vis/modeling/trajectories/create/drawByParticleID
@@ -77,7 +85,7 @@
 /vis/modeling/trajectories/drawByParticleID-0/set kaon+ orange
 /vis/modeling/trajectories/drawByParticleID-0/set kaon- cyan
 
-/vis/viewer/set/style w
+/vis/viewer/set/style s
 /vis/viewer/set/auxiliaryEdge true
 /vis/viewer/set/lineSegmentsPerCircle 10
 /vis/geometry/set/visibility logicWorld 0 false

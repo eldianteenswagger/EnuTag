@@ -14,7 +14,12 @@
     G4double sideTarget = 0.1 * m / 2;
     G4double targetDiameter = 6 * mm / 2;
     G4double targetBlockLength = 3.0 * m / 2;
-    G4double targetBlockSize = 0.12 * m / 2;
+    G4double targetBlockSize = 0.8 * m / 2;
+    G4double targetBaseHeight = 0.6 * m / 2;
+    G4double targetBaseSize = 0.78 * m / 2;
+    G4double targetUpperHeight = 0.4 * m / 2;
+    G4double targetRoofWidth = 1.9 * m / 2;
+    G4double targetTopperWidth = 1.6 * m / 2;
 
     G4double driftRadius = 0.1 * m / 2;
     G4double driftThick = 0.01 * m / 2;
@@ -167,6 +172,7 @@
     G4double USVDX = targetX + targetBlockLength + SiThickness;
 
     //y
+    G4double targetY = 0.;
     G4double dipole1Y = dipole1Height;
     G4double dipole2Y = dipole2Height;
     G4double dipole3Y = dipole3Height;
@@ -207,15 +213,24 @@
     G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
     G4double USVDZ = targetZ;
 
-    //target steel blocks 
-    G4double targetY = 0.;
-    G4double targetBlockY_offset = (0.12 * m) + targetBlockSize;
-    G4double targetBlock1Y = targetY + targetBlockY_offset;
-    G4double targetBlock1Z = targetZ;
-    G4double targetBlock2Y = targetY - targetBlockY_offset;
-    G4double targetBlock2Z = targetZ;
-
-
+    //target coordinates
+    G4double ironX = targetX;
+    G4double ironY = targetY - 3.*targetBlockSize + (0.15 * m);
+    G4double ironLZ = targetZ - targetBlockSize - (0.39 * m);
+    G4double ironRZ = targetZ + targetBlockSize + (0.39 * m);
+    G4double steelX = targetX;
+    G4double steelY = targetY - 1.*targetBlockSize + (0.15 * m);
+    G4double steelLZ = targetZ - targetBlockSize - (0.39 * m);
+    G4double steelRZ = targetZ + targetBlockSize + (0.39 * m);
+    G4double tbaseX = targetX;
+    G4double tbaseY = ironY - (targetBlockSize - targetBaseHeight); 
+    G4double tbaseZ = targetZ;
+    G4double tupX = steelX;
+    G4double tupY = steelY + (targetBlockSize + targetUpperHeight); 
+    G4double tupLZ = steelLZ;
+    G4double tupRZ = steelRZ;
+    G4double roofY = tupY + (2. * targetUpperHeight);
+    G4double topperY = roofY + (2. * targetUpperHeight);
 
     //Concrete stuff
     G4double concreteSTwidth = 1.5 * m / 2;
@@ -230,7 +245,7 @@
     G4double CD2OuterRadius = CD2radius + concreteFTwidth;
 
     G4double concreteFTLength = targetBlockLength + drift1Length;
-    G4double concrete0Length = (dipole1X + targetBlockLength)*0.5;
+    G4double concrete0Length = (dipole1X - targetBlockLength)*0.5;
     G4double concrete1Length = drift5Length + quadrupole5Length + EC1Thickness + drift6Length + EC2Thickness;
     G4double concrete2Length = drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
 
@@ -238,6 +253,8 @@
     G4double concrete_t_X_offset = 1.0 * m;
     G4double concrete_t_Y_offset = 1.501 * m;
     G4double concrete_t_Z_offset = 1.45 * m;
+
+    G4double concreteRadius = 3.5 * m;
     //as reference
     G4double quad2Y = 0. * m;
     G4double quad2Z = 0. * m;
@@ -262,7 +279,9 @@
 
     G4double concreteSheight = (utY-ftY-concreteFTheight-concreteFTheight) * 0.5;
 
-    G4double concrete0X = (dipole1X - targetBlockLength) * 0.5;
+    G4double concreteTargetY = tbaseY - (1.6 * m) + concreteRadius;
+    G4double concreteTargetZ = targetZ + (0.99 * m);
+    G4double concrete0X = (dipole1X + targetBlockLength) * 0.5;
     G4double D1X = dipole1X;
     G4double D1Z = CD1radius;
     G4double concrete1X = dipole2X + (dipole2Radius * dz2) + (concrete1Length * dx2);
@@ -353,6 +372,7 @@ G4Material* ENUTAG_Construction::Material(std::string materialName){
         //predefined
         {"air",nist->FindOrBuildMaterial("G4_AIR")},
         {"graphite",nist->FindOrBuildMaterial("G4_GRAPHITE")},
+        {"iron",nist->FindOrBuildMaterial("G4_Fe")},
         {"steel",nist->FindOrBuildMaterial("G4_STAINLESS-STEEL")},
         {"concrete",nist->FindOrBuildMaterial("G4_CONCRETE")},
         {"copper",nist->FindOrBuildMaterial("G4_Cu")},
@@ -886,21 +906,41 @@ void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
     G4Tubs *solidTargetAL = new G4Tubs("solidTargetAL",targetCarbonDiameter,targetAlDiameter,thicknessTarget,0.*deg,360.*deg);
     //beriullium caps
     G4Tubs *solidTargetBE = new G4Tubs("solidTargetBE",0.,targetAlDiameter,BEThickness,0.*deg,360.*deg);*/
-    //nickel coatings (NOT USED BUT IMPLEMENTABLE)
+    //nickel coatings
     //G4Tubs *solidTargetNI = new G4Tubs("solidTargetNI",0.,targetAlDiameter,NIThickness,0.*deg,360.*deg);
-    //steel around target
-    G4Box *solidTargetBlock = new G4Box("solidTargetBlock",targetBlockLength,2.*targetBlockSize,targetBlockSize);
+
+    //shielding around target
+    G4Box *solidTargetBlock = new G4Box("solidTargetBlock",targetBlockLength,targetBlockSize,targetBlockSize);
+    G4Box *solidTargetBase = new G4Box("solidTargetBase",targetBlockLength,targetBaseHeight,targetBaseSize);
+    G4Box *solidTargetUppers = new G4Box("solidTargetUppers",targetBlockLength,targetUpperHeight,targetBlockSize);
+    G4Box *solidTargetRoof = new G4Box("solidTargetRoof",targetBlockLength,targetUpperHeight,targetRoofWidth);
+    G4Box *solidTargetTopper = new G4Box("solidTargetTopper",targetBlockLength,targetUpperHeight,targetTopperWidth);
 
     //LOGIC
     /*if(mode=="pion"){targetMaterial=Material("vacuum");}
     else{targetMaterial=Material("ENUTAG_graphite");}*/
     G4LogicalVolume *logicTarget = new G4LogicalVolume(solidTarget, Material("graphite"), "logicTarget");
-    G4LogicalVolume *logicTargetBlock = new G4LogicalVolume(solidTargetBlock, Material("steel"), "logicTargetBlock");
+
+    G4LogicalVolume *logicTargetBlockSteel = new G4LogicalVolume(solidTargetBlock, Material("steel"), "logicTargetBlockSteel");
+    G4LogicalVolume *logicTargetBlockIron = new G4LogicalVolume(solidTargetBlock, Material("iron"), "logicTargetBlockIron");
+    G4LogicalVolume *logicTargetBase = new G4LogicalVolume(solidTargetBase, Material("iron"), "logicTargetBase");
+    G4LogicalVolume *logicTargetUppers = new G4LogicalVolume(solidTargetUppers, Material("iron"), "logicTargetUppers");
+    G4LogicalVolume *logicTargetRoof = new G4LogicalVolume(solidTargetRoof, Material("iron"), "logicTargetRoof");
+    G4LogicalVolume *logicTargetTopper = new G4LogicalVolume(solidTargetTopper, Material("iron"), "logicTargetTopper");
     
     //PHYS
     G4VPhysicalVolume *physTarget = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,targetY,targetZ),logicTarget,"physTarget",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlock1 = new G4PVPlacement(0,G4ThreeVector(targetX,targetBlock1Y,targetZ),logicTargetBlock,"physTargetBlock1",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlock2 = new G4PVPlacement(0,G4ThreeVector(targetX,targetBlock2Y,targetZ),logicTargetBlock,"physTargetBlock2",lWorld,false,checkOverlaps);
+
+    //shielding placement
+    G4VPhysicalVolume *physTargetBlockSteelL = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelLZ),logicTargetBlockSteel,"physTargetBlockSteelL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockSteelR = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelRZ),logicTargetBlockSteel,"physTargetBlockSteelR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockIronL = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironLZ),logicTargetBlockIron,"physTargetBlockIronL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockIronR = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironRZ),logicTargetBlockIron,"physTargetBlockIronR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBase = new G4PVPlacement(0,G4ThreeVector(tbaseX,tbaseY,tbaseZ),logicTargetBase,"physTargetBase",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetUppersL = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupLZ),logicTargetUppers,"physTargetUppersL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetUppersR = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupRZ),logicTargetUppers,"physTargetUppersR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetRoof = new G4PVPlacement(0,G4ThreeVector(tbaseX,roofY,tbaseZ),logicTargetRoof,"physTargetRoof",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetTopper = new G4PVPlacement(0,G4ThreeVector(tbaseX,topperY,tbaseZ),logicTargetTopper,"physTargetTopper",lWorld,false,checkOverlaps);
 
     G4cout << "Target built;" << G4endl;
 
@@ -944,12 +984,9 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
 void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     //SOLID
-
-    G4double concreteRadius = 3.5 * m;
-
-    /*G4Tubs *solidConcreteTube = new G4Tubs("solidConcreteTube",concreteRadius,concreteRadius+concreteFTwidth,concrete0Length,0.*deg,360.*deg);
-    G4Box *solidConcreteBase = new G4Box("solidConcrete0",concrete0Length,2*concreteFTheight,concreteFTwidth);
-    G4UnionSolid *solidConcrete0 = new G4UnionSolid("solidConcrete0",solidConcreteTube,solidConcreteBase,TubeRotation,G4ThreeVector(0.,-2.81*m,0.));*/
+    G4Tubs *solidConcreteTube = new G4Tubs("solidConcreteTube",concreteRadius,concreteRadius+concreteFTwidth,targetBlockLength,0.*deg,360.*deg);
+    G4Box *solidConcreteBase = new G4Box("solidConcrete0",targetBlockLength,2*concreteFTheight - (0.1 * m),2*concreteFTwidth);
+    G4UnionSolid *solidConcreteTARGET = new G4UnionSolid("solidConcreteTARGET",solidConcreteTube,solidConcreteBase,TubeRotation,G4ThreeVector(0.,-2.91*m,0.));
 
     //concrete blocks
     G4Box *solidConcrete0 = new G4Box("solidConcrete0",concrete0Length,concreteFTheight,concreteFTwidth);
@@ -984,6 +1021,9 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4LogicalVolume *logicConcreteSD2R = new G4LogicalVolume(solidConcreteSD2R,Material("concrete"),"logicConcreteSD2R");
     G4LogicalVolume *logicConcreteS2 = new G4LogicalVolume(solidConcreteS2,Material("concrete"),"logicConcreteS2");
 
+    //target
+    G4LogicalVolume *logicConcreteTARGET = new G4LogicalVolume(solidConcreteTARGET,Material("concrete"),"logicConcreteTARGET");
+
     //PHYS
     //up and downs
     G4PVPlacement *physConcrete0up = new G4PVPlacement(0,G4ThreeVector(concrete0X,utY,utZ),logicConcrete0,"physConcrete0up",lWorld,false,checkOverlaps);
@@ -1008,6 +1048,9 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4PVPlacement *physSD2RConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicConcreteSD2R,"physSD2RConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physR2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XR,rtY,concrete2ZR),logicConcreteS2,"physR2Concrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physL2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XL,rtY,concrete2ZL),logicConcreteS2,"physL2Concrete",lWorld,false,checkOverlaps);
+
+    //target
+    G4PVPlacement *physConcreteTARGET = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,concreteTargetY,concreteTargetZ),logicConcreteTARGET,"physConcreteTARGET",lWorld,false,checkOverlaps);
 
     G4cout << "Concrete poured;" << G4endl;
 
