@@ -117,7 +117,7 @@ ENUTAG_RunAction::~ENUTAG_RunAction(){
 void ENUTAG_RunAction::BeginOfRunAction(const G4Run *run) {
     G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
     G4int runID = run->GetRunID();
-    G4String fileName = "out.root";
+    G4String fileName = "../ROOT/out.root";
     analysisManager->OpenFile(fileName);
 }
 

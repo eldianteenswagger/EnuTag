@@ -353,4 +353,15 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericFileManager.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericFileManager.icc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.icc
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.icc \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_EventAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserEventAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Event.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/evtdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HCofThisEvent.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VHitsCollection.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DCofThisEvent.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VDigiCollection.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrajectoryContainer.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTrajectory.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserEventInformation.hh

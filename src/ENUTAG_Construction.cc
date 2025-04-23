@@ -385,7 +385,7 @@ G4Material* ENUTAG_Construction::Material(std::string materialName){
         {"beryllium",nist->FindOrBuildMaterial("G4_Be")},
         //defined
         {"vacuum", my_vacuum},
-        {"stone", molasse},//da cambiare
+        {"stone", molasse},
         {"ENUTAG_graphite", my_graphite},
         {"target_aluminum", target_aluminum},
     };
