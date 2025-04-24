@@ -1,6 +1,7 @@
 #include "ENUTAG_Construction.hh"
 #include<map>
 #include<cmath>
+#include <string>
 
     //ALL PARAMETERS ARE externs
 
@@ -445,12 +446,12 @@ void ENUTAG_Construction::DefineMaterials(){
     SO3->AddElement(elS,1);
     SO3->AddElement(elO,3);
 
-    molasse->AddMaterial(Si02,Si02perc/percTot);G4cout << "ok" << G4endl;
-    molasse->AddMaterial(Al2O3,Al2O3perc/percTot);G4cout << "ok" << G4endl;
-    molasse->AddMaterial(MgO,MgOperc/percTot);G4cout << "ok" << G4endl;
-    molasse->AddMaterial(CaO,CaOperc/percTot);G4cout << "ok" << G4endl;
-    molasse->AddMaterial(K2O,K2Operc/percTot);G4cout << "ok" << G4endl;
-    molasse->AddMaterial(SO3,SO3perc/percTot);G4cout << "ok" << G4endl;
+    molasse->AddMaterial(Si02,Si02perc/percTot);
+    molasse->AddMaterial(Al2O3,Al2O3perc/percTot);
+    molasse->AddMaterial(MgO,MgOperc/percTot);
+    molasse->AddMaterial(CaO,CaOperc/percTot);
+    molasse->AddMaterial(K2O,K2Operc/percTot);
+    molasse->AddMaterial(SO3,SO3perc/percTot);
 
     return;
 }
@@ -610,16 +611,18 @@ void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
             break;}
     }
 
-    //solid parts
-    G4Tubs *solidDipoleup = new G4Tubs("solidDipoleup",dipoleInnerRadius,dipoleOuterRadius,dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
-    G4Tubs *solidDipoledown = new G4Tubs("solidDipoledown",dipoleInnerRadius,dipoleOuterRadius,dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
+    std::string id = std::to_string(dipoleNumber);
 
-    G4LogicalVolume *logicDipoleup = new G4LogicalVolume(solidDipoleup, Material("copper"), "logicDipoleup");
-    G4LogicalVolume *logicDipoledown = new G4LogicalVolume(solidDipoledown, Material("copper"), "logicDipoledown");
+    //solid parts
+    G4Tubs *solidDipoleup = new G4Tubs("solidDipoleup"+id,dipoleInnerRadius,dipoleOuterRadius,dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
+    G4Tubs *solidDipoledown = new G4Tubs("solidDipoledown"+id,dipoleInnerRadius,dipoleOuterRadius,dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
+
+    G4LogicalVolume *logicDipoleup = new G4LogicalVolume(solidDipoleup, Material("copper"), "logicDipoleup"+id);
+    G4LogicalVolume *logicDipoledown = new G4LogicalVolume(solidDipoledown, Material("copper"), "logicDipoledown"+id);
 
     //magnetic field
-    G4Tubs *solidDipoleField = new G4Tubs("solidDipoleField",dipoleInnerRadius,dipoleOuterRadius,dipoleHeight-dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
-    G4LogicalVolume *logicDipoleField = new G4LogicalVolume(solidDipoleField, Material("vacuum"), "logicDipoleField");
+    G4Tubs *solidDipoleField = new G4Tubs("solidDipoleField"+id,dipoleInnerRadius,dipoleOuterRadius,dipoleHeight-dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
+    G4LogicalVolume *logicDipoleField = new G4LogicalVolume(solidDipoleField, Material("vacuum"), "logicDipoleField"+id);
     G4UniformMagField *DipoleField = new G4UniformMagField(G4ThreeVector(0.,dipoleField*tesla,0.));
     G4FieldManager *DipoleFieldMgr = new G4FieldManager();
     DipoleFieldMgr->SetDetectorField(DipoleField);
@@ -627,9 +630,9 @@ void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
     logicDipoleField->SetFieldManager(DipoleFieldMgr, true);
 
     //placement
-    G4VPhysicalVolume *physDipoleup = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,dipoleY,dipoleZ),logicDipoleup,"physDipoleup",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physDipoledown = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,(-1)*dipoleY,dipoleZ),logicDipoledown,"physDipoledown",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physDipoleField = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,0.,dipoleZ),logicDipoleField,"physDipoleField",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physDipoleup = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,dipoleY,dipoleZ),logicDipoleup,"physDipoleup"+id,lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physDipoledown = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,(-1)*dipoleY,dipoleZ),logicDipoledown,"physDipoledown"+id,lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physDipoleField = new G4PVPlacement(DipoleRotation,G4ThreeVector(dipoleX,0.,dipoleZ),logicDipoleField,"physDipoleField"+id,lWorld,false,checkOverlaps);
 
     G4cout << "Dipole " <<  dipoleNumber  << " built;" << G4endl;
     
@@ -712,13 +715,16 @@ void ENUTAG_Construction::DoQuadrupole(G4int quadrupoleNumber, G4LogicalVolume* 
             rotation = TubeRotation;
             break;}
     }
+
+    std::string id = std::to_string(quadrupoleNumber);
+
     //solid parts
-    G4Tubs *solidQuadrupole = new G4Tubs("solidQuadrupole",quadrupoleRadius,quadrupoleRadius+quadrupoleThickness,quadrupoleLength,0.*deg,360.*deg);
-    G4LogicalVolume *logicQuadrupole = new G4LogicalVolume(solidQuadrupole, Material("steel"), "logicQuadrupole");
+    G4Tubs *solidQuadrupole = new G4Tubs("solidQuadrupole"+id,quadrupoleRadius,quadrupoleRadius+quadrupoleThickness,quadrupoleLength,0.*deg,360.*deg);
+    G4LogicalVolume *logicQuadrupole = new G4LogicalVolume(solidQuadrupole, Material("steel"), "logicQuadrupole"+id);
 
     //magnetic field
-    G4Tubs *solidQuadrupoleField = new G4Tubs("solidQuadrupole",0.,quadrupoleRadius,quadrupoleLength,0.*deg,360.*deg);
-    G4LogicalVolume *logicQuadrupoleField = new G4LogicalVolume(solidQuadrupoleField, Material("vacuum"), "logicQuadrupoleField");
+    G4Tubs *solidQuadrupoleField = new G4Tubs("solidQuadrupoleField"+id,0.,quadrupoleRadius,quadrupoleLength,0.*deg,360.*deg);
+    G4LogicalVolume *logicQuadrupoleField = new G4LogicalVolume(solidQuadrupoleField, Material("vacuum"), "logicQuadrupoleField"+id);
     G4QuadrupoleMagField *QuadField = new G4QuadrupoleMagField( (quadrupoleField/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr = new G4FieldManager();
     QuadrupoleFieldMgr->SetDetectorField(QuadField);
@@ -726,8 +732,8 @@ void ENUTAG_Construction::DoQuadrupole(G4int quadrupoleNumber, G4LogicalVolume* 
     logicQuadrupoleField->SetFieldManager(QuadrupoleFieldMgr, true);
 
     //placement
-    G4VPhysicalVolume *physQuadrupole = new G4PVPlacement(rotation,G4ThreeVector(quadX,0.,quadZ),logicQuadrupole,"physQuadrupole",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physQuadrupoleField = new G4PVPlacement(rotation,G4ThreeVector(quadX,0.,quadZ),logicQuadrupoleField,"physQuadrupoleField",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physQuadrupole = new G4PVPlacement(rotation,G4ThreeVector(quadX,0.,quadZ),logicQuadrupole,"physQuadrupole"+id,lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physQuadrupoleField = new G4PVPlacement(rotation,G4ThreeVector(quadX,0.,quadZ),logicQuadrupoleField,"physQuadrupoleField"+id,lWorld,false,checkOverlaps);
 
     G4cout << "Quadrupole " <<  quadrupoleNumber  << " built;" << G4endl;
 
@@ -811,13 +817,16 @@ void ENUTAG_Construction::DoEC(G4int ECNumber, G4LogicalVolume* lWorld){
             break;
         }
     }
+
+    std::string id = std::to_string(ECNumber);
+
     //solid parts
-    G4Box *firstECBlock = new G4Box("solidECBlock",ECSide,ECSide,ECThickness);
-    G4EllipticalTube *subtractECBlock = new G4EllipticalTube("solidSubtractEC",ECholeX,ECholeY,ECThickness+2);
-    G4SubtractionSolid *solidEC = new G4SubtractionSolid("solidEC",firstECBlock,subtractECBlock);
-    G4LogicalVolume *logicEC = new G4LogicalVolume(solidEC, Material("tungsten"), "logicEC");
+    G4Box *firstECBlock = new G4Box("solidECBlock"+id,ECSide,ECSide,ECThickness);
+    G4EllipticalTube *subtractECBlock = new G4EllipticalTube("solidSubtractEC"+id,ECholeX,ECholeY,ECThickness+2);
+    G4SubtractionSolid *solidEC = new G4SubtractionSolid("solidEC"+id,firstECBlock,subtractECBlock);
+    G4LogicalVolume *logicEC = new G4LogicalVolume(solidEC, Material("tungsten"), "logicEC"+id);
     //placement
-    G4VPhysicalVolume *physEC = new G4PVPlacement(rotation,G4ThreeVector(ECX,0.,ECZ),logicEC,"physEC",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physEC = new G4PVPlacement(rotation,G4ThreeVector(ECX,0.,ECZ),logicEC,"physEC"+id,lWorld,false,checkOverlaps);
 
     G4cout << "Collimator " <<  ECNumber  << " built;" << G4endl;
 

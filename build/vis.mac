@@ -36,10 +36,29 @@
 /vis/geometry/set/colour logicDSVD2 0 1 1 0
 /vis/geometry/set/colour logicUSVD 0 1 1 0
 
-/vis/geometry/set/colour logicDipoleup 0 0 0 1
-/vis/geometry/set/colour logicDipoledown 0 0 0 1
-/vis/geometry/set/colour logicQuadrupole 0 1 0 0
-/vis/geometry/set/colour logicEC 0 0.5 1 0.5
+/vis/geometry/set/colour logicDipoleup1 0 0 0 1
+/vis/geometry/set/colour logicDipoleup2 0 0 0 1
+/vis/geometry/set/colour logicDipoleup3 0 0 0 1
+/vis/geometry/set/colour logicDipoleup4 0 0 0 1
+/vis/geometry/set/colour logicDipoledown1 0 0 0 1
+/vis/geometry/set/colour logicDipoledown2 0 0 0 1
+/vis/geometry/set/colour logicDipoledown3 0 0 0 1
+/vis/geometry/set/colour logicDipoledown4 0 0 0 1
+/vis/geometry/set/colour logicQuadrupole1 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole2 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole3 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole4 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole5 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole6 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole7 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole8 0 1 0 0
+/vis/geometry/set/colour logicQuadrupole9 0 1 0 0
+/vis/geometry/set/colour logicEC1 0 0.5 1 0.5
+/vis/geometry/set/colour logicEC2 0 0.5 1 0.5
+/vis/geometry/set/colour logicEC3 0 0.5 1 0.5
+/vis/geometry/set/colour logicEC4 0 0.5 1 0.5
+/vis/geometry/set/colour logicEC5 0 0.5 1 0.5
+/vis/geometry/set/colour logicEC6 0 0.5 1 0.5
 
 /vis/geometry/set/colour logicConcrete0 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteD1 0 0.4 0.4 0.4

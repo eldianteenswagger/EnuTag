@@ -11,6 +11,9 @@
 #include "ENUTAG_Construction.hh"
 #include "ENUTAG_ActionInitialization.hh"
 
+#include"Randomize.hh"
+#include<ctime>
+
 //this is proof that I pushed on my online GitHub page
 
 int main(int argc, char** argv){
@@ -21,6 +24,10 @@ int main(int argc, char** argv){
     #else
         G4RunManager *runManager = new G4RunManager;
     #endif
+
+    G4long seed = time(nullptr);
+    CLHEP::HepRandom::setTheSeed(seed);
+    G4cout << "Random seed set to: " << seed << G4endl;
 
     //PhysicsList
     //runManager->SetUserInitialization(new ENUTAG_PhysicsList());
