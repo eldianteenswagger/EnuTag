@@ -1,9 +1,13 @@
+##Starting program
+
 HOW TO START:
 ```console
-cmake .. (copies .mac files in /build)
+cmake ..
 make -jN
 ./main
 ```
+
+When cmake is run all .mac files are copied from /Macros to /Build. If marcos are changed, cmake .. must be rerun.
 
 ./main can be initialised with macro:
 ```console

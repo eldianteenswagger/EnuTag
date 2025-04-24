@@ -41,21 +41,14 @@ int main(int argc, char** argv){
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
     G4UIExecutive *ui;
-
-    if(argc==1){
-        //UI
-        ui = new G4UIExecutive(argc, argv);
-    }
-
-    //mode=argv[1];
-
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    if(ui){
+    //macro choice
+    if(argv[1]==nullptr){
+        ui = new G4UIExecutive(argc, argv);
         UImanager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
-    }
-    else{
+    } else {
         G4String command = "/control/execute ";
         G4String filename = argv[1];
         UImanager->ApplyCommand(command+filename);
