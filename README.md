@@ -1,12 +1,12 @@
 HOW TO START:
-```bash
+```console
 cmake .. (copies .mac files in /build)
 make -jN
 ./main
 ```
 
 ./main can be initialised with macro:
-```bash
+```console
 ./main MACRONAME.mac
 ```
 this will start the executable using the referenced macro.
