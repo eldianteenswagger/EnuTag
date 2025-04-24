@@ -1,7 +1,9 @@
 HOW TO START:
-> cmake .. (copies .mac files in /build)
-> make -jN
-> ./main
+'''bash
+cmake .. (copies .mac files in /build)
+make -jN
+./main
+'''
 
 ./main can be initialised with macro:
 > ./main MACRONAME.mac
