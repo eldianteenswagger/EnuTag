@@ -24,3 +24,14 @@ this will start the executable using the referenced macro.
 | test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. |
 | run.mac | Used to run big particle batches. Does not start visualization. |
 
+# Custom commands
+
+`\ENUTAG\` contains some custom commands to be used during visualisation:
+
+- \ENUTAG\testMode <bool>: enable/disable test mode (8.5 GeV pions).
+
+
+# TO DO 
+
+- Macros are not working from bash line.
+- Add ROOTMessenger.
