@@ -52,6 +52,7 @@ int main(int argc, char** argv){
         G4String command = "/control/execute ";
         G4String filename = argv[1];
         UImanager->ApplyCommand(command+filename);
+        ui->SessionStart();
     }
 
     return 0;

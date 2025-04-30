@@ -1,4 +1,5 @@
 /run/numberOfThreads 4
 /run/initialize
+/ENUTAG/testMode false
 /run/printProgress 100
 /run/beamOn 10

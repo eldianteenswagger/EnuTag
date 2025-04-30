@@ -1,7 +1,7 @@
 /run/numberOfThreads 12
 /run/initialize
 /ENUTAG/testMode false
-/vis/open OGL #600x600-0+0
+/vis/open OGL 600x600-0+0
 
 /vis/viewer/set/viewpointVector 1 1 1
 /vis/viewer/set/autoRefresh true
