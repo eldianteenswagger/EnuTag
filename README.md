@@ -7,7 +7,7 @@ make -jN
 ./main
 ```
 
-When cmake is run all .mac files are copied from /Macros to /Build. If marcos are changed, cmake .. must be rerun.
+When cmake is run all `.mac` files are copied from /macros to /muild. If macros are changed, `cmake ..` must be rerun.
 
 ./main can be initialised with macro:
 ```console
@@ -16,7 +16,7 @@ When cmake is run all .mac files are copied from /Macros to /Build. If marcos ar
 this will start the executable using the referenced macro.
 
 > [!NOTE]
-> The program can handle multithread but requires A LOT of RAM memory for # of cores > 6.
+> The program can handle multithread but requires A LOT of RAM memory if the number of used cores is set above around 6.
 
 # Macros
 
