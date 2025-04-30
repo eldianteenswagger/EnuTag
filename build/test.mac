@@ -57,20 +57,20 @@
 /vis/geometry/set/colour logicEC5 0 0.5 1 0.5
 /vis/geometry/set/colour logicEC6 0 0.5 1 0.5
 
-/vis/geometry/set/visibility logicConcrete0 false
-/vis/geometry/set/visibility logicConcreteD1 false
-/vis/geometry/set/visibility logicConcrete1 false
-/vis/geometry/set/visibility logicConcreteD2 false
-/vis/geometry/set/visibility logicConcrete2 false
-/vis/geometry/set/visibility logicConcreteS0 false
-/vis/geometry/set/visibility logicConcreteS1 false
-/vis/geometry/set/visibility logicConcreteS2 false
-/vis/geometry/set/visibility logicConcreteSD1L false
-/vis/geometry/set/visibility logicConcreteSD1R false
-/vis/geometry/set/visibility logicConcreteSD2L false
-/vis/geometry/set/visibility logicConcreteSD2R false
-/vis/geometry/set/visibility logicConcreteTARGET false
-/vis/geometry/set/visibility logicConcreteCLOSE false
+/vis/geometry/set/visibility logicConcrete0 0 false
+/vis/geometry/set/visibility logicConcreteD1 0 false
+/vis/geometry/set/visibility logicConcrete1 0 false
+/vis/geometry/set/visibility logicConcreteD2 0 false
+/vis/geometry/set/visibility logicConcrete2 0 false
+/vis/geometry/set/visibility logicConcreteS0 0 false
+/vis/geometry/set/visibility logicConcreteS1 0 false
+/vis/geometry/set/visibility logicConcreteS2 0 false
+/vis/geometry/set/visibility logicConcreteSD1L 0 false
+/vis/geometry/set/visibility logicConcreteSD1R 0 false
+/vis/geometry/set/visibility logicConcreteSD2L 0 false
+/vis/geometry/set/visibility logicConcreteSD2R 0 false
+/vis/geometry/set/visibility logicConcreteTARGET 0 false
+/vis/geometry/set/visibility logicConcreteCLOSE 0 false
 
 /vis/geometry/set/colour logicTargetBlockSteel 0 0.1 0.1 0.5
 /vis/geometry/set/colour logicTargetBlockIron 0 0.1 0.1 0.4

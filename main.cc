@@ -40,20 +40,20 @@ int main(int argc, char** argv){
     //Visualization manager
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
+
     G4UIExecutive *ui;
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
+    ui = new G4UIExecutive(argc, argv);
 
     //macro choice
     if(argv[1]==nullptr){
-        ui = new G4UIExecutive(argc, argv);
         UImanager->ApplyCommand("/control/execute vis.mac");
-        ui->SessionStart();
     } else {
         G4String command = "/control/execute ";
-        G4String filename = argv[1];
-        UImanager->ApplyCommand(command+filename);
-        ui->SessionStart();
+        G4String macro = argv[1];
+        UImanager->ApplyCommand(command+macro);
     }
 
+    ui->SessionStart();
     return 0;
 }

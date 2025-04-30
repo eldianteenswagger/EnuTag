@@ -55,5 +55,5 @@ NomeDetector<br />
 
 # TO DO 
 
-- Macros are not working from bash line.
+- run.mac starts a void OPENGL. To address.
 - Add ROOTMessenger.
