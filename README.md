@@ -20,6 +20,8 @@ this will start the executable using the referenced macro.
 
 # Macros
 
+| Command | Description |
+| --- | --- |
 | vis.mac | Default macro for visualisation. Uses `OPENGL`. |
 | test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. |
 | run.mac | Used to run big particle batches. Does not start visualization. |
