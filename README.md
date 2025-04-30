@@ -36,21 +36,21 @@ this will start the executable using the referenced macro.
 
 ROOT ouput files are stored in the /ROOT macro.
 /ROOT also contains `hist.C`. This is a macro that can be used to access the particle energy spectrum seen by a detector.
-Currently the detector name must be set by hand.
+Currently the detector name must be set by hand.\\
 USVD, DSVD1 and DVSD2 are considered __virtual__ detectors, and thus **dE** is not computed.
 
 ## ROOT file structure
 
-### NomeDetector
-╠ E
-╠ x
-╠ y
-╠ z
-╠ px
-╠ py
-╠ pz
-╠ t
-╠ PDG
+NomeDetector\\
+╠ E\\
+╠ x\\
+╠ y\\
+╠ z\\
+╠ px\\
+╠ py\\
+╠ pz\\
+╠ t\\
+╠ PDG\\
 ╚ dE (only for real detectors, 1 to 5)
 
 # TO DO 
