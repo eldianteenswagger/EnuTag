@@ -7,6 +7,8 @@
 #include "G4ParticleTable.hh"
 #include "G4SystemOfUnits.hh"
 
+class ENUTAG_PrimaryGeneratorMessenger;
+
 class ENUTAG_PrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
 public:
@@ -14,9 +16,21 @@ public:
     ~ENUTAG_PrimaryGenerator();
 
     virtual void GeneratePrimaries(G4Event *);
+    void TestMode(G4bool);
 
 private:
     G4ParticleGun *fParticleGun;
+    ENUTAG_PrimaryGeneratorMessenger* fMessenger;
+
+    G4double x;
+    G4double y;
+    G4double z;
+
+    G4double px;
+    G4double py;
+    G4double pz;
+
+    G4String particleType;
 };
 
 #endif

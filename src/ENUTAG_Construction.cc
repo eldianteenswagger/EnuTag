@@ -1121,15 +1121,15 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
     //big chunks
     G4double soilBigSize = 8. * m;
-    G4double distance = sqrt(((EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length)*(EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length))+((EC6Z + (EC6Thickness * dz4) - targetZ)*(EC6Z + (EC6Thickness * dz4) - targetZ)));
-    G4cout << "DISTANCE " << distance/m <<G4endl;
+    /*G4double distance = sqrt(((EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length)*(EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length))+((EC6Z + (EC6Thickness * dz4) - targetZ)*(EC6Z + (EC6Thickness * dz4) - targetZ)));
+    G4cout << "DISTANCE " << distance/m <<G4endl;*/
 
     //SISTEMARE QUI
     G4double soilBigRadius = 73.108 * m;
     G4Tubs *solidSoilBig = new G4Tubs("solidSoilBig",soilBigRadius - CD1InnerRadius,soilBigRadius + CD1OuterRadius,soilBigSize,90. * deg - (4. * dipole1Deg),4. * dipole1Deg);
 
     /*G4Box *solidSoilBig = new G4Box("solidSoilBig",soilBigSize,soilBigSize,soilBigSize);*/
-    G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"solidSoilBig");
+    G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"logicSoilBig");
 
     G4double SoilBigX = USVDX + 2 * drift1Length;
     G4double SoilBigZ = targetZ + soilBigRadius + EC6Z;

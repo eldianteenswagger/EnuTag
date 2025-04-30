@@ -1,7 +1,7 @@
 /run/numberOfThreads 12
 /run/initialize
-/ENUTAG/testMode false
-/vis/open OGL #600x600-0+0
+/ENUTAG/testMode true
+/vis/open OGL 600x600-0+0
 
 /vis/viewer/set/viewpointVector 1 1 1
 /vis/viewer/set/autoRefresh true
@@ -57,20 +57,20 @@
 /vis/geometry/set/colour logicEC5 0 0.5 1 0.5
 /vis/geometry/set/colour logicEC6 0 0.5 1 0.5
 
-/vis/geometry/set/colour logicConcrete0 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteD1 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcrete1 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteD2 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcrete2 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteS0 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteS1 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteS2 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteSD1L 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteSD1R 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteSD2L 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteSD2R 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteTARGET 0 0.4 0.4 0.4
-/vis/geometry/set/colour logicConcreteCLOSE 0 0.4 0.4 0.4
+/vis/geometry/set/visibility logicConcrete0 false
+/vis/geometry/set/visibility logicConcreteD1 false
+/vis/geometry/set/visibility logicConcrete1 false
+/vis/geometry/set/visibility logicConcreteD2 false
+/vis/geometry/set/visibility logicConcrete2 false
+/vis/geometry/set/visibility logicConcreteS0 false
+/vis/geometry/set/visibility logicConcreteS1 false
+/vis/geometry/set/visibility logicConcreteS2 false
+/vis/geometry/set/visibility logicConcreteSD1L false
+/vis/geometry/set/visibility logicConcreteSD1R false
+/vis/geometry/set/visibility logicConcreteSD2L false
+/vis/geometry/set/visibility logicConcreteSD2R false
+/vis/geometry/set/visibility logicConcreteTARGET false
+/vis/geometry/set/visibility logicConcreteCLOSE false
 
 /vis/geometry/set/colour logicTargetBlockSteel 0 0.1 0.1 0.5
 /vis/geometry/set/colour logicTargetBlockIron 0 0.1 0.1 0.4
@@ -79,28 +79,14 @@
 /vis/geometry/set/colour logicTargetRoof 0 0.1 0.1 0.4
 /vis/geometry/set/colour logicTargetTopper 0 0.1 0.1 0.4
 
-/vis/filtering/trajectories/create/particleFilter
-#/vis/filtering/trajectories/particleFilter-0/add gamma
-#/vis/filtering/trajectories/particleFilter-0/add e+
-#/vis/filtering/trajectories/particleFilter-0/add e-
-#/vis/filtering/trajectories/particleFilter-0/add neutron
-/vis/filtering/trajectories/particleFilter-0/add proton
-#/vis/filtering/trajectories/particleFilter-0/add neutron
-/vis/filtering/trajectories/particleFilter-0/add pi+
-/vis/filtering/trajectories/particleFilter-0/add pi-
-#/vis/filtering/trajectories/particleFilter-0/add pi0
-/vis/filtering/trajectories/particleFilter-0/add kaon+
-/vis/filtering/trajectories/particleFilter-0/add kaon-
-#/vis/filtering/trajectories/particleFilter-0/invert false
-/vis/filtering/trajectories/particleFilter-0/active true
-
-#/vis/modeling/trajectories/create/drawByParticleID
-#/vis/modeling/trajectories/drawByParticleID-0/set proton magenta
-#/vis/modeling/trajectories/drawByParticleID-0/set neutron green
-#/vis/modeling/trajectories/drawByParticleID-0/set pi+ red
-#/vis/modeling/trajectories/drawByParticleID-0/set pi- blue
-#/vis/modeling/trajectories/drawByParticleID-0/set kaon+ orange
-#/vis/modeling/trajectories/drawByParticleID-0/set kaon- cyan
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set proton magenta
+/vis/modeling/trajectories/drawByParticleID-0/set neutron green
+/vis/modeling/trajectories/drawByParticleID-0/set pi+ red
+/vis/modeling/trajectories/drawByParticleID-0/set pi- blue
+/vis/modeling/trajectories/drawByParticleID-0/set kaon+ orange
+/vis/modeling/trajectories/drawByParticleID-0/set kaon- cyan
+/vis/modeling/trajectories/drawByParticleID-0/set gamma white
 
 /vis/viewer/set/style w
 /vis/viewer/set/auxiliaryEdge true

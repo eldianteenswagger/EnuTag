@@ -1,4 +1,4 @@
-##Starting program
+# Starting program
 
 HOW TO START:
 ```console
@@ -14,4 +14,13 @@ When cmake is run all .mac files are copied from /Macros to /Build. If marcos ar
 ./main MACRONAME.mac
 ```
 this will start the executable using the referenced macro.
-Default macro is vis.mac, which starts an OPENGL GUI.
+
+> [!NOTE]
+> The program can handle multithread but requires A LOT of RAM memory for # of cores > 6.
+
+# Macros
+
+| vis.mac | Default macro for visualisation. Uses `OPENGL`. |
+| test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. |
+| run.mac | Used to run big particle batches. Does not start visualization. |
+

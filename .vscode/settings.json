@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "new": "cpp",
+        "hist.C": "cpp",
+        "string": "cpp",
+        "format": "cpp"
+    }
+}
