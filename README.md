@@ -31,6 +31,7 @@ this will start the executable using the referenced macro.
 `\ENUTAG\` contains some custom commands to be used during visualisation:
 
 - \ENUTAG\testMode <bool>: enable/disable test mode (8.5 GeV pions).
+- \ENUTAG\outName <string>: define output file name (e.g. outFile.root).
 
 # ROOT files
 
@@ -55,5 +56,5 @@ NomeDetector<br />
 
 # TO DO 
 
-- run.mac starts a void OPENGL. To address.
-- Add ROOTMessenger.
+- run.mac starts a void OPENGL.
+- macros need all /ENUTAG/ commands explicitated to work.

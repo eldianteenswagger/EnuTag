@@ -1,6 +1,7 @@
 /run/numberOfThreads 12
 /run/initialize
 /ENUTAG/testMode false
+/ENUTAG/outName visOut.root
 /vis/open OGL 600x600-0+0
 
 /vis/viewer/set/viewpointVector 1 1 1

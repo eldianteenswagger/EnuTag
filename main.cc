@@ -25,10 +25,6 @@ int main(int argc, char** argv){
         G4RunManager *runManager = new G4RunManager;
     #endif
 
-    G4long seed = time(nullptr);
-    CLHEP::HepRandom::setTheSeed(seed);
-    G4cout << "Random seed set to: " << seed << G4endl;
-
     //PhysicsList
     //runManager->SetUserInitialization(new ENUTAG_PhysicsList());
     G4VUserPhysicsList* physics = new FTFP_BERT();
@@ -53,6 +49,10 @@ int main(int argc, char** argv){
         G4String macro = argv[1];
         UImanager->ApplyCommand(command+macro);
     }
+
+    G4long seed = time(nullptr);
+    CLHEP::HepRandom::setTheSeed(seed);
+    G4cout << "Random seed set to: " << seed << G4endl;
 
     ui->SessionStart();
     return 0;

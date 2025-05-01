@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/ENUTAG_PrimaryGeneratorMessenger.cc.o.d"
   "CMakeFiles/main.dir/src/ENUTAG_RunAction.cc.o"
   "CMakeFiles/main.dir/src/ENUTAG_RunAction.cc.o.d"
+  "CMakeFiles/main.dir/src/ENUTAG_RunActionMessenger.cc.o"
+  "CMakeFiles/main.dir/src/ENUTAG_RunActionMessenger.cc.o.d"
   "CMakeFiles/main.dir/src/ENUTAG_SensitiveDetector.cc.o"
   "CMakeFiles/main.dir/src/ENUTAG_SensitiveDetector.cc.o.d"
   "main"

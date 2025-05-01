@@ -1,12 +1,39 @@
 #include "ENUTAG_RunAction.hh"
+#include "ENUTAG_RunActionMessenger.hh"
 #include "ENUTAG_AnalysisManager.hh"
 
 ENUTAG_RunAction::ENUTAG_RunAction(){
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    analysisManager = G4AnalysisManager::Instance();
     analysisManager->SetVerboseLevel(1);
     analysisManager->SetNtupleMerging(true);
+
+    fMessenger = new ENUTAG_RunActionMessenger(this);
     
-    //NEW NTUPLES
+    NTuplesCreate();
+
+}
+
+ENUTAG_RunAction::~ENUTAG_RunAction(){}
+
+void ENUTAG_RunAction::BeginOfRunAction(const G4Run *run) {
+    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    G4int runID = run->GetRunID();
+    analysisManager->OpenFile(fileName);
+}
+
+void ENUTAG_RunAction::EndOfRunAction(const G4Run *run) {
+    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    analysisManager->Write();
+    analysisManager->CloseFile();
+    G4int runID = run->GetRunID();
+    G4cout << "Finished run " << runID << G4endl;
+}
+
+void ENUTAG_RunAction::DefineFileName(G4String newFileName){
+    fileName = "../ROOT/"+newFileName;
+}
+
+void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtuple("USVD", "USVD");
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
@@ -20,16 +47,16 @@ ENUTAG_RunAction::ENUTAG_RunAction(){
     analysisManager->FinishNtuple();
 
     analysisManager->CreateNtuple("Det_1", "Det_1");
-    analysisManager->CreateNtupleDColumn("E");//0
-    analysisManager->CreateNtupleDColumn("x");//1
-    analysisManager->CreateNtupleDColumn("y");//2
-    analysisManager->CreateNtupleDColumn("px");//3
-    analysisManager->CreateNtupleDColumn("py");//4
-    analysisManager->CreateNtupleDColumn("pz");//5
-    analysisManager->CreateNtupleDColumn("t");//6
-    analysisManager->CreateNtupleSColumn("PDG");//7
-    analysisManager->CreateNtupleIColumn("ID");//8
-    analysisManager->CreateNtupleDColumn("dE");//9
+    analysisManager->CreateNtupleDColumn("E");
+    analysisManager->CreateNtupleDColumn("x");
+    analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("px");
+    analysisManager->CreateNtupleDColumn("py");
+    analysisManager->CreateNtupleDColumn("pz");
+    analysisManager->CreateNtupleDColumn("t");
+    analysisManager->CreateNtupleSColumn("PDG");
+    analysisManager->CreateNtupleIColumn("ID");
+    analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
     analysisManager->CreateNtuple("Det_2", "Det_2");
@@ -107,24 +134,4 @@ ENUTAG_RunAction::ENUTAG_RunAction(){
     analysisManager->CreateNtupleSColumn("PDG");
     analysisManager->CreateNtupleIColumn("ID");
     analysisManager->FinishNtuple();
-
-}
-
-ENUTAG_RunAction::~ENUTAG_RunAction(){
-
-}
-
-void ENUTAG_RunAction::BeginOfRunAction(const G4Run *run) {
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-    G4int runID = run->GetRunID();
-    G4String fileName = "../ROOT/out.root";
-    analysisManager->OpenFile(fileName);
-}
-
-void ENUTAG_RunAction::EndOfRunAction(const G4Run *run) {
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-    analysisManager->Write();
-    analysisManager->CloseFile();
-    G4int runID = run->GetRunID();
-    G4cout << "Finished run " << runID << G4endl;
 }

@@ -5,7 +5,6 @@
 #include "G4UImessenger.hh"
 #include "ENUTAG_PrimaryGenerator.hh"
 #include "G4UIcmdWithABool.hh"
-#include "G4UIcmdWithAString.hh"
 #include <G4String.hh>
 
 class G4UIdirectory;
