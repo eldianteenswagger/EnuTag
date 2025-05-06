@@ -50,7 +50,6 @@ int main(int argc, char** argv){
         std::string arg1(argv[1]);
         if (arg1=="run.mac"){
             UImanager->ApplyCommand("/control/execute run.mac");
-            delete ui;
         } else {
             G4String command = "/control/execute ";
             G4UIExecutive *ui = new G4UIExecutive(argc, argv);
