@@ -3,4 +3,4 @@
 /ENUTAG/testMode false
 /ENUTAG/outName ../ROOT/runOut.root
 #/run/printProgress 100
-/run/beamOn 20
+/run/beamOn 2

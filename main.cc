@@ -13,6 +13,7 @@
 
 #include"Randomize.hh"
 #include<ctime>
+#include<string>
 
 //this is proof that I pushed on my online GitHub page
 
@@ -40,25 +41,28 @@ int main(int argc, char** argv){
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
     //macro choice
-    if(argv[1]==nullptr){
+    if(argc==1){
+        G4UIExecutive *ui = new G4UIExecutive(argc, argv);
         UImanager->ApplyCommand("/control/execute vis.mac");
-        G4UIExecutive *ui = new G4UIExecutive(argc, argv);
         ui->SessionStart();
-    } else if (argv[1]=="run.mac"){
-        UImanager->ApplyCommand("/control/execute run.mac");
+        delete ui;
     } else {
-        G4String command = "/control/execute ";
-        G4String macro = argv[1];
-        UImanager->ApplyCommand(command+macro);
-        G4UIExecutive *ui = new G4UIExecutive(argc, argv);
-        ui->SessionStart();
+        std::string arg1(argv[1]);
+        if (arg1=="run.mac"){
+            UImanager->ApplyCommand("/control/execute run.mac");
+            delete ui;
+        } else {
+            G4String command = "/control/execute ";
+            G4UIExecutive *ui = new G4UIExecutive(argc, argv);
+            UImanager->ApplyCommand(command+arg1);
+            ui->SessionStart();
+            delete ui;
+        }
     }
 
-    
     G4long seed = time(nullptr);
     CLHEP::HepRandom::setTheSeed(seed);
     G4cout << "Random seed set to: " << seed << G4endl;
-
     
     return 0;
 }
