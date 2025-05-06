@@ -40,15 +40,6 @@ public:
 
 private:
 
-    G4LogicalVolume *logicDetector1;
-    G4LogicalVolume *logicDetector2;
-    G4LogicalVolume *logicDetector3;
-    G4LogicalVolume *logicDetector4;
-    G4LogicalVolume *logicDetector5;
-    G4LogicalVolume *logicDSVD1;
-    G4LogicalVolume *logicDSVD2;
-    G4LogicalVolume *logicUSVD;
-
     G4Material *Material(std::string materialName);
 
     virtual void ConstructSDandField();
@@ -63,7 +54,43 @@ private:
     void DoTarget(G4LogicalVolume* lWorld);
     void DoDetectors(G4LogicalVolume* lWorld);
     void DoConcrete(G4LogicalVolume* lWorld);
+    void DoShieldings(G4LogicalVolume* lWorld);
     void DoSoil(G4LogicalVolume* lWorld);
+
+    G4LogicalVolume *logicDetector1;
+    G4LogicalVolume *logicDetector2;
+    G4LogicalVolume *logicDetector3;
+    G4LogicalVolume *logicDetector4;
+    G4LogicalVolume *logicDetector5;
+    G4LogicalVolume *logicDSVD1;
+    G4LogicalVolume *logicDSVD2;
+    G4LogicalVolume *logicUSVD;
+
+    G4LogicalVolume *logicDipoleField1;
+    G4LogicalVolume *logicDipoleField2;
+    G4LogicalVolume *logicDipoleField3;
+    G4LogicalVolume *logicDipoleField4;
+
+    G4LogicalVolume *logicQuadrupoleField1;
+    G4LogicalVolume *logicQuadrupoleField2;
+    G4LogicalVolume *logicQuadrupoleField3;
+    G4LogicalVolume *logicQuadrupoleField5;
+    G4LogicalVolume *logicQuadrupoleField6;
+    G4LogicalVolume *logicQuadrupoleField8;
+    G4LogicalVolume *logicQuadrupoleField9;
+
+    G4FieldManager *DipoleFieldMgr1;
+    G4FieldManager *DipoleFieldMgr2;
+    G4FieldManager *DipoleFieldMgr3;
+    G4FieldManager *DipoleFieldMgr4;
+
+    G4FieldManager *QuadrupoleFieldMgr1;
+    G4FieldManager *QuadrupoleFieldMgr2;
+    G4FieldManager *QuadrupoleFieldMgr3;
+    G4FieldManager *QuadrupoleFieldMgr5;
+    G4FieldManager *QuadrupoleFieldMgr6;
+    G4FieldManager *QuadrupoleFieldMgr8;
+    G4FieldManager *QuadrupoleFieldMgr9;
 
 };
 

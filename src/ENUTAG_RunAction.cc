@@ -30,7 +30,7 @@ void ENUTAG_RunAction::EndOfRunAction(const G4Run *run) {
 }
 
 void ENUTAG_RunAction::DefineFileName(G4String newFileName){
-    fileName = "../ROOT/"+newFileName;
+    fileName = newFileName;
 }
 
 void ENUTAG_RunAction::NTuplesCreate(){
