@@ -1,4 +1,5 @@
-void hist() {
+void hist_nu() {
+    // Open the file
     std::string inputName;
     std::string detectorName;
     std::cout << "Filename: ";
@@ -26,29 +27,20 @@ void hist() {
     tree->SetBranchAddress("E", &E);
     tree->SetBranchAddress("PDG", &PDG);
 
+    //List for neutrinos only selection
+    std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
+
     // Map to store histograms by PDG name
     std::map<std::string, TH1D*> histMap;
 
     //Color map
     std::map<std::string, int> colorMap = {
-        {"nu_e", kGray},
-        {"nu_mu", kGray},
-        {"nu_tau", kGray},
-        {"anti_nu_e", kGray+1},
-        {"anti_nu_mu", kGray+1},
-        {"anti_nu_tau", kGray+1},
-        {"gamma", kYellow},
-        {"neutron", kGreen},
-        {"anti_neutron", kGreen+1},
-        {"pi+", kRed},
-        {"pi-", kBlue},
-        {"kaon+", kOrange},
-        {"kaon-", kCyan},
-        {"kaon0L", kBlack},
-        {"kaon0S", kBlack},
-        {"proton", kMagenta},
-        {"e-", kBlue+2},
-        {"e+", kRed+2}
+        {"nu_e", kRed},
+        {"nu_mu", kGreen},
+        {"nu_tau", kBlue},
+        {"anti_nu_e", kMagenta},
+        {"anti_nu_mu", kYellow},
+        {"anti_nu_tau", kCyan}
     };
 
     // Loop over the tree entries
@@ -57,17 +49,18 @@ void hist() {
         tree->GetEntry(i);
 
         std::string pdgStr(PDG);
-
-        if (histMap.find(pdgStr) == histMap.end()) {
-            // Create a new histogram for this PDG
-            std::string histName = "h_" + pdgStr;
-            histMap[pdgStr] = new TH1D(histName.c_str(), (pdgStr + " Energy").c_str(), 100, 0, 10000); // Adjust bins/range
-            histMap[pdgStr]->SetLineWidth(2);
-            histMap[pdgStr]->SetLineColor(colorMap[pdgStr]);
+        if ( std::find(partSelect.begin(), partSelect.end(), pdgStr)!= partSelect.end() ){
+            //cout << std::find(partSelect.begin(), partSelect.end(), pdgStr)!= partSelect.end() <<endl;
+            if (histMap.find(pdgStr) == histMap.end()) {
+                // Create a new histogram for this PDG
+                std::string histName = "h_" + pdgStr;
+                histMap[pdgStr] = new TH1D(histName.c_str(), (pdgStr + " Energy").c_str(), 1000, 0, 10000); // Adjust bins/range
+                histMap[pdgStr]->SetLineWidth(2);
+                histMap[pdgStr]->SetLineColor(colorMap[pdgStr]);
+            }
+            // Fill the appropriate histogram
+            histMap[pdgStr]->Fill(E);
         }
-
-        // Fill the appropriate histogram
-        histMap[pdgStr]->Fill(E,E);
     }
 
     // Create canvas and legend

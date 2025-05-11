@@ -6,17 +6,16 @@
 
 /control/execute graphics.mac
 
-/vis/filtering/trajectories/create/particleFilter 0
-#/vis/filtering/trajectories/particleFilter-0/add gamma
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add gamma
 #/vis/filtering/trajectories/particleFilter-0/add e+
 #/vis/filtering/trajectories/particleFilter-0/add e-
 #/vis/filtering/trajectories/particleFilter-0/add neutrino
 /vis/filtering/trajectories/particleFilter-0/add proton
-#/vis/filtering/trajectories/particleFilter-0/add neutron
+/vis/filtering/trajectories/particleFilter-0/add neutron
 /vis/filtering/trajectories/particleFilter-0/add pi+
 /vis/filtering/trajectories/particleFilter-0/add pi-
-/vis/filtering/trajectories/particleFilter-0/add nu_e
 /vis/filtering/trajectories/particleFilter-0/add kaon+
 /vis/filtering/trajectories/particleFilter-0/add kaon-
-#/vis/filtering/trajectories/particleFilter-0/invert false
+/vis/filtering/trajectories/particleFilter-0/invert false
 /vis/filtering/trajectories/particleFilter-0/active true

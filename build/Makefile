@@ -358,6 +358,30 @@ src/ENUTAG_SensitiveDetector.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ENUTAG_SensitiveDetector.cc.s
 .PHONY : src/ENUTAG_SensitiveDetector.cc.s
 
+src/ENUTAG_SteppingAction.o: src/ENUTAG_SteppingAction.cc.o
+.PHONY : src/ENUTAG_SteppingAction.o
+
+# target to build an object file
+src/ENUTAG_SteppingAction.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.o
+.PHONY : src/ENUTAG_SteppingAction.cc.o
+
+src/ENUTAG_SteppingAction.i: src/ENUTAG_SteppingAction.cc.i
+.PHONY : src/ENUTAG_SteppingAction.i
+
+# target to preprocess a source file
+src/ENUTAG_SteppingAction.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.i
+.PHONY : src/ENUTAG_SteppingAction.cc.i
+
+src/ENUTAG_SteppingAction.s: src/ENUTAG_SteppingAction.cc.s
+.PHONY : src/ENUTAG_SteppingAction.s
+
+# target to generate assembly for a file
+src/ENUTAG_SteppingAction.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.s
+.PHONY : src/ENUTAG_SteppingAction.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -395,6 +419,9 @@ help:
 	@echo "... src/ENUTAG_SensitiveDetector.o"
 	@echo "... src/ENUTAG_SensitiveDetector.i"
 	@echo "... src/ENUTAG_SensitiveDetector.s"
+	@echo "... src/ENUTAG_SteppingAction.o"
+	@echo "... src/ENUTAG_SteppingAction.i"
+	@echo "... src/ENUTAG_SteppingAction.s"
 .PHONY : help
 
 

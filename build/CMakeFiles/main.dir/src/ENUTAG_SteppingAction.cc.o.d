@@ -1,17 +1,10 @@
-CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
- /home/luigi/Scrivania/EnuTag_port/src/ENUTAG_ActionInitialization.cc \
+CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.o: \
+ /home/luigi/Scrivania/EnuTag_port/src/ENUTAG_SteppingAction.cc \
  /usr/include/stdc-predef.h \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_ActionInitialization.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserActionInitialization.hh \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_PrimaryGenerator.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleDefinition.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PDefManager.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AutoLock.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Threading.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Types.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GlobalConfig.hh \
- /usr/include/c++/14/complex \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_SteppingAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserSteppingAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.hh \
+ /usr/include/c++/14/cstdlib \
  /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -22,32 +15,19 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/cpu_defines.h \
- /usr/include/c++/14/pstl/pstl_config.h \
- /usr/include/c++/14/bits/cpp_type_traits.h \
- /usr/include/c++/14/ext/type_traits.h /usr/include/c++/14/cmath \
- /usr/include/c++/14/bits/requires_hosted.h /usr/include/math.h \
+ /usr/include/c++/14/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/typesizes.h \
- /usr/include/x86_64-linux-gnu/bits/time64.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/floatn.h \
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/14/bits/std_abs.h /usr/include/stdlib.h \
  /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/time64.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
@@ -70,6 +50,19 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/c++/14/bits/std_abs.h /usr/include/c++/14/cmath \
+ /usr/include/c++/14/bits/requires_hosted.h \
+ /usr/include/c++/14/bits/cpp_type_traits.h \
+ /usr/include/c++/14/ext/type_traits.h /usr/include/math.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /usr/include/c++/14/bits/version.h /usr/include/c++/14/bits/specfun.h \
  /usr/include/c++/14/bits/stl_algobase.h \
  /usr/include/c++/14/bits/functexcept.h \
@@ -96,7 +89,11 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/c++/14/tr1/modified_bessel_func.tcc \
  /usr/include/c++/14/tr1/poly_hermite.tcc \
  /usr/include/c++/14/tr1/poly_laguerre.tcc \
- /usr/include/c++/14/tr1/riemann_zeta.tcc /usr/include/c++/14/sstream \
+ /usr/include/c++/14/tr1/riemann_zeta.tcc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ios.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Types.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GlobalConfig.hh \
+ /usr/include/c++/14/complex /usr/include/c++/14/sstream \
  /usr/include/c++/14/istream /usr/include/c++/14/ios \
  /usr/include/c++/14/iosfwd /usr/include/c++/14/bits/stringfwd.h \
  /usr/include/c++/14/bits/memoryfwd.h /usr/include/c++/14/bits/postypes.h \
@@ -152,9 +149,8 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/c++/14/bits/stl_construct.h /usr/include/c++/14/string_view \
  /usr/include/c++/14/bits/functional_hash.h \
  /usr/include/c++/14/bits/string_view.tcc \
- /usr/include/c++/14/ext/string_conversions.h /usr/include/c++/14/cstdlib \
- /usr/include/c++/14/cstdio /usr/include/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/c++/14/ext/string_conversions.h /usr/include/c++/14/cstdio \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
@@ -186,10 +182,17 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/c++/14/bits/istream.tcc \
  /usr/include/c++/14/bits/sstream.tcc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/tls.hh \
+ /usr/include/c++/14/iostream /usr/include/c++/14/iomanip \
+ /usr/include/c++/14/locale \
+ /usr/include/c++/14/bits/locale_facets_nonio.h /usr/include/c++/14/ctime \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/14/bits/codecvt.h \
+ /usr/include/c++/14/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/14/bits/locale_conv.h \
+ /usr/include/c++/14/bits/quoted_string.h \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/globals.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ios.hh \
- /usr/include/c++/14/iostream /usr/include/c++/14/algorithm \
- /usr/include/c++/14/bits/stl_algo.h \
+ /usr/include/c++/14/algorithm /usr/include/c++/14/bits/stl_algo.h \
  /usr/include/c++/14/bits/algorithmfwd.h \
  /usr/include/c++/14/bits/stl_heap.h \
  /usr/include/c++/14/bits/uniform_int_dist.h \
@@ -212,15 +215,7 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Exception.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ExceptionSeverity.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4EnvironmentUtils.hh \
- /usr/include/c++/14/iomanip /usr/include/c++/14/locale \
- /usr/include/c++/14/bits/locale_facets_nonio.h /usr/include/c++/14/ctime \
- /usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h \
- /usr/include/x86_64-linux-gnu/c++/14/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/14/bits/codecvt.h \
- /usr/include/c++/14/bits/locale_facets_nonio.tcc \
- /usr/include/c++/14/bits/locale_conv.h \
- /usr/include/c++/14/bits/quoted_string.h /usr/include/c++/14/map \
- /usr/include/c++/14/bits/stl_tree.h \
+ /usr/include/c++/14/map /usr/include/c++/14/bits/stl_tree.h \
  /usr/include/c++/14/ext/aligned_buffer.h \
  /usr/include/c++/14/bits/node_handle.h \
  /usr/include/c++/14/bits/stl_map.h \
@@ -233,8 +228,35 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/c++/14/bits/parse_numbers.h \
  /usr/include/c++/14/bits/std_mutex.h \
- /usr/include/c++/14/bits/unique_lock.h /usr/include/c++/14/chrono \
- /usr/include/c++/14/condition_variable \
+ /usr/include/c++/14/bits/unique_lock.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ThreeVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/ThreeVector.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Utility/defs.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/geomdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4RotationMatrix.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/Rotation.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationInterfaces.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/LorentzVector.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/LorentzVector.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/AxisAngle.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/AxisAngle.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationInterfaces.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationX.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationX.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationY.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationY.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationZ.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationZ.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/Rotation.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomSplitter.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/geomwdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AutoLock.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Threading.hh \
+ /usr/include/c++/14/chrono /usr/include/c++/14/condition_variable \
  /usr/include/c++/14/bits/shared_ptr.h \
  /usr/include/c++/14/bits/shared_ptr_base.h \
  /usr/include/c++/14/bits/allocated_ptr.h \
@@ -250,27 +272,173 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /usr/include/c++/14/bits/stl_vector.h \
  /usr/include/c++/14/bits/stl_bvector.h \
  /usr/include/c++/14/bits/vector.tcc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/pwdefs.hh \
- /usr/include/c++/14/stdlib.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Units/PhysicalConstants.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Units/SystemOfUnits.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleDefinition.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleGun.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPrimaryGenerator.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ThreeVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/ThreeVector.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Utility/defs.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleDefinition.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PrimaryVertex.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepPoint.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Allocator.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AllocatorPool.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PrimaryParticle.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SteppingControl.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepStatus.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHandle.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTouchable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHistory.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistory.hh \
+ /usr/include/assert.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AffineTransform.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Transform3D.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Transform3D.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Transform3D.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Point3D.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Vector3D.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Normal3D.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AffineTransform.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevel.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevelRep.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevelRep.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevel.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistoryPool.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistory.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.hh \
+ /usr/include/c++/14/memory \
+ /usr/include/c++/14/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/14/bits/align.h \
+ /usr/include/c++/14/bits/shared_ptr_atomic.h \
+ /usr/include/c++/14/backward/auto_ptr.h \
+ /usr/include/c++/14/pstl/glue_memory_defs.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Region.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Region.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHistory.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ReferenceCountedHandle.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Material.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Element.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElementTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElementVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IonisParamElm.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Isotope.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IsotopeVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IonisParamMat.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DensityEffectCalculator.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertiesTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertiesIndex.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertyVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsFreeVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVector.hh \
+ /usr/include/c++/14/fstream \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h \
+ /usr/include/c++/14/bits/fstream.tcc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Log.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVectorType.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVector.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SandiaTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4OrderedTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DataVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DataVector.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepPoint.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrackVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Track.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/trkdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DynamicParticle.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElectronOccupancy.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/pwdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LorentzVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleDefinition.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PDefManager.hh \
+ /usr/include/c++/14/stdlib.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleDefinition.icc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleMomentum.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleTableIterator.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ParticleTable.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DynamicParticle.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrackStatus.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserTrackInformation.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsModelCatalog.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Track.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.hh \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_Construction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserDetectorConstruction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PVPlacement.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Material.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Element.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VisAttributes.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/graphics_reps_defs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Colour.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Color.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VisAttributes.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Color.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SDManager.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HCtable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SDStructure.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSensitiveDetector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4CollectionNameVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HCofThisEvent.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VHitsCollection.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VHit.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VReadOutGeometry.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SensitiveVolumeList.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSDFilter.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistManager.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ICRU90StoppingData.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistElementBuilder.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistMaterialBuilder.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Pow.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Exp.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SystemOfUnits.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Field.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4FieldManager.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4FieldManager.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Box.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomTypes.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomConfig.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4CSGSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSolid.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Polyhedron.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/HepPolyhedron.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TwoVector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/TwoVector.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/TwoVector.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Point3D.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Normal3D.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Visible.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Visible.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Box.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Sphere.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Sphere.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Tubs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Tubs.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4QuadrupoleMagField.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MagneticField.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Field.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UniformMagField.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SubtractionSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BooleanSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DisplacedSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VBooleanProcessor.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BooleanSolid.icc \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnionSolid.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4EllipticalTube.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4EllipticalTube.icc \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_SensitiveDetector.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSensitiveDetector.hh \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_EventAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserEventAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Event.hh \
+ /usr/include/c++/14/set /usr/include/c++/14/bits/stl_set.h \
+ /usr/include/c++/14/bits/stl_multiset.h \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/evtdefs.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PrimaryVertex.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PrimaryParticle.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DCofThisEvent.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VDigiCollection.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrajectoryContainer.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTrajectory.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserEventInformation.hh \
  /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_RunAction.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserRunAction.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Run.hh \
@@ -282,15 +450,6 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AnalysisVerbose.hh \
  /usr/include/c++/14/array /usr/include/c++/14/compare \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AnalysisUtilities.hh \
- /usr/include/c++/14/memory \
- /usr/include/c++/14/bits/stl_raw_storage_iter.h \
- /usr/include/c++/14/bits/align.h \
- /usr/include/c++/14/bits/shared_ptr_atomic.h \
- /usr/include/c++/14/backward/auto_ptr.h \
- /usr/include/c++/14/pstl/glue_memory_defs.h /usr/include/c++/14/fstream \
- /usr/include/x86_64-linux-gnu/c++/14/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h \
- /usr/include/c++/14/bits/fstream.tcc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTBaseHnManager.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HnInformation.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BinScheme.hh \
@@ -299,8 +458,6 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VAnalysisManager.icc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HnManager.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BaseAnalysisManager.hh \
- /usr/include/c++/14/set /usr/include/c++/14/bits/stl_set.h \
- /usr/include/c++/14/bits/stl_multiset.h \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NtupleBookingManager.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/tools/ntuple_booking \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/tools/cids \
@@ -351,170 +508,4 @@ CMakeFiles/main.dir/src/ENUTAG_ActionInitialization.cc.o: \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ToolsAnalysisManager.icc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericAnalysisManager.icc \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericFileManager.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericFileManager.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnitsTable.icc \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_EventAction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserEventAction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Event.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/evtdefs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HCofThisEvent.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VHitsCollection.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DCofThisEvent.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VDigiCollection.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrajectoryContainer.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTrajectory.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserEventInformation.hh \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_SteppingAction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserSteppingAction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/geomdefs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4RotationMatrix.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/Rotation.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationInterfaces.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/LorentzVector.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/LorentzVector.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/AxisAngle.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/AxisAngle.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationInterfaces.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationX.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationX.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationY.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationY.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationZ.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/RotationZ.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/Rotation.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomSplitter.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/geomwdefs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepPoint.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SteppingControl.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepStatus.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHandle.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VTouchable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHistory.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistory.hh \
- /usr/include/assert.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AffineTransform.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Transform3D.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Transform3D.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Transform3D.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Point3D.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Vector3D.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Geometry/Normal3D.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4AffineTransform.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevel.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevelRep.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevelRep.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationLevel.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistoryPool.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NavigationHistory.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Region.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Region.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TouchableHistory.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ReferenceCountedHandle.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Material.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Element.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElementTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElementVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IonisParamElm.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Isotope.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IsotopeVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4IonisParamMat.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DensityEffectCalculator.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertiesTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertiesIndex.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialPropertyVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsFreeVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Log.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVectorType.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsVector.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MaterialTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SandiaTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4OrderedTable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DataVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DataVector.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4StepPoint.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrackVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Track.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/trkdefs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DynamicParticle.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ElectronOccupancy.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LorentzVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DynamicParticle.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TrackStatus.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserTrackInformation.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PhysicsModelCatalog.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Track.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.hh \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_Construction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VUserDetectorConstruction.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4LogicalVolume.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VPhysicalVolume.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4PVPlacement.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Material.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Element.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VisAttributes.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/graphics_reps_defs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Colour.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Color.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VisAttributes.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Color.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SDManager.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4HCtable.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SDStructure.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSensitiveDetector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4CollectionNameVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VHit.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VReadOutGeometry.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SensitiveVolumeList.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSDFilter.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistManager.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4ICRU90StoppingData.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistElementBuilder.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4NistMaterialBuilder.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Pow.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Exp.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Field.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4FieldManager.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4FieldManager.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Box.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomTypes.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GeomConfig.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4CSGSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSolid.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Polyhedron.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/HepPolyhedron.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4TwoVector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/TwoVector.h \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/CLHEP/Vector/TwoVector.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Point3D.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Normal3D.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Visible.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Visible.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Box.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Sphere.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Sphere.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Tubs.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Tubs.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4QuadrupoleMagField.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4MagneticField.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Field.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UniformMagField.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4SubtractionSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BooleanSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4DisplacedSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VBooleanProcessor.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4BooleanSolid.icc \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UnionSolid.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4EllipticalTube.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4EllipticalTube.icc \
- /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_SensitiveDetector.hh \
- /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4VSensitiveDetector.hh
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4GenericFileManager.icc

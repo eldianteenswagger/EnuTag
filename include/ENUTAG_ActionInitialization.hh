@@ -5,6 +5,7 @@
 #include "ENUTAG_PrimaryGenerator.hh"
 #include "ENUTAG_RunAction.hh"
 #include "ENUTAG_EventAction.hh"
+#include "ENUTAG_SteppingAction.hh"
 
 class ENUTAG_ActionInitialization : public G4VUserActionInitialization
 {

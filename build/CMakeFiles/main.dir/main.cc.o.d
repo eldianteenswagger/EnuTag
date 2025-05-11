@@ -807,4 +807,8 @@ CMakeFiles/main.dir/main.cc.o: /home/luigi/Scrivania/EnuTag_port/main.cc \
  /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_EventAction.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserEventAction.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Event.hh \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_SteppingAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4UserSteppingAction.hh \
+ /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/G4Step.hh \
+ /home/luigi/Scrivania/EnuTag_port/include/ENUTAG_Construction.hh \
  /home/luigi/Software/geant4/Geant4/geant4-v11.3.0-install/include/Geant4/Randomize.hh

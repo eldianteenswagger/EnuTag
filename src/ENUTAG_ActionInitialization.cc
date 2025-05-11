@@ -16,4 +16,6 @@ void ENUTAG_ActionInitialization::Build() const {
     SetUserAction(run_action);
     ENUTAG_EventAction *evt_action = new ENUTAG_EventAction(run_action);
     SetUserAction(evt_action);
+    ENUTAG_SteppingAction *step_action = new ENUTAG_SteppingAction(evt_action);
+    SetUserAction(step_action);
 }

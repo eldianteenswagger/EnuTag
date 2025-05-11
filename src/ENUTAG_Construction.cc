@@ -7,6 +7,11 @@
 
     G4bool checkOverlaps = true;
 
+    //world stuff
+    G4double xWorld = 500. * m / 2;
+    G4double yWorld = 500. * m / 2;
+    G4double zWorld = 500. * m / 2;
+
     //PARAMETERS (to put in different function maybe)
     G4double PRHO = 8.5 * GeV / 0.299792458;
     G4double MID_ANGLE = 0.;
@@ -37,7 +42,7 @@
     G4double driftBUFFLength = 0.25 * m / 2;
     G4double driftBUFFRadius = 0.12 * m / 2;
 
-    G4double driftDecayLength = 25.0 * m / 2;
+    G4double driftDecayLength = 40.0 * m / 2;
     G4double driftDecayRadius = 1.0 * m / 2;
 
     G4double quadrupoleThickness = 0.22 * m / 2;
@@ -105,6 +110,16 @@
     G4double EC6holeX = 130 * mm / 2;
     G4double EC6holeY = 110 * mm / 2;
 
+    G4double dumpLength = 3.0 * m / 2;
+    G4double dumpBuffer = 2.5 * m / 2;
+
+    G4double dumpRadiusIn = 0.2 * m;
+    G4double dumpRadiusMid = 0.8 * m;
+    G4double dumpRadiusOut = 1.2 * m;
+
+    G4double FVDdistance = 25.0 * m;
+    G4double FVDsize = 20.0 * m / 2;
+
     //Silicon stuff
     G4double SiThickness = 0.5 * mm;
     G4double Si1pos = 0.36 * m;
@@ -162,6 +177,7 @@
     G4double driftBUFFX = quad9X + (quadrupole9Length * dx4) + (driftBUFFLength * dx4);
     G4double EC6X = driftBUFFX  + (driftBUFFLength * dx4) + (EC6Thickness * dx4);
     G4double driftDecayX = EC6X + (EC6Thickness * dx4) + (driftDecayLength * dx4);
+    G4double dumpX = driftDecayX + (driftDecayLength * dx4) + ((dumpLength + dumpBuffer) * dx4);
 
     G4double silicon1X = driftDipole2X + (Si1pos * dx3) - (driftDipole2Length * dx3);
     G4double silicon2X = driftDipole2X + ((driftDipole2Length - SiThickness)* dx3);
@@ -171,6 +187,7 @@
     G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
     G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
     G4double USVDX = targetX + targetBlockLength + SiThickness;
+    G4double FVDX = dumpX + ((dumpLength + (2.*FVDdistance) + SiThickness) * dx4);
 
     //y
     G4double targetY = 0.;
@@ -204,6 +221,7 @@
     G4double driftBUFFZ = quad9Z + (quadrupole9Length * dz4) + (driftBUFFLength * dz4);
     G4double EC6Z = driftBUFFZ  + (driftBUFFLength * dz4) + (EC6Thickness * dz4);
     G4double driftDecayZ = EC6Z + (EC6Thickness * dz4) + (driftDecayLength * dz4);
+    G4double dumpZ = driftDecayZ + (driftDecayLength * dz4) + ((dumpLength + dumpBuffer) * dz4);
 
     G4double silicon1Z = driftDipole2Z + (Si1pos * dz3) - (driftDipole2Length * dz3);
     G4double silicon2Z = driftDipole2Z + ((driftDipole2Length - SiThickness)* dz3);
@@ -213,6 +231,7 @@
     G4double DSVD1Z = driftDecayZ - (driftDecayLength * dz4) + (SiThickness * dz4);
     G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
     G4double USVDZ = targetZ;
+    G4double FVDZ = dumpZ + ((dumpLength + (2.*FVDdistance) + SiThickness) * dz4);
 
     //target coordinates
     G4double ironX = targetX;
@@ -302,11 +321,6 @@
     G4double concrete2ZR = concrete2Z + (2 * concreteSTwidth * dx4);
     G4double concrete2ZL = concrete2Z - (2 * concreteSTwidth * dx4);
 
-    //world stuff
-    G4double xWorld = 200. * m / 2;
-    G4double yWorld = 200. * m / 2;
-    G4double zWorld = 200. * m / 2;
-
     //tubes
     G4RotationMatrix* TubeRotation = new G4RotationMatrix();
     //rotations for dipoles
@@ -339,7 +353,7 @@
     G4Material* my_vacuum = new G4Material("Galactic", 1., 1.01*g/mole,1.e-25*g/cm3,kStateGas, 2.73*kelvin, 3.e-18*pascal);
     G4Material* my_graphite = new G4Material("myGraphite",6.,12.01*g/mole,1.85*g/cm3);
     G4Material* target_helium = nist->ConstructNewGasMaterial("targetHelium","G4_He",300.*kelvin,0.5*bar);
-    G4Material* target_aluminum = new G4Material("Al5083",2.66*g/cm3,3);
+    G4Material* aluminium = new G4Material("Al5083",2.66*g/cm3,3);
     G4Material* molasse = new G4Material("molasse",2.784*g/cm3,6);
 
 ENUTAG_Construction::ENUTAG_Construction(){}
@@ -388,7 +402,7 @@ G4Material* ENUTAG_Construction::Material(std::string materialName){
         {"vacuum", my_vacuum},
         {"stone", molasse},
         {"ENUTAG_graphite", my_graphite},
-        {"target_aluminum", target_aluminum},
+        {"aluminium", aluminium},
     };
     return materials[materialName];
 }
@@ -407,9 +421,9 @@ void ENUTAG_Construction::DefineMaterials(){
     G4Element* elCa  = new G4Element("Calcium","Ca",20,40.078*g/mole);
 
     //aluminum definition
-    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Al"),0.948);
-    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Mg"),0.045);
-    target_aluminum->AddMaterial(nist->FindOrBuildMaterial("G4_Mn"),0.007);
+    aluminium->AddMaterial(nist->FindOrBuildMaterial("G4_Al"),0.948);
+    aluminium->AddMaterial(nist->FindOrBuildMaterial("G4_Mg"),0.045);
+    aluminium->AddMaterial(nist->FindOrBuildMaterial("G4_Mn"),0.007);
 
     //molasse definition
     //AS IN M. HAAS PAPER, depth = 100m;
@@ -518,6 +532,9 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
 
     DoConcrete(logicWorld);
     DoShieldings(logicWorld);
+
+    DoHadronDump(logicWorld);
+
     DoSoil(logicWorld);
 
     G4cout << "...done!" << G4endl;
@@ -536,6 +553,7 @@ void ENUTAG_Construction::ConstructSDandField(){
     ENUTAG_SensitiveDetector *sensDSVD1 = new ENUTAG_SensitiveDetector("sensDSVD1");
     ENUTAG_SensitiveDetector *sensDSVD2 = new ENUTAG_SensitiveDetector("sensDSVD2");
     ENUTAG_SensitiveDetector *sensUSVD = new ENUTAG_SensitiveDetector("sensUSVD");
+    ENUTAG_SensitiveDetector *sensFVD = new ENUTAG_SensitiveDetector("sensFVD");
     logicDetector1->SetSensitiveDetector(sensDet1);
     logicDetector2->SetSensitiveDetector(sensDet2);
     logicDetector3->SetSensitiveDetector(sensDet3);
@@ -544,6 +562,7 @@ void ENUTAG_Construction::ConstructSDandField(){
     logicDSVD1->SetSensitiveDetector(sensDSVD1);
     logicDSVD2->SetSensitiveDetector(sensDSVD2);
     logicUSVD->SetSensitiveDetector(sensUSVD);
+    logicFVD->SetSensitiveDetector(sensFVD);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet3);
@@ -552,10 +571,7 @@ void ENUTAG_Construction::ConstructSDandField(){
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDSVD1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDSVD2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD);
-    G4cout << "logicDipoleField1 " << logicDipoleField1 << G4endl;
-    G4cout << "logicDipoleField2 " << logicDipoleField2 << G4endl;
-    G4cout << "logicDipoleField3 " << logicDipoleField3 << G4endl;
-    G4cout << "logicDipoleField4 " << logicDipoleField4 << G4endl;
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensFVD);
 
     //dipole fields
     G4UniformMagField *DipoleField = new G4UniformMagField(G4ThreeVector(0.,dipoleField*tesla,0.));
@@ -563,22 +579,22 @@ void ENUTAG_Construction::ConstructSDandField(){
     G4FieldManager *DipoleFieldMgr2 = new G4FieldManager();
     G4FieldManager *DipoleFieldMgr3 = new G4FieldManager();
     G4FieldManager *DipoleFieldMgr4 = new G4FieldManager();
-    G4cout << "Dipoles G4FieldManager()" << G4endl;
+
     DipoleFieldMgr1->SetDetectorField(DipoleField);
     DipoleFieldMgr2->SetDetectorField(DipoleField);
     DipoleFieldMgr3->SetDetectorField(DipoleField);
     DipoleFieldMgr4->SetDetectorField(DipoleField);
-    G4cout << "Dipoles SetDetectorField()" << G4endl;
+
     DipoleFieldMgr1->CreateChordFinder(DipoleField);
     DipoleFieldMgr2->CreateChordFinder(DipoleField);
     DipoleFieldMgr3->CreateChordFinder(DipoleField);
     DipoleFieldMgr4->CreateChordFinder(DipoleField);
-    G4cout << "Dipoles CreateChordFinder()" << G4endl;
+
     logicDipoleField1->SetFieldManager(DipoleFieldMgr1, true);
     logicDipoleField2->SetFieldManager(DipoleFieldMgr2, true);
     logicDipoleField3->SetFieldManager(DipoleFieldMgr3, true);
     logicDipoleField4->SetFieldManager(DipoleFieldMgr4, true);
-    G4cout << "Dipoles SetFieldManager()" << G4endl;
+
 
     //quadrupole fields
     G4QuadrupoleMagField *QuadField1 = new G4QuadrupoleMagField( (quadrupole1Field/PRHO) * tesla/(1.*m));
@@ -586,49 +602,44 @@ void ENUTAG_Construction::ConstructSDandField(){
     QuadrupoleFieldMgr1->SetDetectorField(QuadField1);
     QuadrupoleFieldMgr1->CreateChordFinder(QuadField1);
     logicQuadrupoleField1->SetFieldManager(QuadrupoleFieldMgr1, true); 
-    G4cout << "Quadrupole1 field " << logicQuadrupoleField1 << G4endl;
 
     G4QuadrupoleMagField *QuadField2 = new G4QuadrupoleMagField( (quadrupole2Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr2 = new G4FieldManager();
     QuadrupoleFieldMgr2->SetDetectorField(QuadField2);
     QuadrupoleFieldMgr2->CreateChordFinder(QuadField2);
     logicQuadrupoleField2->SetFieldManager(QuadrupoleFieldMgr2, true); 
-    G4cout << "Quadrupole2 field " << logicQuadrupoleField2 << G4endl;
 
     G4QuadrupoleMagField *QuadField3 = new G4QuadrupoleMagField( (quadrupole3Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr3 = new G4FieldManager();
     QuadrupoleFieldMgr3->SetDetectorField(QuadField3);
     QuadrupoleFieldMgr3->CreateChordFinder(QuadField3);
     logicQuadrupoleField3->SetFieldManager(QuadrupoleFieldMgr3, true); 
-    G4cout << "Quadrupole3 field " << logicQuadrupoleField3 << G4endl;
 
     G4QuadrupoleMagField *QuadField5 = new G4QuadrupoleMagField( (quadrupole5Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr5 = new G4FieldManager();
     QuadrupoleFieldMgr5->SetDetectorField(QuadField5);
     QuadrupoleFieldMgr5->CreateChordFinder(QuadField5);
     logicQuadrupoleField5->SetFieldManager(QuadrupoleFieldMgr5, true); 
-    G4cout << "Quadrupole5 field " << logicQuadrupoleField5 << G4endl;
 
     G4QuadrupoleMagField *QuadField6 = new G4QuadrupoleMagField( (quadrupole6Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr6 = new G4FieldManager();
     QuadrupoleFieldMgr6->SetDetectorField(QuadField6);
     QuadrupoleFieldMgr6->CreateChordFinder(QuadField6);
     logicQuadrupoleField6->SetFieldManager(QuadrupoleFieldMgr6, true); 
-    G4cout << "Quadrupole6 field " << logicQuadrupoleField6 << G4endl;
 
     G4QuadrupoleMagField *QuadField8 = new G4QuadrupoleMagField( (quadrupole8Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr8 = new G4FieldManager();
     QuadrupoleFieldMgr8->SetDetectorField(QuadField8);
     QuadrupoleFieldMgr8->CreateChordFinder(QuadField8);
     logicQuadrupoleField8->SetFieldManager(QuadrupoleFieldMgr8, true); 
-    G4cout << "Quadrupole8 field " << logicQuadrupoleField8 << G4endl;
 
     G4QuadrupoleMagField *QuadField9 = new G4QuadrupoleMagField( (quadrupole9Field/PRHO) * tesla/(1.*m));
     G4FieldManager *QuadrupoleFieldMgr9 = new G4FieldManager();
     QuadrupoleFieldMgr9->SetDetectorField(QuadField9);
     QuadrupoleFieldMgr9->CreateChordFinder(QuadField9);
     logicQuadrupoleField9->SetFieldManager(QuadrupoleFieldMgr9, true); 
-    G4cout << "Quadrupole9 field " << logicQuadrupoleField9 << G4endl;
+
+    G4cout << "ConstructSDandField() END" << G4endl;
 
 }
 
@@ -1032,6 +1043,7 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     //downstream virtual detectors
     G4Tubs *solidDSVD = new G4Tubs("solidDSVD",0.,driftDecayRadius,SiThickness,0.*deg,360.*deg);
     G4Tubs *solidUSVD = new G4Tubs("solidUSVD",0.,driftRadius,SiThickness,0.*deg,360.*deg);
+    G4Box *solidFVD = new G4Box("solidFVD",SiThickness,FVDsize,FVDsize);
 
     //LOGIC
     logicDetector1 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector1");
@@ -1042,6 +1054,7 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
     logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
     logicUSVD = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD");
+    logicFVD = new G4LogicalVolume(solidFVD,Material("vacuum"),"logicFVD");
 
     //PHYS
     G4VPhysicalVolume *physDetector1 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(silicon1X,0.,silicon1Z),logicDetector1,"physDetector1",lWorld,false,checkOverlaps,1);
@@ -1052,6 +1065,7 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     G4VPhysicalVolume *physDSVD1 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD1X,0.,DSVD1Z),logicDSVD1,"physDSVD1",lWorld,false,checkOverlaps,6);
     G4VPhysicalVolume *physDSVD2 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD2X,0.,DSVD2Z),logicDSVD2,"physDSVD2",lWorld,false,checkOverlaps,7);
     G4VPhysicalVolume *physUSVD = new G4PVPlacement(TubeRotation,G4ThreeVector(USVDX,0.,USVDZ),logicUSVD,"physUSVD",lWorld,false,checkOverlaps,8);
+    G4VPhysicalVolume *physFVD = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(FVDX,0.,FVDZ),logicFVD,"physFVD",lWorld,false,checkOverlaps,9);
     
     G4cout << "Detectors built;" << G4endl;
 
@@ -1155,13 +1169,22 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
     G4Box *solidTargetRoof = new G4Box("solidTargetRoof",targetBlockLength,targetUpperHeight,targetRoofWidth);
     G4Box *solidTargetTopper = new G4Box("solidTargetTopper",targetBlockLength,targetUpperHeight,targetTopperWidth);
 
-    //quadrupoles
-    G4Tubs *solidTungstenQuadrupole1 = new G4Tubs("solidTungstenQuadrupole1",quadrupole1Radius+quadrupoleThickness,quadrupole1Radius+quadrupoleThickness+(2.*tungstenThickness),quadrupole1Length,0.*deg,360.*deg);
-
-    //after target
+   //after target
     G4Tubs *solidTungstenCAP = new G4Tubs("solidTungstenCAP",0.,utY,drift1Length,0.*deg,360.*deg);
     G4Tubs *solidTungstenREMOVE = new G4Tubs("solidTungstenREMOVE",0.,driftRadius + driftThick,drift1Length+2,0.*deg,360.*deg);
     G4SubtractionSolid *solidTungstenCLOSE = new G4SubtractionSolid("solidTungstenCLOSE",solidTungstenCAP,solidTungstenREMOVE,0,G4ThreeVector(0.,-TungstenOffset,0.));
+
+    //along drifts and quadrupoles
+    G4double tungstenInline1Length = quadrupole1Length + drift2Length + quadrupole2Length + drift3Length + quadrupole3Length + drift4Length;
+    G4Tubs *solidTungstenInline1 = new G4Tubs("solidTungstenInline1",quadrupole2Radius+quadrupoleThickness,quadrupole2Radius+quadrupoleThickness+(3.*tungstenThickness),tungstenInline1Length,0.*deg,360.*deg);
+    G4double tungstenInline2Length = drift7Length + quadrupole6Length + EC3Thickness + drift8Length + quadrupole8Length + EC3Thickness + drift9Length + quadrupole9Length + EC3Thickness + driftBUFFLength;
+    
+    G4double ENDCAPwidth = concreteFTwidth - (2. * concreteSTwidth);
+    G4Box *solidInline2CAP = new G4Box("solidInline2CAP",tungstenInline2Length,ENDCAPwidth,ENDCAPwidth);
+    G4Box *solidInline2REMOVE = new G4Box("solidInline2REMOVE",tungstenInline2Length+2,quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness);
+    G4SubtractionSolid *solidTungstenInline2 = new G4SubtractionSolid("solidTungstenInline2",solidInline2CAP,solidInline2REMOVE,0,G4ThreeVector(0.,-rtY,0.));
+
+    //G4Tubs *solidTungstenInline2 = new G4Tubs("solidTungstenInline2",quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness+(3.*tungstenThickness),tungstenInline2Length,0.*deg,360.*deg);
 
     //dipole 1&2
     G4Tubs *solidTungstenSD1R = new G4Tubs("solidTungstenSD1R",CD1OuterRadius - (2.5 * concreteSTwidth),CD1OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
@@ -1170,8 +1193,12 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
     G4Tubs *solidTungstenSD2R = new G4Tubs("solidTungstenSD2R",CD2OuterRadius - (2.5 * concreteSTwidth),CD2OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
     G4Tubs *solidTungstenSD2L = new G4Tubs("solidTungstenSD2L",CD2InnerRadius + (2 * concreteSTwidth),CD2InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
 
+    //EClast
+    G4Box *solidTungstenECCAP = new G4Box("solidTungstenECCAP",EC6Thickness,concreteSheight,ENDCAPwidth);
+    G4Box *solidTungstenECREMOVE = new G4Box("solidTungstenECREMOVE",EC6Thickness+2,EC6Side,EC6Side);
+    G4SubtractionSolid *solidTungstenECLAST = new G4SubtractionSolid("solidTungstenECLAST",solidTungstenECCAP,solidTungstenECREMOVE,0,G4ThreeVector(0.,-rtY,0.));
+
     //LOGIC
-    G4LogicalVolume *logicTungstenQuadrupole1 = new G4LogicalVolume(solidTungstenQuadrupole1, Material("tungsten"), "logicTungstenQuadrupole1");
 
     G4LogicalVolume *logicTargetBlockSteel = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockSteel");
     G4LogicalVolume *logicTargetBlockIron = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockIron");
@@ -1182,15 +1209,23 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
 
     G4LogicalVolume *logicTungstenCLOSE = new G4LogicalVolume(solidTungstenCLOSE,Material("tungsten"),"logicTungstenCLOSE");
 
+    G4LogicalVolume *logicTungstenInline1 = new G4LogicalVolume(solidTungstenInline1, Material("tungsten"), "logicTungstenInline1");
+
     G4LogicalVolume *logicTungstenSD1R = new G4LogicalVolume(solidTungstenSD1R,Material("tungsten"),"logicTungstenSD1R");
     G4LogicalVolume *logicTungstenSD1L = new G4LogicalVolume(solidTungstenSD1L,Material("tungsten"),"logicTungstenSD1L");
     G4LogicalVolume *logicTungstenS1 = new G4LogicalVolume(solidTungstenS1,Material("tungsten"),"logicTungstenS1");
     G4LogicalVolume *logicTungstenSD2R = new G4LogicalVolume(solidTungstenSD2R,Material("tungsten"),"logicTungstenSD2R");
     G4LogicalVolume *logicTungstenSD2L = new G4LogicalVolume(solidTungstenSD2L,Material("tungsten"),"logicTungstenSD2L");
 
+    G4LogicalVolume *logicTungstenInline2 = new G4LogicalVolume(solidTungstenInline2, Material("tungsten"), "logicTungstenInline2");
+
+    G4LogicalVolume *logicTungstenECLAST = new G4LogicalVolume(solidTungstenECLAST,Material("tungsten"),"logicTungstenECLAST");
+
 
     //PHYS
-    G4VPhysicalVolume *physTungstenQuadrupole1 = new G4PVPlacement(TubeRotation,G4ThreeVector(quad1X,0.,0.),logicTungstenQuadrupole1,"physTungstenQuadrupole1",lWorld,false,checkOverlaps);
+    G4double TInLine1X = ((drift4X + drift4Length) + (quad1X - quadrupole1Length)) * 0.5;
+    G4double TInLine2X = ((driftBUFFX + (driftBUFFLength*dx4)) + (drift7X - (drift7Length*dx4))) * 0.5;
+    G4double TInLine2Z = ((driftBUFFZ + (driftBUFFLength*dz4)) + (drift7Z - (drift7Length*dz4))) * 0.5;
 
     G4VPhysicalVolume *physTargetBlockSteelL = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelLZ+testOffset),logicTargetBlockSteel,"physTargetBlockSteelL",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physTargetBlockSteelR = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelRZ-testOffset),logicTargetBlockSteel,"physTargetBlockSteelR",lWorld,false,checkOverlaps);
@@ -1204,6 +1239,8 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
 
     G4PVPlacement *physTungstenCLOSE = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,TungstenOffset,0.),logicTungstenCLOSE,"physTungstenCLOSE",lWorld,false,checkOverlaps);
 
+    G4VPhysicalVolume *physTungstenInline1 = new G4PVPlacement(TubeRotation,G4ThreeVector(TInLine1X,0.,0.),logicTungstenInline1,"physTungstenInline1",lWorld,false,checkOverlaps);
+
     G4double tungsten1XR = concrete1XR - ((tungstenThickness - concreteFTwidth) * dz2);
     G4double tungsten1XL = concrete1XL + ((tungstenThickness - concreteFTwidth) * dz2);
     G4double tungsten1ZR = concrete1ZR + ((tungstenThickness - concreteFTwidth) * dx2);
@@ -1215,10 +1252,38 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
     G4PVPlacement *physTungstenSD2R = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2R,"physTungstenSD2R",lWorld,false,checkOverlaps);
     G4PVPlacement *physTungstenSD2L = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2L,"physTungstenSD2L",lWorld,false,checkOverlaps);
 
-    G4cout << "Tungsten tungstened;" << G4endl;
+    G4VPhysicalVolume *physTungstenInline2 = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(TInLine2X,rtY,TInLine2Z),logicTungstenInline2,"physTungstenInline2",lWorld,false,checkOverlaps);
+
+    G4PVPlacement *physTungstenECLAST = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(EC6X,rtY,EC6Z),logicTungstenECLAST,"physTungstenECLAST",lWorld,false,checkOverlaps);
+
+    G4cout << "Sheildings placed;" << G4endl;
 
     return;
 }
+
+void ENUTAG_Construction::DoHadronDump(G4LogicalVolume* lWorld){
+
+    //inner graphite core
+    G4Tubs *solidHDumpIn = new G4Tubs("solidHDumpIn",0.,dumpRadiusIn,dumpLength,0.*deg,360*deg);
+    //middle aluminum part
+    G4Tubs *solidHDumpMid = new G4Tubs("solidHDumpMid",dumpRadiusIn,dumpRadiusMid,dumpLength,0.*deg,360*deg);
+    //outer iron shell
+    G4Tubs *solidHDumpOut = new G4Tubs("solidHDumpOut",dumpRadiusMid,dumpRadiusOut,dumpLength,0.*deg,360*deg);
+
+    //LOGIC
+    G4LogicalVolume *logicHDumpIn = new G4LogicalVolume(solidHDumpIn, Material("graphite"), "logicHDumpIn");
+    G4LogicalVolume *logicHDumpMid = new G4LogicalVolume(solidHDumpMid, Material("aluminium"), "logicHDumpMid");
+    G4LogicalVolume *logicHDumpOut = new G4LogicalVolume(solidHDumpOut, Material("steel"), "logicHDumpOut");
+
+    //PHYS
+    G4VPhysicalVolume *physHDumpIn = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(dumpX,0.,dumpZ),logicHDumpIn,"physDriftDecay",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physHDumpMid = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(dumpX,0.,dumpZ),logicHDumpMid,"physDriftDecay",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physHDumpOut = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(dumpX,0.,dumpZ),logicHDumpOut,"physDriftDecay",lWorld,false,checkOverlaps);
+    
+    G4cout << "Hadron dump placed;" <<G4endl;
+    
+    return;
+};
 
 void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
@@ -1267,14 +1332,10 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
     //big chunks
     G4double soilBigSize = 8. * m;
-    /*G4double distance = sqrt(((EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length)*(EC6X + (EC6Thickness * dx4) - quad1X - quadrupole1Length))+((EC6Z + (EC6Thickness * dz4) - targetZ)*(EC6Z + (EC6Thickness * dz4) - targetZ)));
-    G4cout << "DISTANCE " << distance/m <<G4endl;*/
 
-    //SISTEMARE QUI
     G4double soilBigRadius = 73.108 * m;
     G4Tubs *solidSoilBig = new G4Tubs("solidSoilBig",soilBigRadius - CD1InnerRadius,soilBigRadius + CD1OuterRadius,soilBigSize,90. * deg - (4. * dipole1Deg),4. * dipole1Deg);
 
-    /*G4Box *solidSoilBig = new G4Box("solidSoilBig",soilBigSize,soilBigSize,soilBigSize);*/
     G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"logicSoilBig");
 
     G4double SoilBigX = USVDX + 2 * drift1Length;
@@ -1297,6 +1358,21 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
     G4LogicalVolume *logicSoilTargetB = new G4LogicalVolume(solidSoilTargetB,Material("stone"),"logicSoilTargetB");
     G4PVPlacement *physSoilTargetA = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,concreteTargetY,concreteTargetZ),logicSoilTargetA,"physSoilTargetA",lWorld,false,checkOverlaps);
     G4PVPlacement *physSoilTargetB = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,concreteTargetY,concreteTargetZ),logicSoilTargetB,"physSoilTargetB",lWorld,false,checkOverlaps);
+
+    //soil around dump
+    G4double soilDumpLength = dumpLength+(0.5*dumpBuffer);
+    G4double soilDumpX = driftDecayX + ((driftDecayLength + soilDumpLength)*dx4);
+    G4double soilDumpZ = driftDecayZ + ((driftDecayLength + soilDumpLength)*dz4);
+    G4Tubs *solidSoilDump = new G4Tubs("solidSoilDump",dumpRadiusOut,dumpRadiusOut+(2.*soilBigSize),soilDumpLength,0.*deg,360*deg);
+    G4LogicalVolume *logicSoilDump = new G4LogicalVolume(solidSoilDump,Material("stone"),"logicSoilDump");
+    G4PVPlacement *physSoilDump = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(soilDumpX,0.,soilDumpZ),logicSoilDump,"physSoilDump",lWorld,false,checkOverlaps);
+
+    //soil after dump
+    G4double soildAfterDumpX = dumpX + ((dumpLength + FVDdistance) * dx4);
+    G4double soildAfterDumpZ = dumpZ + ((dumpLength + FVDdistance) * dz4);
+    G4Box *solidSoilAfterDump = new G4Box("solidSoilAfterDump",FVDdistance,FVDsize,FVDsize);
+    G4LogicalVolume *logicSoilAfterDump = new G4LogicalVolume(solidSoilAfterDump,Material("stone"),"logicSoilAfterDump");
+    G4PVPlacement *physSoilAfterDump = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(soildAfterDumpX,0.,soildAfterDumpZ),logicSoilAfterDump,"physSoilAfterDump",lWorld,false,checkOverlaps);
 
     G4cout << "Cobblestone generated!;" << G4endl;
 

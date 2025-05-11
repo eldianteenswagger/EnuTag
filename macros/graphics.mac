@@ -29,6 +29,7 @@
 /vis/geometry/set/colour logicDSVD1 0 1 1 0
 /vis/geometry/set/colour logicDSVD2 0 1 1 0
 /vis/geometry/set/colour logicUSVD 0 1 1 0
+/vis/geometry/set/colour logicFVD 0 1 1 0
 
 /vis/geometry/set/colour logicDipoleup1 0 0 0 1
 /vis/geometry/set/colour logicDipoleup2 0 0 0 1
@@ -67,19 +68,32 @@
 /vis/geometry/set/colour logicConcreteTARGET 0 0.4 0.4 0.4
 /vis/geometry/set/colour logicConcreteCLOSE 0 0.4 0.4 0.4
 
-/vis/geometry/set/colour logicTargetBlockSteel 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTargetBlockIron 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTargetBase 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTargetUppers 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTargetRoof 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTargetTopper 0 0.1 0.1 0.5
+/vis/geometry/set/colour logicTargetBlockSteel 0 0.15 0.3 0
+/vis/geometry/set/colour logicTargetBlockIron 0 0.15 0.3 0
+/vis/geometry/set/colour logicTargetBase 0 0.15 0.3 0
+/vis/geometry/set/colour logicTargetUppers 0 0.15 0.3 0
+/vis/geometry/set/colour logicTargetRoof 0 0.15 0.3 0
+/vis/geometry/set/colour logicTargetTopper 0 0.15 0.3 0
 
-/vis/geometry/set/colour logicTungstenCLOSE 0 0.1 0.1 0.5
-/vis/geometry/set/colour logicTungstenSD2R 0 0.1 0.1 0.5
+/vis/geometry/set/colour logicTungstenCLOSE 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenInline1 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenSD1R 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenSD1L 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenInline2 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenS1 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenSD2R 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenSD2L 0 0.15 0.3 0
+/vis/geometry/set/colour logicTungstenECLAST 0 0.15 0.3 0
+
+/vis/geometry/set/colour logicHDumpIn 0 0.2 0.2 0.2
+/vis/geometry/set/colour logicHDumpMid 0 0.9 0.9 0.9
+/vis/geometry/set/colour logicHDumpOut 0 0.6 0.6 0.6
+
 
 /vis/modeling/trajectories/create/drawByParticleID
 /vis/modeling/trajectories/drawByParticleID-0/set proton magenta
 /vis/modeling/trajectories/drawByParticleID-0/set neutron green
+/vis/modeling/trajectories/drawByParticleID-0/set gamma yellow
 /vis/modeling/trajectories/drawByParticleID-0/set pi+ red
 /vis/modeling/trajectories/drawByParticleID-0/set pi- blue
 /vis/modeling/trajectories/drawByParticleID-0/set kaon+ orange
@@ -103,3 +117,5 @@
 /vis/geometry/set/visibility logicSoilDecay 0 false
 /vis/geometry/set/visibility logicSoilTargetA 0 false
 /vis/geometry/set/visibility logicSoilTargetB 0 false
+/vis/geometry/set/visibility logicSoilDump 0 false
+/vis/geometry/set/visibility logicSoilAfterDump 0 false

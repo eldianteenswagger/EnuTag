@@ -40,6 +40,9 @@ int main(int argc, char** argv){
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
+    G4long seed = time(nullptr);
+    CLHEP::HepRandom::setTheSeed(seed);
+
     //macro choice
     if(argc==1){
         G4UIExecutive *ui = new G4UIExecutive(argc, argv);
@@ -59,8 +62,6 @@ int main(int argc, char** argv){
         }
     }
 
-    G4long seed = time(nullptr);
-    CLHEP::HepRandom::setTheSeed(seed);
     G4cout << "Random seed set to: " << seed << G4endl;
     
     return 0;

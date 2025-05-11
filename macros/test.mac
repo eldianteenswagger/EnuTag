@@ -20,3 +20,12 @@
 /vis/geometry/set/visibility logicConcreteSD2R 0 false
 /vis/geometry/set/visibility logicConcreteTARGET 0 false
 /vis/geometry/set/visibility logicConcreteCLOSE 0 false
+
+/vis/geometry/set/visibility logicTungstenCLOSE 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenInline1 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenSD1R 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenSD1L 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenInline2 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenS1 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenSD2R 0 0.15 0.3 0 false
+/vis/geometry/set/visibility logicTungstenSD2L 0 0.15 0.3 0 false

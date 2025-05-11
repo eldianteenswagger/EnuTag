@@ -21,6 +21,10 @@ private:
     G4double fTime;
     G4String fPDG;
     G4int fID;
+    G4bool neutrinoTrack;
+    G4double fnuX;
+    G4double fnuY;
+    G4double fnuZ;
 
     G4int idx;
     G4String volumeName;

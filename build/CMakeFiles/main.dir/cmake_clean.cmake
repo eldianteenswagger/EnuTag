@@ -17,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/ENUTAG_RunActionMessenger.cc.o.d"
   "CMakeFiles/main.dir/src/ENUTAG_SensitiveDetector.cc.o"
   "CMakeFiles/main.dir/src/ENUTAG_SensitiveDetector.cc.o.d"
+  "CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.o"
+  "CMakeFiles/main.dir/src/ENUTAG_SteppingAction.cc.o.d"
   "main"
   "main.pdb"
 )
