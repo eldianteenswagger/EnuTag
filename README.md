@@ -23,8 +23,11 @@ this will start the executable using the referenced macro.
 | Macro | Description |
 | --- | --- |
 | vis.mac | Default macro for visualisation. Uses `OPENGL`. |
+| graphics.mac | Handles proper visualisation of blocks in `OPENGL`. Called by `vis.mac`, `test.mac`, `shielding.mac` and `soil.mac` |
 | test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. |
 | run.mac | Used to run big particle batches. Does not start visualization. |
+| shieldings.mac | Shows shieldings and concrete. Uses `OPENGL`. |
+| soil.mac | Shows soil blocks. Uses `OPENGL`. |
 
 # Custom commands
 
@@ -54,7 +57,8 @@ NomeDetector<br />
 ╠ PDG<br />
 ╚ dE (only for real detectors, 1 to 5)
 
+neutrinos contains origin coordinates of neutrino tracks
+
 # TO DO 
 
-- run.mac starts a void OPENGL.
-- macros need all /ENUTAG/ commands explicitated to work.
+- add hists to hist_salad.C
