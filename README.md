@@ -15,16 +15,13 @@ When cmake is run all `.mac` files are copied from /macros to /muild. If macros 
 ```
 this will start the executable using the referenced macro.
 
-> [!NOTE]
-> The program can handle multithread but requires A LOT of RAM memory if the number of used cores is set above around 6.
-
 # Macros
 
 | Macro | Description |
 | --- | --- |
 | vis.mac | Default macro for visualisation. Uses `OPENGL`. |
 | graphics.mac | Handles proper visualisation of blocks in `OPENGL`. Called by `vis.mac`, `test.mac`, `shielding.mac` and `soil.mac` |
-| test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. |
+| test.mac | Changes `PrimaryGenerator` to shoot 8.5 GeV pions from just after target. Uses `OPENGL`. |
 | run.mac | Used to run big particle batches. Does not start visualization. |
 | shieldings.mac | Shows shieldings and concrete. Uses `OPENGL`. |
 | soil.mac | Shows soil blocks. Uses `OPENGL`. |

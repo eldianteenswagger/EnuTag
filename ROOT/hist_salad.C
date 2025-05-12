@@ -1,10 +1,10 @@
 void hist_salad() {
-    std::string inputName;
-    std::string detectorName;
-    std::cout << "Filename: ";
-    std::cin >> inputName;
-    std::cout << "Detector: ";
-    std::cin >> detectorName;
+    std::string inputName = "runOut5000.root";
+    std::string detectorName = "DSVD_1";
+    //std::cout << "Filename: ";
+    //std::cin >> inputName;
+    //std::cout << "Detector: ";
+    //std::cin >> detectorName;
 
     TFile *file = TFile::Open(inputName.data());
     if (!file || file->IsZombie()) {
@@ -42,12 +42,28 @@ void hist_salad() {
     tree->SetBranchAddress("ID", &ID);
     tree->SetBranchAddress("dE", &dE);
 
+    //out file
+    std::string outFileName = "histSalad_"+detectorName+".root";
+    TFile* outFile = new TFile(outFileName.data(), "RECREATE");
+
     //histograms
     TH1D* momHist = new TH1D("momHist", "momHist", 100, 0, 10000);
-    TH2D* momangleHist = new TH2D("momangleHist", "momangleHist", 100, -10000., 10000., 100, -7., 7.);
+    TH1D* EHist = new TH1D("EHist", "EHist", 100, 0, 10000);
+    TH1D* pseudoRapHist = new TH1D("pseudoRapHist", "pseudoRapHist", 100, 0, 10);
+    TH1D* tHist = new TH1D("tHist", "tHist", 100, 0, 1e-6);
+
     TH2D* posHist = new TH2D("posHist", "posHist", 100, -10000., 10000., 100, -10000., 10000.);
+    TH2D* momangleHistX = new TH2D("momangleHistX", "momangleHistX", 100, 0., 10000., 180, -90., 90.);
+    TH2D* momangleHistY = new TH2D("momangleHistY", "momangleHistY", 100, 0., 10000., 180, -90., 90.);
+    TH2D* rapidAngleHist = new TH2D("rapidAngleHist", "rapidAngleHist", 180, -90., 90., 100, -10., 10.);
+    TH2D* rapidEnengyHist = new TH2D("rapidEnengyHist", "rapidEnengyHist", 100, 0, 10000, 100, -10., 10.);
+    TH2D* rapidTimeHist = new TH2D("rapidTimeHist", "rapidTimeHist", 100, 0, 1e-6, 100, -10., 10.);
+    TH2D* energyTimeHist = new TH2D("energyTimeHist", "energyTimeHist", 100, 0, 10000, 100, 0, 1e-6);
+
 
     std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
+
+    Double_t absAngle = 9.09 * 3.141592 / 90;
 
     // Loop over the tree entries
     Long64_t nEntries = tree->GetEntries();
@@ -59,23 +75,40 @@ void hist_salad() {
 
         if ( std::find(partSelect.begin(), partSelect.end(), pdgStr)!= partSelect.end() ){
             Double_t mom = std::sqrt((px*px)+(py*py)+(pz*pz));
-            Double_t angle = ;
+            Double_t mom_xz = std::sqrt((pz*pz)+(py*py));
+            Double_t angleX = (std::asin(mom_xz/mom) - absAngle);
+            Double_t angleY = (std::asin(py/mom));
+
+            Double_t pseudoRapidity = (-1.)*std::log(std::tan(angleX*0.5));
+
             momHist->Fill(mom);
+            EHist->Fill(E);
+            tHist->Fill(t);
+            momangleHistX->Fill(mom,(180. / 3.141592) * angleX);
+            momangleHistY->Fill(mom,(180. / 3.141592) * angleY);
             posHist->Fill(x,y);
+            pseudoRapHist->Fill(pseudoRapidity);
+            rapidAngleHist->Fill((180. / 3.141592) * angleX,pseudoRapidity);
+            rapidEnengyHist->Fill(E,pseudoRapidity);
+            rapidTimeHist->Fill(t,pseudoRapidity);
+            energyTimeHist->Fill(E,t);
         }
 
         // Fill the appropriate histogram
     }
 
-    // Create canvas and legend
-    TCanvas *c = new TCanvas("c", "Histogram", 1000, 600);
-    c->cd();
-    //momHist->SetLogy();
+    outFile->WriteObject(momHist,"momHist");
+    outFile->WriteObject(EHist,"EHist");
+    outFile->WriteObject(tHist,"tHist");
+    outFile->WriteObject(pseudoRapHist,"pseudoRapHist");
+    outFile->WriteObject(momangleHistX,"momangleHistX");
+    outFile->WriteObject(momangleHistY,"momangleHistY");
+    outFile->WriteObject(posHist,"posHist");
+    outFile->WriteObject(rapidEnengyHist,"rapidEnengyHist");
+    outFile->WriteObject(rapidAngleHist,"rapidAngleHist");
+    outFile->WriteObject(rapidTimeHist,"rapidTimeHist");
+    outFile->WriteObject(energyTimeHist,"energyTimeHist");
 
-    TLegend *legend = new TLegend(0.7, 0.7, 0.9, 0.9);
+    std::cout<<"Out file created as "<<outFileName<<std::endl;
 
-    posHist->Draw();
-    legend->Draw();
-    c->Update();
-    //c->SaveAs("prova.root");
 }
