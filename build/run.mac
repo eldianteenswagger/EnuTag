@@ -1,0 +1,6 @@
+/run/numberOfThreads 20
+/run/initialize
+/ENUTAG/testMode false
+/ENUTAG/outName ../ROOT/runOut5000.root
+#/run/printProgress 100
+/run/beamOn 5000
