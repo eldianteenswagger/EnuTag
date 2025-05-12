@@ -1,10 +1,10 @@
 void hist_salad() {
-    std::string inputName = "runOut5000.root";
-    std::string detectorName = "DSVD_1";
-    //std::cout << "Filename: ";
-    //std::cin >> inputName;
-    //std::cout << "Detector: ";
-    //std::cin >> detectorName;
+    std::string inputName;
+    std::string detectorName;
+    std::cout << "Filename: ";
+    std::cin >> inputName;
+    std::cout << "Detector: ";
+    std::cin >> detectorName;
 
     TFile *file = TFile::Open(inputName.data());
     if (!file || file->IsZombie()) {
