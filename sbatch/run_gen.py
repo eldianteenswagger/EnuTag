@@ -23,29 +23,21 @@ for i in range(n_jobs):
 
     shfile = open(sh_dir+"/test"+str(i)+".sh","w")
     print("#!/bin/bash", file=shfile)
-
-
-
-    #!/bin/bash                                                                                                                                                                             
-#SBATCH --ntasks=1                                                                                                                                                                      
-#SBATCH --account=gdrnu                                                                                                                                                                 
-#SBATCH --partition=htc                                                                                                                                                                 
-#SBATCH --licenses=sps                                                                                                                                                                  
-#SBATCH --time=2:00:00                                                                                                                                                                  
-#SBATCH --job-name=ENUTAGt                                                                                                                                                              
-#SBATCH --output=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.out                                                                                                                         
-#SBATCH --error=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.err                                                                                                                          
-#SBATCH --mem=12G                                                                                                                                                                       
-
-
-module unload Analysis/root
-module unload Modelisation/geant4
-module add Analysis/root/6.26.14
-module load Modelisation/geant4/11.3.0
-
-pwd
-
-cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/main .
-cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/run.mac .
-
-main run.mac
+    print("#SBATCH --ntasks=1", file=shfile)
+    print("#SBATCH --account=gdrnu", file=shfile)
+    print("#SBATCH --partition=htc", file=shfile)
+    print("#SBATCH --licenses=sps", file=shfile)
+    print("#SBATCH --time=1:00:00", file=shfile)
+    print("#SBATCH --job-name=ENUTAGt"+str(i), file=shfile)
+    print("#SBATCH --output=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.out", file=shfile)
+    print("#SBATCH --error=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.err ", file=shfile)
+    print("", file=shfile)
+    print("module unload Analysis/root", file=shfile)
+    print("module unload Modelisation/geant4", file=shfile)
+    print("module add Analysis/root/6.26.14", file=shfile)
+    print("module load Modelisation/geant4/11.3.0", file=shfile)
+    print("pwd", file=shfile)
+    print("cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/main .", file=shfile)
+    print("cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/run"+str(i)+".mac .", file=shfile)
+    print("main run"+str(i)+".mac", file=shfile)
+    shfile.close()
