@@ -17,7 +17,11 @@ ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name) : G4VSensitive
     fID = 0;
     idx = 0;
     volumeName = "";
+    fnuX = 0.;
+    fnuY = 0.;
+    fnuZ = 0.;
     neutrinoTrack = false;
+    virtualDet = false;
 }
 
 ENUTAG_SensitiveDetector::~ENUTAG_SensitiveDetector(){}
@@ -35,12 +39,16 @@ void ENUTAG_SensitiveDetector::Initialize(G4HCofThisEvent *){
     fID = 0;
     idx = 0;
     volumeName = "";
+    fnuX = 0.;
+    fnuY = 0.;
+    fnuZ = 0.;
     neutrinoTrack = false;
+    virtualDet = false;
 }
 
 void ENUTAG_SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
     G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-    G4bool virtualDet = false;
+    
     //G4cout << "Total energy: " << fTotalEnergyDeposited << G4endl;
     //index setting for ROOT file output
     if (volumeName=="physUSVD"){idx = 0;virtualDet=true;}
@@ -101,7 +109,7 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     G4Track *track = step -> GetTrack();
     G4StepPoint *preStepPoint = step -> GetPreStepPoint();
     G4StepPoint *postStepPoint = step -> GetPostStepPoint();
-    const G4VTouchable *touchable = step->GetPreStepPoint()->GetTouchable();
+    const G4VTouchable *touchable = step -> GetPreStepPoint() -> GetTouchable();
         
     //position
     G4ThreeVector posParticle = preStepPoint->GetPosition();

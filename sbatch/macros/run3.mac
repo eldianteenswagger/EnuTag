@@ -1,0 +1,6 @@
+/run/numberOfThreads 10
+/run/initialize
+/ENUTAG/testMode false
+/ENUTAG/outName ../ROOT/runOut3.root
+/run/initialize
+/run/beamOn 1000

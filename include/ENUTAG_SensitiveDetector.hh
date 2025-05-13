@@ -25,7 +25,7 @@ private:
     G4double fnuX;
     G4double fnuY;
     G4double fnuZ;
-
+    G4bool virtualDet;
     G4int idx;
     G4String volumeName;
     

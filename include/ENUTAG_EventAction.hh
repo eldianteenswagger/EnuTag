@@ -17,6 +17,8 @@ public:
 
     //void incrementCounter();
     //void printCounter();
+private:
+    G4int lastEvent;
 };
 
 #endif

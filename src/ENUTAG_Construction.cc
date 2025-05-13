@@ -111,7 +111,7 @@
     G4double EC6holeY = 110 * mm / 2;
 
     G4double dumpLength = 3.0 * m / 2;
-    G4double dumpBuffer = 2.5 * m / 2;
+    G4double dumpBuffer = 2.5 * m;
 
     G4double dumpRadiusIn = 0.2 * m;
     G4double dumpRadiusMid = 0.8 * m;
@@ -187,7 +187,7 @@
     G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
     G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
     G4double USVDX = targetX + targetBlockLength + SiThickness;
-    G4double FVDX = dumpX + ((dumpLength + (2.*FVDdistance) + SiThickness) * dx4);
+    G4double FVDX = driftDecayX + ((driftDecayLength + FVDdistance + SiThickness) * dx4);
 
     //y
     G4double targetY = 0.;
@@ -231,7 +231,7 @@
     G4double DSVD1Z = driftDecayZ - (driftDecayLength * dz4) + (SiThickness * dz4);
     G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
     G4double USVDZ = targetZ;
-    G4double FVDZ = dumpZ + ((dumpLength + (2.*FVDdistance) + SiThickness) * dz4);
+    G4double FVDZ = driftDecayZ + ((driftDecayLength + FVDdistance + SiThickness) * dz4);
 
     //target coordinates
     G4double ironX = targetX;
