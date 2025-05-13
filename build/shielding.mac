@@ -1,0 +1,22 @@
+/run/numberOfThreads 12
+/run/initialize
+/ENUTAG/testMode false
+/ENUTAG/outName ../ROOT/tungstenOut.root
+/vis/open OGL 600x600-0+0
+
+/control/execute graphics.mac
+
+/vis/geometry/set/visibility logicConcrete0 0 false
+/vis/geometry/set/visibility logicConcreteD1 0 false
+/vis/geometry/set/visibility logicConcrete1 0 false
+/vis/geometry/set/visibility logicConcreteD2 0 false
+/vis/geometry/set/visibility logicConcrete2 0 false
+/vis/geometry/set/visibility logicConcreteS0 0 false
+/vis/geometry/set/visibility logicConcreteS1 0 false
+/vis/geometry/set/visibility logicConcreteS2 0 false
+/vis/geometry/set/visibility logicConcreteSD1L 0 false
+/vis/geometry/set/visibility logicConcreteSD1R 0 false
+/vis/geometry/set/visibility logicConcreteSD2L 0 false
+/vis/geometry/set/visibility logicConcreteSD2R 0 false
+/vis/geometry/set/visibility logicConcreteTARGET 0 false
+/vis/geometry/set/visibility logicConcreteCLOSE 0 false
