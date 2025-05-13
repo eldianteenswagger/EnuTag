@@ -1,6 +1,6 @@
 /run/numberOfThreads 10
 /run/initialize
 /ENUTAG/testMode false
-/ENUTAG/outName ../ROOT/runOut1.root
+/ENUTAG/outName /sps/gdrnu/lzappacosta01/jobsOutrunOut1.root
 /run/initialize
-/run/beamOn 1000
+/run/beamOn 5000

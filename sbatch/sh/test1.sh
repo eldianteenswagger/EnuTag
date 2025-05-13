@@ -3,16 +3,16 @@
 #SBATCH --account=gdrnu
 #SBATCH --partition=htc
 #SBATCH --licenses=sps
-#SBATCH --time=1:00:00
+#SBATCH --time=4:00:00
 #SBATCH --job-name=ENUTAGt1
-#SBATCH --output=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.out
-#SBATCH --error=/sps/gdrnu/fpupilli/tesi_Luigi/LOG/logtest.err 
-
+#SBATCH --output=/sps/gdrnu/lzappacosta01/LOG/logtest1.out
+#SBATCH --error=/sps/gdrnu/lzappacosta01/LOG/logtest1.err
+ 
 module unload Analysis/root
 module unload Modelisation/geant4
 module add Analysis/root/6.26.14
 module load Modelisation/geant4/11.3.0
 pwd
-cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/main .
-cp /sps/gdrnu/fpupilli/tesi_Luigi/EnuTag/build/run1.mac .
+cp /sps/gdrnu/lzappacosta01/EnuTag/build/main .
+cp /sps/gdrnu/lzappacosta01/EnuTag/sbatch/macros/run1.mac .
 main run1.mac
