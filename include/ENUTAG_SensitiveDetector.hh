@@ -34,6 +34,8 @@ private:
 
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
 
+    std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
+
 };
 
 #endif

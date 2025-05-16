@@ -63,11 +63,12 @@ void hist() {
             std::string histName = "h_" + pdgStr;
             histMap[pdgStr] = new TH1D(histName.c_str(), (pdgStr + " Energy").c_str(), 100, 0, 10000); // Adjust bins/range
             histMap[pdgStr]->SetLineWidth(2);
+            histMap[pdgStr]->GetYaxis()->SetRangeUser(1e-8, 10000000.);
             histMap[pdgStr]->SetLineColor(colorMap[pdgStr]);
         }
 
         // Fill the appropriate histogram
-        histMap[pdgStr]->Fill(E,E);
+        histMap[pdgStr]->Fill(E);
     }
 
     // Create canvas and legend

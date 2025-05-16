@@ -1,8 +1,6 @@
 #include "ENUTAG_SensitiveDetector.hh"
 #include "ENUTAG_AnalysisManager.hh"
 
-std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
-
 ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name) : G4VSensitiveDetector(name) {
     G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
     fParticleEnergy = 0.;
@@ -61,22 +59,10 @@ void ENUTAG_SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
     else if (volumeName=="physDSVD2"){idx = 7;virtualDet=true;}
     else if (volumeName=="physFVD"){idx = 8;virtualDet=true;}
 
-    //G4cout << volumeName << " " << idx << G4endl;
-
-    //ROOT file filling
-    //refresh: when in USDV (1st detector) start new ntuple row
-    /*int lastNtuple = 6;
-    if(refresh){
-        for(int i=0;i<=lastNtuple;i++){
-            analysisManager->AddNtupleRow(i);
-        }
-        refresh=false;
-    }*/
     //energy
     analysisManager->FillNtupleDColumn(idx,0,fParticleEnergy/MeV);
-    
     //position
-    analysisManager->FillNtupleDColumn(idx,1,fX/mm); //x is z
+    analysisManager->FillNtupleDColumn(idx,1,fX/mm);
     analysisManager->FillNtupleDColumn(idx,2,fY/mm);
     //momentum
     analysisManager->FillNtupleDColumn(idx,3,fPX/MeV);
@@ -91,13 +77,13 @@ void ENUTAG_SensitiveDetector::EndOfEvent(G4HCofThisEvent *){
     //deposited energy (only for real detectors)
     if(!virtualDet){analysisManager->FillNtupleDColumn(idx,9,fTotalEnergyDeposited/MeV);}
     //else{analysisManager->FillNtupleDColumn(idx,9,0.);}
-    //if(fTotalEnergyDeposited==0.){G4cout << fPDG << G4endl;}}
     //close row
     analysisManager->AddNtupleRow(idx);
+    //neutrinos
     if(neutrinoTrack){
-        analysisManager->FillNtupleDColumn(9,0,fnuX);
-        analysisManager->FillNtupleDColumn(9,1,fnuY);
-        analysisManager->FillNtupleDColumn(9,2,fnuZ);
+        analysisManager->FillNtupleDColumn(9,0,fnuX/m);
+        analysisManager->FillNtupleDColumn(9,1,fnuY/m);
+        analysisManager->FillNtupleDColumn(9,2,fnuZ/m);
         analysisManager->AddNtupleRow(9);
         neutrinoTrack = false;
     }
@@ -124,7 +110,7 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     fParticleEnergy = track -> GetTotalEnergy();
 
     //momentum
-    G4ThreeVector particleMomentum = preStepPoint->GetMomentum();
+    G4ThreeVector particleMomentum = preStepPoint -> GetMomentum();
     fPX = particleMomentum.getX();
     fPY = particleMomentum.getY();
     fPZ = particleMomentum.getZ();
@@ -135,13 +121,14 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     //ID
     fID = track -> GetTrackID();
     //get volume name
-    volumeName = touchable->GetVolume()->GetName();
+    volumeName = touchable -> GetVolume() -> GetName();
+    if(volumeName=="physFVD"){G4cout << "OK" << G4endl;}
     //stuff for neutrinos
     if (volumeName=="physFVD") {
         if ( std::find(partSelect.begin(), partSelect.end(), fPDG)!= partSelect.end() ){
-            fnuX = track->GetVertexPosition().x()/m;
-            fnuY = track->GetVertexPosition().y()/m;
-            fnuZ = track->GetVertexPosition().z()/m;
+            fnuX = track->GetVertexPosition().x();
+            fnuY = track->GetVertexPosition().y();
+            fnuZ = track->GetVertexPosition().z();
             neutrinoTrack = true;
         }
     }

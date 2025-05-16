@@ -30,6 +30,8 @@ private:
     G4double py;
     G4double pz;
 
+    G4double ranAngle;
+
     G4String particleType;
 };
 

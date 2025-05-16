@@ -1,5 +1,8 @@
 #include "ENUTAG_PrimaryGenerator.hh"
 #include "ENUTAG_PrimaryGeneratorMessenger.hh"
+#include "Randomize.hh"
+
+G4double p = 8.5*GeV;
 
 ENUTAG_PrimaryGenerator::ENUTAG_PrimaryGenerator(){
 
@@ -26,8 +29,10 @@ void ENUTAG_PrimaryGenerator::TestMode(G4bool test){
 
         G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
         fParticleGun -> SetParticlePosition(G4ThreeVector(0.65*m,0.,0.));
-        fParticleGun -> SetParticleMomentum(G4ThreeVector(8.5*GeV,0.,0.));
+        ranAngle = 2.*(G4UniformRand()-0.5)*deg;
+        fParticleGun -> SetParticleMomentum(G4ThreeVector(cos(ranAngle)*p,0.,sin(ranAngle)*p));
         fParticleGun -> SetParticleDefinition(particleTable -> FindParticle("pi+"));
+
     }
     else{
 
