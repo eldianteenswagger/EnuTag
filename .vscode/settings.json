@@ -59,6 +59,10 @@
         "iomanip": "cpp",
         "sstream": "cpp",
         "hist_salad.C": "cpp",
-        "BL.C": "cpp"
+        "BL.C": "cpp",
+        "h1chain.C": "cpp",
+        "merge.C": "cpp",
+        "neutrino_map.C": "cpp",
+        "hists_all.C": "cpp"
     }
 }
