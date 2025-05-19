@@ -94,8 +94,6 @@ void hist_salad() {
             rapidTimeHist->Fill(t,pseudoRapidity);
             energyTimeHist->Fill(E,t);
         }
-
-        // Fill the appropriate histogram
     }
 
     outFile->WriteObject(momHist,"momHist");
@@ -109,7 +107,5 @@ void hist_salad() {
     outFile->WriteObject(rapidAngleHist,"rapidAngleHist");
     outFile->WriteObject(rapidTimeHist,"rapidTimeHist");
     outFile->WriteObject(energyTimeHist,"energyTimeHist");
-
-    std::cout<<"Out file created as "<<outFileName<<std::endl;
 
 }
