@@ -38,6 +38,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -51,6 +54,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -64,6 +70,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -77,6 +86,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -90,6 +102,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -103,6 +118,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -116,6 +134,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -129,6 +150,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");
@@ -142,6 +166,9 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
     analysisManager->CreateNtupleDColumn("px");
     analysisManager->CreateNtupleDColumn("py");
     analysisManager->CreateNtupleDColumn("pz");

@@ -13,7 +13,7 @@ void hists_all(){
     TChain* tNeutrinos = new TChain("tNeutrinos");
 
     //unite all files
-    for (int i=1;i<3;i++){
+    for (int i=0;i<1;i++){
         std::string fileName = "runOut"+to_string(i)+".root";
         tUSVD->AddFile((fileName+"/USVD").c_str());
         tDet1->AddFile((fileName+"/Det_1").c_str());
@@ -72,7 +72,7 @@ void hists_all(){
 
     //outfile
 
-    std::string PDFout = "outMacro.pdf";
+    std::string PDFout = "outMacro_1000.pdf";
     TCanvas* c = new TCanvas("Canvas");
     c->Print((PDFout+"[").c_str());
     c->Clear();
@@ -137,6 +137,10 @@ void hists_all(){
             TH1D* hE = new TH1D(("hE_"+treeName[i]).c_str(), ("hE_"+treeName[i]).c_str(), 100, 0, 10000);
             TH1D* hx = new TH1D(("hx_"+treeName[i]).c_str(), ("hx_"+treeName[i]).c_str(), 100, -500., 500.);
             TH1D* hy = new TH1D(("hy_"+treeName[i]).c_str(), ("hy_"+treeName[i]).c_str(), 100, -500., 500.);
+            if(treeName[i]=="FVD"){
+                hx = new TH1D(("hx_"+treeName[i]).c_str(), ("hx_"+treeName[i]).c_str(), 100, -20000., 20000.);
+                hy = new TH1D(("hy_"+treeName[i]).c_str(), ("hy_"+treeName[i]).c_str(), 100, -20000., 20000.);
+            }
             TH1D* hpx = new TH1D(("hpx_"+treeName[i]).c_str(), ("hpx_"+treeName[i]).c_str(), 100, 0, 10000);
             TH1D* hpy = new TH1D(("hpy_"+treeName[i]).c_str(), ("hpy_"+treeName[i]).c_str(), 100, 0, 10000);
             TH1D* hpz = new TH1D(("hpz_"+treeName[i]).c_str(), ("hpz_"+treeName[i]).c_str(), 100, 0, 10000);
@@ -150,6 +154,7 @@ void hists_all(){
             TH2D* momangleHistX = new TH2D(("momangleHistX_"+treeName[i]).c_str(), ("momangleHistX_"+treeName[i]).c_str(), 100, 0., 10000., 180, -90., 90.);
             TH2D* momangleHistY = new TH2D(("momangleHistY_"+treeName[i]).c_str(), ("momangleHistY_"+treeName[i]).c_str(), 100, 0., 10000., 180, -90., 90.);
             TH2D* posHist = new TH2D(("posHist_"+treeName[i]).c_str(), ("posHist_"+treeName[i]).c_str(), 100, -500., 500., 100, -500., 500.);
+            if(treeName[i]=="FVD"){posHist = new TH2D(("posHist_"+treeName[i]).c_str(), ("posHist_"+treeName[i]).c_str(), 100, -20000., 20000., 100, -20000., 20000.);}
 
             TH1D* pseudoRapHist = new TH1D(("pseudoRapHist_"+treeName[i]).c_str(), ("pseudoRapHist_"+treeName[i]).c_str(), 100, 0, 10);
             TH2D* rapidAngleHist = new TH2D(("rapidAngleHist_"+treeName[i]).c_str(), ("rapidAngleHist_"+treeName[i]).c_str(), 180, -90., 90., 100, -10., 10.);
@@ -303,6 +308,9 @@ void hists_all(){
                 energyTimeHist->Draw();
                 c->Print(PDFout.c_str());
                 c->Clear();
+                posHist->Draw();
+                c->Print(PDFout.c_str());
+                c->Clear();
             }
             else {
                 hdE->Draw();
@@ -336,7 +344,6 @@ void hists_all(){
             clog->Print(PDFout.c_str());
             clog->Clear();
             c->Update();
-
             
         }
     }

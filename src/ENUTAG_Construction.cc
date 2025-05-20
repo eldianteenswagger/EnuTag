@@ -18,7 +18,7 @@
 
     G4double thicknessTarget = 1.3 * m / 2;
     G4double sideTarget = 0.1 * m / 2;
-    G4double targetRadius = 6 * mm / 2;
+    G4double targetRadius = 3 * mm;
     G4double targetBlockLength = 3.0 * m / 2;
     G4double targetBlockSize = 0.8 * m / 2;
     G4double targetBaseHeight = 0.6 * m / 2;
@@ -186,7 +186,7 @@
     G4double silicon5X = driftBUFFX - ((driftBUFFLength - SiThickness) * dx4);
     G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
     G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
-    G4double USVDX = targetX + targetBlockLength + SiThickness;
+    G4double USVDX = targetX + thicknessTarget + SiThickness + 2;
     G4double FVDX = DSVD2X + ((FVDdistance + 2*SiThickness) * dx4);
 
     //y
@@ -201,7 +201,7 @@
     G4double dipole1Z = targetZ + dipole1Radius;
     G4double driftDipole1Z = dipole1Z - (dipole1Radius *  dx1) + (driftDipole1Length * dz1);
     G4double dipole2Z = driftDipole1Z + (dipole2Radius * dx1) + (driftDipole1Length * dz1);
-    G4double drift5Z = dipole2Z - (dipole2Radius *  dx2) + (drift5Length * dz2);
+    G4double drift5Z = dipole2Z - (dipole2Radius * dx2) + (drift5Length * dz2);
     G4double quad5Z = drift5Z + (drift5Length * dz2) + (quadrupole5Length * dz2);
     G4double EC1Z = quad5Z + (quadrupole5Length * dz2) + (EC1Thickness * dz2);
     G4double drift6Z = EC1Z + (EC1Thickness * dz2) + (drift6Length * dz2);
@@ -349,12 +349,8 @@
     G4double dipoleField = 1.789;
 
     //custom materials
-    G4NistManager *nist = G4NistManager::Instance();
-    G4Material* my_vacuum = new G4Material("Galactic", 1., 1.01*g/mole,1.e-25*g/cm3,kStateGas, 2.73*kelvin, 3.e-18*pascal);
-    G4Material* my_graphite = new G4Material("myGraphite",6.,12.01*g/mole,1.85*g/cm3);
-    G4Material* target_helium = nist->ConstructNewGasMaterial("targetHelium","G4_He",300.*kelvin,0.5*bar);
-    G4Material* aluminium = new G4Material("Al5083",2.66*g/cm3,3);
-    G4Material* molasse = new G4Material("molasse",2.784*g/cm3,6);
+    //G4NistManager *nist = G4NistManager::Instance();
+
 
 ENUTAG_Construction::ENUTAG_Construction(){}
 ENUTAG_Construction::~ENUTAG_Construction(){}
@@ -382,30 +378,12 @@ void ENUTAG_Construction::DefineRotations(){
     return;
 }
 
-G4Material* ENUTAG_Construction::Material(std::string materialName){
-    G4NistManager *nist = G4NistManager::Instance();
-    //map
-    std::map <std::string, G4Material*> materials {
-        //predefined
-        {"air",nist->FindOrBuildMaterial("G4_AIR")},
-        {"graphite",nist->FindOrBuildMaterial("G4_GRAPHITE")},
-        {"iron",nist->FindOrBuildMaterial("G4_Fe")},
-        {"steel",nist->FindOrBuildMaterial("G4_STAINLESS-STEEL")},
-        {"concrete",nist->FindOrBuildMaterial("G4_CONCRETE")},
-        {"copper",nist->FindOrBuildMaterial("G4_Cu")},
-        {"tungsten",nist->FindOrBuildMaterial("G4_W")},
-        {"silicon",nist->FindOrBuildMaterial("G4_Si")},
-        {"carbon",nist->FindOrBuildMaterial("G4_C")},
-        {"carbon",nist->FindOrBuildMaterial("G4_C")},
-        {"beryllium",nist->FindOrBuildMaterial("G4_Be")},
-        //defined
-        {"vacuum", my_vacuum},
-        {"stone", molasse},
-        {"ENUTAG_graphite", my_graphite},
-        {"aluminium", aluminium},
-    };
-    return materials[materialName];
-}
+G4Material* my_vacuum;
+G4Material* my_graphite;
+G4Material* target_helium;
+G4Material* aluminium;
+G4Material* molasse;
+
 
 void ENUTAG_Construction::DefineMaterials(){
 
@@ -419,6 +397,13 @@ void ENUTAG_Construction::DefineMaterials(){
     G4Element* elS  = new G4Element("Sulfur","S",16,32.065*g/mole);
     G4Element* elK  = new G4Element("Potassium","K" ,19,39.09*g/mole);
     G4Element* elCa  = new G4Element("Calcium","Ca",20,40.078*g/mole);
+
+    //custom materials
+    my_vacuum = new G4Material("Galactic", 1., 1.01*g/mole,1.e-25*g/cm3,kStateGas, 2.73*kelvin, 3.e-18*pascal);
+    my_graphite = new G4Material("myGraphite",6.,12.01*g/mole,1.85*g/cm3);
+    target_helium = nist->ConstructNewGasMaterial("targetHelium","G4_He",300.*kelvin,0.5*bar);
+    aluminium = new G4Material("Al5083",2.66*g/cm3,3);
+    molasse = new G4Material("molasse",2.784*g/cm3,6);
 
     //aluminum definition
     aluminium->AddMaterial(nist->FindOrBuildMaterial("G4_Al"),0.948);
@@ -470,8 +455,43 @@ void ENUTAG_Construction::DefineMaterials(){
     return;
 }
 
+G4Material* ENUTAG_Construction::Material(std::string materialName){
+    G4NistManager *nist = G4NistManager::Instance();
+    //map
+    std::map <std::string, G4Material*> materials {
+        //predefined
+        {"air",nist->FindOrBuildMaterial("G4_AIR")},
+        //{"graphite",nist->FindOrBuildMaterial("G4_GRAPHITE")},
+        {"iron",nist->FindOrBuildMaterial("G4_Fe")},
+        {"steel",nist->FindOrBuildMaterial("G4_STAINLESS-STEEL")},
+        {"concrete",nist->FindOrBuildMaterial("G4_CONCRETE")},
+        {"copper",nist->FindOrBuildMaterial("G4_Cu")},
+        {"tungsten",nist->FindOrBuildMaterial("G4_W")},
+        {"silicon",nist->FindOrBuildMaterial("G4_Si")},
+        {"carbon",nist->FindOrBuildMaterial("G4_C")},
+        {"carbon",nist->FindOrBuildMaterial("G4_C")},
+        {"beryllium",nist->FindOrBuildMaterial("G4_Be")},
+        //defined
+        {"vacuum", my_vacuum},
+        {"stone", molasse},
+        {"graphite", my_graphite},
+        {"aluminium", aluminium},
+    };
+    return materials[materialName];
+}
+
 G4VPhysicalVolume *ENUTAG_Construction::Construct(){
     
+    //define rotations before placing
+
+    G4cout << "Defining rotations..." << G4endl;
+
+    DefineRotations();
+
+    G4cout << "Defining materials..." << G4endl;
+
+    DefineMaterials();
+
     //WORLD
 
     G4cout << "Generating world..." << G4endl;
@@ -493,16 +513,6 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
         0,
         false,
         checkOverlaps);
-
-    //define rotations before placing
-
-    G4cout << "Defining rotations..." << G4endl;
-
-    DefineRotations();
-
-    G4cout << "Defining materials..." << G4endl;
-
-    DefineMaterials();
     
     //PLACING...
 
@@ -1025,7 +1035,7 @@ void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
     //G4Tubs *solidTargetNI = new G4Tubs("solidTargetNI",0.,targetAlDiameter,NIThickness,0.*deg,360.*deg);
 
     //LOGIC
-    G4LogicalVolume *logicTarget = new G4LogicalVolume(solidTarget, Material("ENUTAG_graphite"), "logicTarget");
+    G4LogicalVolume *logicTarget = new G4LogicalVolume(solidTarget, Material("graphite"), "logicTarget");
     
     //PHYS
     G4VPhysicalVolume *physTarget = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,targetY,targetZ),logicTarget,"physTarget",lWorld,false,checkOverlaps);
