@@ -60,6 +60,7 @@ private:
 
     G4LogicalVolume *logicUSVD1;
     G4LogicalVolume *logicUSVD2;
+    G4LogicalVolume *logicMiddle1;
     G4LogicalVolume *logicDetector1;
     G4LogicalVolume *logicDetector2;
     G4LogicalVolume *logicDetector3;

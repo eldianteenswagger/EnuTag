@@ -23,6 +23,7 @@
 
 /vis/geometry/set/colour logicUSVD1 0 1 1 0
 /vis/geometry/set/colour logicUSVD2 0 1 1 0
+/vis/geometry/set/colour logicMiddle1 0 1 1 0
 /vis/geometry/set/colour logicDetector1 0 1 0.7 0
 /vis/geometry/set/colour logicDetector2 0 1 0.7 0
 /vis/geometry/set/colour logicDetector3 0 1 0.7 0

@@ -1,0 +1,6 @@
+/run/numberOfThreads 18
+/run/initialize
+/ENUTAG/testMode true
+/ENUTAG/outName ../ROOT/runOut_testPions.root
+#/run/printProgress 100
+/run/beamOn 2000

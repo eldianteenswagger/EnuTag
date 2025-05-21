@@ -16,7 +16,7 @@ public:
 private:
     ENUTAG_EventAction* fEvtAction;
     G4double Emin;
-    G4double fEnergyDeposited;
+    /*G4double fEnergyDeposited;
     G4double fParticleEnergy;
     G4double fX;
     G4double fY;
@@ -35,9 +35,9 @@ private:
     G4double fnuZ;
     G4bool virtualDet;
     G4int idx;
-    G4String volumeName;
+    G4String volumeName;*/
 
-    std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
+    /*std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};*/
     
 };
 

@@ -27,8 +27,8 @@
     G4double targetRoofWidth = 1.9 * m / 2;
     G4double targetTopperWidth = 1.6 * m / 2;
 
-    G4double driftRadius = 0.1 * m / 2;
-    G4double driftThick = 0.01 * m / 2;
+    G4double driftRadius = 0.1 * m;
+    G4double driftThick = 0.01 * m;
     G4double drift1Length = 0.7 * m / 2;
     G4double drift2Length = 1.006962 * m / 2;
     G4double drift3Length = 0.826408 * m / 2;
@@ -40,75 +40,73 @@
     G4double drift9Length = 0.516867 * m / 2;
 
     G4double driftBUFFLength = 0.25 * m / 2;
-    G4double driftBUFFRadius = 0.12 * m / 2;
+    G4double driftBUFFRadius = 0.12 * m;
 
     G4double driftDecayLength = 40.0 * m / 2;
-    G4double driftDecayRadius = 1.0 * m / 2;
+    G4double driftDecayRadius = 1.0 * m;
 
-    G4double quadrupoleThickness = 0.22 * m / 2;
+    G4double quadrupoleThickness = 0.22 * m;
     G4double quadrupole1Length = 1.027721 * m / 2;
-    G4double quadrupole1Radius = 0.05173 * m / 2;
+    G4double quadrupole1Radius = 0.05173 * m;
     G4double quadrupole2Length = 2.063079 * m / 2;  
-    G4double quadrupole2Radius = 0.10499 * m / 2;
+    G4double quadrupole2Radius = 0.10499 * m;
     G4double quadrupole3Length = 1.976843 * m / 2;  
-    G4double quadrupole3Radius = 0.0953 * m / 2;
+    G4double quadrupole3Radius = 0.0953 * m;
     G4double quadrupole5Length = 1.2 * m / 2;  
-    G4double quadrupole5Radius = 0.05 * m / 2;
+    G4double quadrupole5Radius = 0.05 * m;
     G4double quadrupole6Length = 1.080413 * m / 2;  
-    G4double quadrupole6Radius = 0.0912 * m / 2;
+    G4double quadrupole6Radius = 0.0912 * m;
     G4double quadrupole8Length = 1.240500 * m / 2;  
-    G4double quadrupole8Radius = 0.10049 * m / 2;
+    G4double quadrupole8Radius = 0.10049 * m;
     G4double quadrupole9Length = 0.800253 * m / 2;  
-    G4double quadrupole9Radius = 0.10476 * m / 2;
+    G4double quadrupole9Radius = 0.10476 * m;
 
     G4double dipoleThickness = 0.1 * m / 2;
     G4double dipoleWidth = 1. * m / 2;
+    G4double dipoleSize = 0.125 * m;
+    G4double dipoleHeight = 0.04 * m;
 
-    G4double driftDipole1Radius = 0.012 * m / 2;
+    G4double driftDipole1Radius = 0.012 * m;
     G4double driftDipole1Length = 0.6 * m / 2;
-    G4double driftDipole2Radius = 0.012 * m / 2;
+    G4double driftDipole2Radius = 0.012 * m;
     G4double driftDipole2Length = 0.61 * m / 2;
 
-    G4double dipole1Radius = 15.76 * m; //NOT SURE ABOUT THIS EITHER
-    G4double dipole1InnerRadius = dipole1Radius - (0.2*m);
-    G4double dipole1OuterRadius = dipole1Radius + (0.2*m);
+    G4double dipole1Radius = 15.76 * m;
+    G4double dipole1InnerRadius = dipole1Radius - dipoleSize;
+    G4double dipole1OuterRadius = dipole1Radius + dipoleSize;
     G4double dipole1Deg = 9.09/2 * deg;
-    G4double dipole1Height = quadrupoleThickness;
 
     G4double dipole2Radius = 15.76 * m;
-    G4double dipole2InnerRadius = dipole2Radius - (0.2*m);
-    G4double dipole2OuterRadius = dipole2Radius + (0.2*m);
+    G4double dipole2InnerRadius = dipole2Radius - dipoleSize;
+    G4double dipole2OuterRadius = dipole2Radius + dipoleSize;
     G4double dipole2Deg = 9.09/2 * deg;
-    G4double dipole2Height = quadrupoleThickness;
 
     G4double dipole3Radius = 15.76 * m;
-    G4double dipole3InnerRadius = dipole3Radius - (0.2*m);
-    G4double dipole3OuterRadius = dipole3Radius + (0.2*m);
+    G4double dipole3InnerRadius = dipole3Radius - dipoleSize;
+    G4double dipole3OuterRadius = dipole3Radius + dipoleSize;
     G4double dipole3Deg = 9.09/2 * deg;
-    G4double dipole3Height = quadrupoleThickness;
 
     G4double dipole4Radius = 15.76 * m;
-    G4double dipole4InnerRadius = dipole4Radius - (0.2*m);
-    G4double dipole4OuterRadius = dipole4Radius + (0.2*m);
+    G4double dipole4InnerRadius = dipole4Radius - dipoleSize;
+    G4double dipole4OuterRadius = dipole4Radius + dipoleSize;
     G4double dipole4Deg = 9.09/2 * deg;
-    G4double dipole4Height = quadrupoleThickness;
 
     G4double EC1Thickness = 0.45 * m / 2;
     G4double EC1Side = (quadrupole5Radius + quadrupoleThickness);
-    G4double EC1holeX = 90 * mm / 2;
-    G4double EC1holeY = 100 * mm / 2;
+    G4double EC1holeX = 90 * mm;
+    G4double EC1holeY = 100 * mm;
     G4double EC2Thickness = 0.25 * m / 2;
     G4double EC2Side = (quadrupole5Radius + quadrupoleThickness);
-    G4double EC2holeX = 100 * mm / 2;
-    G4double EC2holeY = 100 * mm / 2;
+    G4double EC2holeX = 100 * mm;
+    G4double EC2holeY = 100 * mm;
     G4double EC3Thickness = 0.25 * m / 2;
     G4double EC3Side = (quadrupole6Radius + quadrupoleThickness);
-    G4double EC3holeX = 100 * mm / 2;
-    G4double EC3holeY = 100 * mm / 2;
+    G4double EC3holeX = 100 * mm;
+    G4double EC3holeY = 100 * mm;
     G4double EC6Thickness = 2.2 * m / 2;
     G4double EC6Side = (quadrupole9Radius + quadrupoleThickness);
-    G4double EC6holeX = 130 * mm / 2;
-    G4double EC6holeY = 110 * mm / 2;
+    G4double EC6holeX = 130 * mm;
+    G4double EC6holeY = 110 * mm;
 
     G4double dumpLength = 3.0 * m / 2;
     G4double dumpBuffer = 2.5 * m;
@@ -179,23 +177,21 @@
     G4double driftDecayX = EC6X + (EC6Thickness * dx4) + (driftDecayLength * dx4);
     G4double dumpX = driftDecayX + (driftDecayLength * dx4) + ((dumpLength + dumpBuffer) * dx4);
 
+    G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
+    G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
+    G4double Middle1X = drift4X;
     G4double silicon1X = driftDipole2X + (Si1pos * dx3) - (driftDipole2Length * dx3);
     G4double silicon2X = driftDipole2X + ((driftDipole2Length - SiThickness)* dx3);
     G4double silicon3X = drift7X - ((drift7Length - SiThickness) * dx4);
     G4double silicon4X = silicon3X + (Si4pos * dx4);
     G4double silicon5X = driftBUFFX - ((driftBUFFLength - SiThickness) * dx4);
-    G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
-    G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
     G4double USVD1X = targetX + thicknessTarget + SiThickness + 2;
     G4double USVD2X = targetX + targetBlockLength + SiThickness;
     G4double FVDX = DSVD2X + ((FVDdistance + 2*SiThickness) * dx4);
 
     //y
     G4double targetY = 0.;
-    G4double dipole1Y = dipole1Height;
-    G4double dipole2Y = dipole2Height;
-    G4double dipole3Y = dipole3Height;
-    G4double dipole4Y = dipole4Height;
+    G4double dipoleY = dipoleThickness + dipoleHeight;
 
     //z
     G4double targetZ = 0.;
@@ -224,13 +220,14 @@
     G4double driftDecayZ = EC6Z + (EC6Thickness * dz4) + (driftDecayLength * dz4);
     G4double dumpZ = driftDecayZ + (driftDecayLength * dz4) + ((dumpLength + dumpBuffer) * dz4);
 
+    G4double DSVD1Z = driftDecayZ - (driftDecayLength * dz4) + (SiThickness * dz4);
+    G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
+    G4double Middle1Z = targetZ;
     G4double silicon1Z = driftDipole2Z + (Si1pos * dz3) - (driftDipole2Length * dz3);
     G4double silicon2Z = driftDipole2Z + ((driftDipole2Length - SiThickness)* dz3);
     G4double silicon3Z = drift7Z - ((drift7Length - SiThickness) * dz4);
     G4double silicon4Z = silicon3Z + (Si4pos * dz4);
     G4double silicon5Z = driftBUFFZ - ((driftBUFFLength - SiThickness) * dz4);
-    G4double DSVD1Z = driftDecayZ - (driftDecayLength * dz4) + (SiThickness * dz4);
-    G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
     G4double USVD1Z = targetZ;
     G4double USVD2Z = targetZ;
     G4double FVDZ = DSVD2Z + ((FVDdistance + 2*SiThickness) * dz4);
@@ -559,6 +556,7 @@ void ENUTAG_Construction::ConstructSDandField(){
     //sensitive detectors
     ENUTAG_SensitiveDetector *sensUSVD1 = new ENUTAG_SensitiveDetector("sensUSVD1");
     ENUTAG_SensitiveDetector *sensUSVD2 = new ENUTAG_SensitiveDetector("sensUSVD2");
+    ENUTAG_SensitiveDetector *sensMiddle1 = new ENUTAG_SensitiveDetector("sensMiddle1");
     ENUTAG_SensitiveDetector *sensDet1 = new ENUTAG_SensitiveDetector("sensDet1");
     ENUTAG_SensitiveDetector *sensDet2 = new ENUTAG_SensitiveDetector("sensDet2");
     ENUTAG_SensitiveDetector *sensDet3 = new ENUTAG_SensitiveDetector("sensDet3");
@@ -567,18 +565,21 @@ void ENUTAG_Construction::ConstructSDandField(){
     ENUTAG_SensitiveDetector *sensDSVD1 = new ENUTAG_SensitiveDetector("sensDSVD1");
     ENUTAG_SensitiveDetector *sensDSVD2 = new ENUTAG_SensitiveDetector("sensDSVD2");
     ENUTAG_SensitiveDetector *sensFVD = new ENUTAG_SensitiveDetector("sensFVD");
+    logicDSVD1->SetSensitiveDetector(sensDSVD1);
+    logicDSVD2->SetSensitiveDetector(sensDSVD2);
+    logicMiddle1->SetSensitiveDetector(sensMiddle1);
+    logicDSVD2->SetSensitiveDetector(sensDSVD2);
     logicDetector1->SetSensitiveDetector(sensDet1);
     logicDetector2->SetSensitiveDetector(sensDet2);
     logicDetector3->SetSensitiveDetector(sensDet3);
     logicDetector4->SetSensitiveDetector(sensDet4);
     logicDetector5->SetSensitiveDetector(sensDet5);
-    logicDSVD1->SetSensitiveDetector(sensDSVD1);
-    logicDSVD2->SetSensitiveDetector(sensDSVD2);
     logicUSVD1->SetSensitiveDetector(sensUSVD1);
     logicUSVD2->SetSensitiveDetector(sensUSVD2);
     logicFVD->SetSensitiveDetector(sensFVD);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD2);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensMiddle1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet3);
@@ -665,9 +666,7 @@ void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
     G4double dipoleOuterRadius;
     G4double dipoleDeg;
     G4double dipoleX;
-    G4double dipoleY;
     G4double dipoleZ;
-    G4double dipoleHeight;
     G4LogicalVolume *logicDipoleField = nullptr;
 
     switch(dipoleNumber){
@@ -676,45 +675,35 @@ void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
             dipoleOuterRadius = dipole1OuterRadius;
             dipoleDeg = dipole1Deg;
             dipoleX = dipole1X;
-            dipoleY = dipole1Y;
             dipoleZ = dipole1Z;
-            dipoleHeight = dipole1Height;
             break;}
         case 2:{
             dipoleInnerRadius = dipole2InnerRadius;
             dipoleOuterRadius = dipole2OuterRadius;
             dipoleDeg = dipole2Deg;
             dipoleX = dipole2X;
-            dipoleY = dipole2Y;
             dipoleZ = dipole2Z;
-            dipoleHeight = dipole2Height;
             break;}
         case 3:{
             dipoleInnerRadius = dipole3InnerRadius;
             dipoleOuterRadius = dipole3OuterRadius;
             dipoleDeg = dipole3Deg;
             dipoleX = dipole3X;
-            dipoleY = dipole3Y;
             dipoleZ = dipole3Z;
-            dipoleHeight = dipole3Height;
             break;}
         case 4:{
             dipoleInnerRadius = dipole4InnerRadius;
             dipoleOuterRadius = dipole4OuterRadius;
             dipoleDeg = dipole4Deg;
             dipoleX = dipole4X;
-            dipoleY = dipole4Y;
             dipoleZ = dipole4Z;
-            dipoleHeight = dipole4Height;
             break;}
         default:{
             dipoleInnerRadius = 0.;
             dipoleOuterRadius = 0.;
             dipoleDeg = 0.;
             dipoleX = 0.;
-            dipoleY = 0.;
             dipoleZ = 0.;
-            dipoleHeight = 0.;
             logicDipoleField = nullptr;
             break;}
     }
@@ -729,7 +718,7 @@ void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
     G4LogicalVolume *logicDipoledown = new G4LogicalVolume(solidDipoledown, Material("copper"), "logicDipoledown"+id);
 
     //magnetic field
-    G4Tubs *solidDipoleField = new G4Tubs("solidDipoleField",dipoleInnerRadius,dipoleOuterRadius,dipoleHeight-dipoleThickness,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
+    G4Tubs *solidDipoleField = new G4Tubs("solidDipoleField",dipoleInnerRadius,dipoleOuterRadius,dipoleHeight,90.*deg - (dipoleNumber * dipoleDeg),dipoleDeg);
     logicDipoleField = new G4LogicalVolume(solidDipoleField, Material("vacuum"), "logicDipoleField"+id);
 
     //placement
@@ -1061,18 +1050,22 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     G4Box *solidFVD = new G4Box("solidFVD",SiThickness,FVDsize,FVDsize);
 
     //LOGIC
+    logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
+    logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
+    logicMiddle1 = new G4LogicalVolume(solidSilicon,Material("vacuum"),"logicMiddle1");
     logicDetector1 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector1");
     logicDetector2 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector2");
     logicDetector3 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector3");
     logicDetector4 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector4");
     logicDetector5 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector5");
-    logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
-    logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
     logicUSVD1 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD1");
     logicUSVD2 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD2");
     logicFVD = new G4LogicalVolume(solidFVD,Material("vacuum"),"logicFVD");
 
     //PHYS
+    G4VPhysicalVolume *physUSVD1 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD1X,0.,USVD1Z),logicUSVD1,"physUSVD1",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physUSVD2 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD2X,0.,USVD2Z),logicUSVD2,"physUSVD2",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physMiddle1 = new G4PVPlacement(TubeRotation,G4ThreeVector(Middle1X,0.,Middle1Z),logicMiddle1,"physMiddle1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector1 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(silicon1X,0.,silicon1Z),logicDetector1,"physDetector1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector2 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(silicon2X,0.,silicon2Z),logicDetector2,"physDetector2",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector3 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(silicon3X,0.,silicon3Z),logicDetector3,"physDetector3",lWorld,false,checkOverlaps);
@@ -1080,8 +1073,6 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     G4VPhysicalVolume *physDetector5 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(silicon5X,0.,silicon5Z),logicDetector5,"physDetector5",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDSVD1 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD1X,0.,DSVD1Z),logicDSVD1,"physDSVD1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDSVD2 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD2X,0.,DSVD2Z),logicDSVD2,"physDSVD2",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physUSVD1 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD1X,0.,USVD1Z),logicUSVD1,"physUSVD1",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physUSVD2 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD2X,0.,USVD2Z),logicUSVD2,"physUSVD2",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physFVD = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(FVDX,0.,FVDZ),logicFVD,"physFVD",lWorld,false,checkOverlaps);
     
     G4cout << "Detectors built;" << G4endl;

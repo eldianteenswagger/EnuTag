@@ -66,7 +66,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("Det_1", "Det_1");//2
+    analysisManager->CreateNtuple("Middle_1", "Middle_1");//2
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -82,7 +82,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("Det_2", "Det_2");//3
+    analysisManager->CreateNtuple("Det_1", "Det_1");//3
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -98,7 +98,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("Det_3", "Det_3");//4
+    analysisManager->CreateNtuple("Det_2", "Det_2");//4
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -114,7 +114,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("Det_4", "Det_4");//5
+    analysisManager->CreateNtuple("Det_3", "Det_3");//5
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -130,7 +130,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("Det_5", "Det_5");//6
+    analysisManager->CreateNtuple("Det_4", "Det_4");//6
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -146,7 +146,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("DSVD_1", "DSVD_1");//7
+    analysisManager->CreateNtuple("Det_5", "Det_5");//7
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -162,7 +162,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("DSVD_2", "DSVD_2");//8
+    analysisManager->CreateNtuple("DSVD_1", "DSVD_1");//8
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -178,7 +178,7 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("FVD", "FVD");//9
+    analysisManager->CreateNtuple("DSVD_2", "DSVD_2");//9
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -194,7 +194,23 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("neutrinos", "neutrinos");//10
+    analysisManager->CreateNtuple("FVD", "FVD");//10
+    analysisManager->CreateNtupleDColumn("E");
+    analysisManager->CreateNtupleDColumn("x");
+    analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
+    analysisManager->CreateNtupleDColumn("px");
+    analysisManager->CreateNtupleDColumn("py");
+    analysisManager->CreateNtupleDColumn("pz");
+    analysisManager->CreateNtupleDColumn("t");
+    analysisManager->CreateNtupleSColumn("PDG");
+    analysisManager->CreateNtupleIColumn("ID");
+    analysisManager->CreateNtupleDColumn("dE");
+    analysisManager->FinishNtuple();
+
+    analysisManager->CreateNtuple("neutrinos", "neutrinos");//11
     analysisManager->CreateNtupleDColumn("nu_x");
     analysisManager->CreateNtupleDColumn("nu_y");
     analysisManager->CreateNtupleDColumn("nu_z");
