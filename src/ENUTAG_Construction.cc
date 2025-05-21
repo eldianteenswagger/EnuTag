@@ -186,7 +186,8 @@
     G4double silicon5X = driftBUFFX - ((driftBUFFLength - SiThickness) * dx4);
     G4double DSVD1X = driftDecayX - (driftDecayLength * dx4) + (SiThickness * dx4);
     G4double DSVD2X = driftDecayX + (driftDecayLength * dx4) - (SiThickness * dx4);
-    G4double USVDX = targetX + thicknessTarget + SiThickness + 2;
+    G4double USVD1X = targetX + thicknessTarget + SiThickness + 2;
+    G4double USVD2X = targetX + targetBlockLength + SiThickness;
     G4double FVDX = DSVD2X + ((FVDdistance + 2*SiThickness) * dx4);
 
     //y
@@ -230,7 +231,8 @@
     G4double silicon5Z = driftBUFFZ - ((driftBUFFLength - SiThickness) * dz4);
     G4double DSVD1Z = driftDecayZ - (driftDecayLength * dz4) + (SiThickness * dz4);
     G4double DSVD2Z = driftDecayZ + (driftDecayLength * dz4) - (SiThickness * dz4);
-    G4double USVDZ = targetZ;
+    G4double USVD1Z = targetZ;
+    G4double USVD2Z = targetZ;
     G4double FVDZ = DSVD2Z + ((FVDdistance + 2*SiThickness) * dz4);
 
     //target coordinates
@@ -555,6 +557,8 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
 
 void ENUTAG_Construction::ConstructSDandField(){
     //sensitive detectors
+    ENUTAG_SensitiveDetector *sensUSVD1 = new ENUTAG_SensitiveDetector("sensUSVD1");
+    ENUTAG_SensitiveDetector *sensUSVD2 = new ENUTAG_SensitiveDetector("sensUSVD2");
     ENUTAG_SensitiveDetector *sensDet1 = new ENUTAG_SensitiveDetector("sensDet1");
     ENUTAG_SensitiveDetector *sensDet2 = new ENUTAG_SensitiveDetector("sensDet2");
     ENUTAG_SensitiveDetector *sensDet3 = new ENUTAG_SensitiveDetector("sensDet3");
@@ -562,7 +566,6 @@ void ENUTAG_Construction::ConstructSDandField(){
     ENUTAG_SensitiveDetector *sensDet5 = new ENUTAG_SensitiveDetector("sensDet5");
     ENUTAG_SensitiveDetector *sensDSVD1 = new ENUTAG_SensitiveDetector("sensDSVD1");
     ENUTAG_SensitiveDetector *sensDSVD2 = new ENUTAG_SensitiveDetector("sensDSVD2");
-    ENUTAG_SensitiveDetector *sensUSVD = new ENUTAG_SensitiveDetector("sensUSVD");
     ENUTAG_SensitiveDetector *sensFVD = new ENUTAG_SensitiveDetector("sensFVD");
     logicDetector1->SetSensitiveDetector(sensDet1);
     logicDetector2->SetSensitiveDetector(sensDet2);
@@ -571,8 +574,11 @@ void ENUTAG_Construction::ConstructSDandField(){
     logicDetector5->SetSensitiveDetector(sensDet5);
     logicDSVD1->SetSensitiveDetector(sensDSVD1);
     logicDSVD2->SetSensitiveDetector(sensDSVD2);
-    logicUSVD->SetSensitiveDetector(sensUSVD);
+    logicUSVD1->SetSensitiveDetector(sensUSVD1);
+    logicUSVD2->SetSensitiveDetector(sensUSVD2);
     logicFVD->SetSensitiveDetector(sensFVD);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD1);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet3);
@@ -580,7 +586,6 @@ void ENUTAG_Construction::ConstructSDandField(){
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet5);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDSVD1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDSVD2);
-    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensFVD);
 
     //dipole fields
@@ -1063,7 +1068,8 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     logicDetector5 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector5");
     logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
     logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
-    logicUSVD = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD");
+    logicUSVD1 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD1");
+    logicUSVD2 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD2");
     logicFVD = new G4LogicalVolume(solidFVD,Material("vacuum"),"logicFVD");
 
     //PHYS
@@ -1074,7 +1080,8 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     G4VPhysicalVolume *physDetector5 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(silicon5X,0.,silicon5Z),logicDetector5,"physDetector5",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDSVD1 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD1X,0.,DSVD1Z),logicDSVD1,"physDSVD1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDSVD2 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(DSVD2X,0.,DSVD2Z),logicDSVD2,"physDSVD2",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physUSVD = new G4PVPlacement(TubeRotation,G4ThreeVector(USVDX,0.,USVDZ),logicUSVD,"physUSVD",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physUSVD1 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD1X,0.,USVD1Z),logicUSVD1,"physUSVD1",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physUSVD2 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD2X,0.,USVD2Z),logicUSVD2,"physUSVD2",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physFVD = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(FVDX,0.,FVDZ),logicFVD,"physFVD",lWorld,false,checkOverlaps);
     
     G4cout << "Detectors built;" << G4endl;
@@ -1348,7 +1355,7 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
     G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"logicSoilBig");
 
-    G4double SoilBigX = USVDX + 2 * drift1Length;
+    G4double SoilBigX = USVD2X + 2 * drift1Length;
     G4double SoilBigZ = targetZ + soilBigRadius + EC6Z;
     G4double SoilBigYup = rtY + solidSoilHeight + soilBigSize;
     G4double SoilBigYdn = rtY - solidSoilHeight - soilBigSize;

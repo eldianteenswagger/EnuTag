@@ -4,7 +4,7 @@ ENUTAG_SteppingAction::ENUTAG_SteppingAction(ENUTAG_EventAction* evtAct){
     fEvtAction = evtAct;
     Emin = 50. * MeV;
 
-    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    /*G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
 
     fParticleEnergy = 0.;
     fEnergyDeposited = 0;
@@ -25,7 +25,7 @@ ENUTAG_SteppingAction::ENUTAG_SteppingAction(ENUTAG_EventAction* evtAct){
     fnuY = 0.;
     fnuZ = 0.;
     neutrinoTrack = false;
-    virtualDet = false;
+    virtualDet = false;*/
 }
 
 ENUTAG_SteppingAction::~ENUTAG_SteppingAction(){}
@@ -40,7 +40,7 @@ void ENUTAG_SteppingAction::UserSteppingAction(const G4Step* step){
 
     //analysis
     //step stuff
-    G4StepPoint *preStepPoint = step -> GetPreStepPoint();
+    /*G4StepPoint *preStepPoint = step -> GetPreStepPoint();
     G4StepPoint *postStepPoint = step -> GetPostStepPoint();
     const G4VTouchable *touchable = step -> GetPreStepPoint() -> GetTouchable();
 
@@ -81,17 +81,18 @@ void ENUTAG_SteppingAction::UserSteppingAction(const G4Step* step){
     }
 
     //if exiting, register all
-    if(postStepPoint->GetStepStatus() == fGeomBoundary){
+    if(preStepPoint->GetStepStatus() == fGeomBoundary){
         //index setting for ROOT file output
-        if (volumeName=="physUSVD"){idx = 0;virtualDet=true;}
-        else if(volumeName=="physDetector1"){idx = 1;virtualDet = false;}
-        else if (volumeName=="physDetector2"){idx = 2;virtualDet = false;}
-        else if (volumeName=="physDetector3"){idx = 3;virtualDet = false;}
-        else if (volumeName=="physDetector4"){idx = 4;virtualDet = false;}
-        else if (volumeName=="physDetector5"){idx = 5;virtualDet = false;}
-        else if (volumeName=="physDSVD1"){idx = 6;virtualDet=true;}
-        else if (volumeName=="physDSVD2"){idx = 7;virtualDet=true;}
-        else if (volumeName=="physFVD"){idx = 8;virtualDet=true;}
+        if (volumeName=="physUSVD1"){idx = 0;virtualDet=true;}
+        else if (volumeName=="physUSVD2"){idx = 1;virtualDet=true;}
+        else if (volumeName=="physDetector1"){idx = 2;virtualDet = false;}
+        else if (volumeName=="physDetector2"){idx = 3;virtualDet = false;}
+        else if (volumeName=="physDetector3"){idx = 4;virtualDet = false;}
+        else if (volumeName=="physDetector4"){idx = 5;virtualDet = false;}
+        else if (volumeName=="physDetector5"){idx = 6;virtualDet = false;}
+        else if (volumeName=="physDSVD1"){idx = 7;virtualDet=true;}
+        else if (volumeName=="physDSVD2"){idx = 8;virtualDet=true;}
+        else if (volumeName=="physFVD"){idx = 9;virtualDet=true;}
         else{return;}
 
         //energy
@@ -119,13 +120,13 @@ void ENUTAG_SteppingAction::UserSteppingAction(const G4Step* step){
         analysisManager->AddNtupleRow(idx);
         //neutrinos
         if(neutrinoTrack){
-            analysisManager->FillNtupleDColumn(9,0,fnuX/m);
-            analysisManager->FillNtupleDColumn(9,1,fnuY/m);
-            analysisManager->FillNtupleDColumn(9,2,fnuZ/m);
-            analysisManager->AddNtupleRow(9);
+            analysisManager->FillNtupleDColumn(10,0,fnuX/m);
+            analysisManager->FillNtupleDColumn(10,1,fnuY/m);
+            analysisManager->FillNtupleDColumn(10,2,fnuZ/m);
+            analysisManager->AddNtupleRow(10);
             neutrinoTrack = false;
         }
-    }
+    }*/
 
     return;
 }

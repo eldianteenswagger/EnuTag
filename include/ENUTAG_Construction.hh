@@ -58,6 +58,8 @@ private:
     void DoHadronDump(G4LogicalVolume* lWorld);
     void DoSoil(G4LogicalVolume* lWorld);
 
+    G4LogicalVolume *logicUSVD1;
+    G4LogicalVolume *logicUSVD2;
     G4LogicalVolume *logicDetector1;
     G4LogicalVolume *logicDetector2;
     G4LogicalVolume *logicDetector3;
@@ -65,7 +67,6 @@ private:
     G4LogicalVolume *logicDetector5;
     G4LogicalVolume *logicDSVD1;
     G4LogicalVolume *logicDSVD2;
-    G4LogicalVolume *logicUSVD;
     G4LogicalVolume *logicFVD;
 
     G4LogicalVolume *logicDipoleField1;

@@ -21,6 +21,8 @@
 /vis/geometry/set/colour logicDriftBUFF 0 0.6 0.6 0.6
 /vis/geometry/set/colour logicDriftDecay 0 0.4 0.3 0.3
 
+/vis/geometry/set/colour logicUSVD1 0 1 1 0
+/vis/geometry/set/colour logicUSVD2 0 1 1 0
 /vis/geometry/set/colour logicDetector1 0 1 0.7 0
 /vis/geometry/set/colour logicDetector2 0 1 0.7 0
 /vis/geometry/set/colour logicDetector3 0 1 0.7 0
@@ -28,7 +30,6 @@
 /vis/geometry/set/colour logicDetector5 0 1 0.7 0
 /vis/geometry/set/colour logicDSVD1 0 1 1 0
 /vis/geometry/set/colour logicDSVD2 0 1 1 0
-/vis/geometry/set/colour logicUSVD 0 1 1 0
 /vis/geometry/set/colour logicFVD 0 1 1 0
 
 /vis/geometry/set/colour logicDipoleup1 0 0 0 1
