@@ -23,7 +23,8 @@ private:
     G4AnalysisManager *analysisManager;
     ENUTAG_RunActionMessenger* fMessenger;
     G4String fileName;
-    void NTuplesCreate();
+    void NTupleCreate(G4String);
+    void DefineFile();
 };
 
 #endif

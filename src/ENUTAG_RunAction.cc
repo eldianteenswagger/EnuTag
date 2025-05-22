@@ -9,7 +9,7 @@ ENUTAG_RunAction::ENUTAG_RunAction(){
 
     fMessenger = new ENUTAG_RunActionMessenger(this);
     
-    NTuplesCreate();
+    DefineFile();
 
 }
 
@@ -33,8 +33,49 @@ void ENUTAG_RunAction::DefineFileName(G4String newFileName){
     fileName = newFileName;
 }
 
-void ENUTAG_RunAction::NTuplesCreate(){
-    analysisManager->CreateNtuple("USVD_1", "USVD_1");//0
+void ENUTAG_RunAction::DefineFile(){
+    NTupleCreate("USVD_1");//0
+    NTupleCreate("USVD_2");//1
+    NTupleCreate("Middle_1");//2
+    NTupleCreate("Middle_2");//3
+    NTupleCreate("Middle_3");//4
+    NTupleCreate("Middle_4");//5
+    NTupleCreate("Middle_5");//6
+    NTupleCreate("Det_1");//7
+    NTupleCreate("Det_2");//8
+    NTupleCreate("Det_3");//9
+    NTupleCreate("Det_4");//10
+    NTupleCreate("Det_5");//11
+    NTupleCreate("DSVD_1");//12
+    NTupleCreate("DSVD_2");//13
+    NTupleCreate("FVD");//14
+
+    //for neutrinos
+    analysisManager->CreateNtuple("neutrinos", "neutrinos");//15
+    analysisManager->CreateNtupleDColumn("nu_x");
+    analysisManager->CreateNtupleDColumn("nu_y");
+    analysisManager->CreateNtupleDColumn("nu_z");
+    analysisManager->FinishNtuple();
+}
+
+void ENUTAG_RunAction::NTupleCreate(G4String ntupleName){
+    analysisManager->CreateNtuple(ntupleName,ntupleName);
+    analysisManager->CreateNtupleDColumn("E");
+    analysisManager->CreateNtupleDColumn("x");
+    analysisManager->CreateNtupleDColumn("y");
+    analysisManager->CreateNtupleDColumn("absx");
+    analysisManager->CreateNtupleDColumn("absy");
+    analysisManager->CreateNtupleDColumn("absz");
+    analysisManager->CreateNtupleDColumn("px");
+    analysisManager->CreateNtupleDColumn("py");
+    analysisManager->CreateNtupleDColumn("pz");
+    analysisManager->CreateNtupleDColumn("t");
+    analysisManager->CreateNtupleSColumn("PDG");
+    analysisManager->CreateNtupleIColumn("ID");
+    analysisManager->CreateNtupleDColumn("dE");
+    analysisManager->FinishNtuple();
+}
+/*    analysisManager->CreateNtuple("USVD_1", "USVD_1");//0
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleDColumn("x");
     analysisManager->CreateNtupleDColumn("y");
@@ -210,9 +251,5 @@ void ENUTAG_RunAction::NTuplesCreate(){
     analysisManager->CreateNtupleDColumn("dE");
     analysisManager->FinishNtuple();
 
-    analysisManager->CreateNtuple("neutrinos", "neutrinos");//11
-    analysisManager->CreateNtupleDColumn("nu_x");
-    analysisManager->CreateNtupleDColumn("nu_y");
-    analysisManager->CreateNtupleDColumn("nu_z");
-    analysisManager->FinishNtuple();
-}
+
+}*/

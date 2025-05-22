@@ -42,6 +42,8 @@ private:
 
     G4Material *Material(std::string materialName);
 
+    std::map <std::string, G4Material*> materials;
+
     virtual void ConstructSDandField();
 
     void DefineRotations();
@@ -61,6 +63,10 @@ private:
     G4LogicalVolume *logicUSVD1;
     G4LogicalVolume *logicUSVD2;
     G4LogicalVolume *logicMiddle1;
+    G4LogicalVolume *logicMiddle2;
+    G4LogicalVolume *logicMiddle3;
+    G4LogicalVolume *logicMiddle4;
+    G4LogicalVolume *logicMiddle5;
     G4LogicalVolume *logicDetector1;
     G4LogicalVolume *logicDetector2;
     G4LogicalVolume *logicDetector3;

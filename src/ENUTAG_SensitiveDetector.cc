@@ -1,7 +1,7 @@
 #include "ENUTAG_SensitiveDetector.hh"
 #include "ENUTAG_AnalysisManager.hh"
 
-ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name) : G4VSensitiveDetector(name) {
+ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name,G4int id) : G4VSensitiveDetector(name), fDetID(id) {
     fParticleEnergy = 0.;
     fEnergyDeposited = 0;
     fX = 0.;
@@ -15,13 +15,11 @@ ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name) : G4VSensitive
     fTime = 0.;
     fPDG = "";
     fID = 0;
-    idx = 10;
     volumeName = "";
     fnuX = 0.;
     fnuY = 0.;
     fnuZ = 0.;
     neutrinoTrack = false;
-    virtualDet = false;
 }
 
 ENUTAG_SensitiveDetector::~ENUTAG_SensitiveDetector(){}
@@ -40,13 +38,11 @@ void ENUTAG_SensitiveDetector::Initialize(G4HCofThisEvent *){
     fTime = 0.;
     fPDG = "";
     fID = 0;
-    idx = 10;
     volumeName = "";
     fnuX = 0.;
     fnuY = 0.;
     fnuZ = 0.;
     neutrinoTrack = false;
-    virtualDet = false;
 }
 
 void ENUTAG_SensitiveDetector::EndOfEvent(G4HCofThisEvent *){}
@@ -97,7 +93,7 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     }
 
     //register
-    if (volumeName=="physUSVD1"){idx = 0;virtualDet=true;}
+    /*if (volumeName=="physUSVD1"){idx = 0;virtualDet=true;}
     else if (volumeName=="physUSVD2"){idx = 1;virtualDet=true;}
     else if (volumeName=="physMiddle1"){idx = 2;virtualDet=true;}
     else if (volumeName=="physDetector1"){idx = 3;virtualDet = false;}
@@ -107,36 +103,36 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     else if (volumeName=="physDetector5"){idx = 7;virtualDet = false;}
     else if (volumeName=="physDSVD1"){idx = 8;virtualDet=true;}
     else if (volumeName=="physDSVD2"){idx = 9;virtualDet=true;}
-    else if (volumeName=="physFVD"){idx = 10;virtualDet=true;}
+    else if (volumeName=="physFVD"){idx = 10;virtualDet=true;}*/
     //energy
-    analysisManager->FillNtupleDColumn(idx,0,fParticleEnergy/MeV);
+    analysisManager->FillNtupleDColumn(fDetID,0,fParticleEnergy/MeV);
     //position
-    analysisManager->FillNtupleDColumn(idx,1,fX/mm);
-    analysisManager->FillNtupleDColumn(idx,2,fY/mm);
+    analysisManager->FillNtupleDColumn(fDetID,1,fX/mm);
+    analysisManager->FillNtupleDColumn(fDetID,2,fY/mm);
     //absolute position
-    analysisManager->FillNtupleDColumn(idx,3,fAbsX/mm);
-    analysisManager->FillNtupleDColumn(idx,4,fAbsY/mm);
-    analysisManager->FillNtupleDColumn(idx,5,fAbsZ/mm);
+    analysisManager->FillNtupleDColumn(fDetID,3,fAbsX/mm);
+    analysisManager->FillNtupleDColumn(fDetID,4,fAbsY/mm);
+    analysisManager->FillNtupleDColumn(fDetID,5,fAbsZ/mm);
     //momentum
-    analysisManager->FillNtupleDColumn(idx,6,fPX/MeV);
-    analysisManager->FillNtupleDColumn(idx,7,fPY/MeV);
-    analysisManager->FillNtupleDColumn(idx,8,fPZ/MeV);
+    analysisManager->FillNtupleDColumn(fDetID,6,fPX/MeV);
+    analysisManager->FillNtupleDColumn(fDetID,7,fPY/MeV);
+    analysisManager->FillNtupleDColumn(fDetID,8,fPZ/MeV);
     //time
-    analysisManager->FillNtupleDColumn(idx,9,fTime/s);
+    analysisManager->FillNtupleDColumn(fDetID,9,fTime/s);
     //pdg
-    analysisManager->FillNtupleSColumn(idx,10,fPDG);
+    analysisManager->FillNtupleSColumn(fDetID,10,fPDG);
     //ids
-    analysisManager->FillNtupleIColumn(idx,11,fID);
+    analysisManager->FillNtupleIColumn(fDetID,11,fID);
     //deposited energy
-    if(!virtualDet && fEnergyDeposited>0){analysisManager->FillNtupleDColumn(idx,12,fEnergyDeposited/MeV);}
+    if(!virtualDet[fDetID] && fEnergyDeposited>0){analysisManager->FillNtupleDColumn(fDetID,12,fEnergyDeposited/MeV);}
     //close row
-    analysisManager->AddNtupleRow(idx);
+    analysisManager->AddNtupleRow(fDetID);
     //neutrinos
     if(neutrinoTrack){
-        analysisManager->FillNtupleDColumn(11,0,fnuX/m);
-        analysisManager->FillNtupleDColumn(11,1,fnuY/m);
-        analysisManager->FillNtupleDColumn(11,2,fnuZ/m);
-        analysisManager->AddNtupleRow(11);
+        analysisManager->FillNtupleDColumn(15,0,fnuX/m);
+        analysisManager->FillNtupleDColumn(15,1,fnuY/m);
+        analysisManager->FillNtupleDColumn(15,2,fnuZ/m);
+        analysisManager->AddNtupleRow(15);
         neutrinoTrack = false;
     }
 
