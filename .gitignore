@@ -1,3 +1,4 @@
-/home/luigi/Scrivania/EnuTag_port/build
-/home/luigi/Scrivania/EnuTag_port/ROOT/*.root
-/home/luigi/Scrivania/EnuTag_port/.vscode
+$GIT_DIR/build
+$GIT_DIR/ROOT/*.root
+$GIT_DIR/.vscode
+$GIT_DIR/*.pdf

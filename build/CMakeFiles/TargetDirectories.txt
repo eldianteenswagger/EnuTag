@@ -1,0 +1,4 @@
+/home/luigi/Scrivania/EnuTag_port/build/CMakeFiles/main.dir
+/home/luigi/Scrivania/EnuTag_port/build/CMakeFiles/Simulation.dir
+/home/luigi/Scrivania/EnuTag_port/build/CMakeFiles/edit_cache.dir
+/home/luigi/Scrivania/EnuTag_port/build/CMakeFiles/rebuild_cache.dir
