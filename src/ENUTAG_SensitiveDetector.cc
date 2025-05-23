@@ -129,10 +129,10 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
     analysisManager->AddNtupleRow(fDetID);
     //neutrinos
     if(neutrinoTrack){
-        analysisManager->FillNtupleDColumn(15,0,fnuX/m);
-        analysisManager->FillNtupleDColumn(15,1,fnuY/m);
-        analysisManager->FillNtupleDColumn(15,2,fnuZ/m);
-        analysisManager->AddNtupleRow(15);
+        analysisManager->FillNtupleDColumn(14,0,fnuX/m);
+        analysisManager->FillNtupleDColumn(14,1,fnuY/m);
+        analysisManager->FillNtupleDColumn(14,2,fnuZ/m);
+        analysisManager->AddNtupleRow(14);
         neutrinoTrack = false;
     }
 

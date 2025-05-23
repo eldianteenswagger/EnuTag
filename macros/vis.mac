@@ -13,7 +13,7 @@
 #/vis/filtering/trajectories/particleFilter-0/add e+
 #/vis/filtering/trajectories/particleFilter-0/add e-
 #/vis/filtering/trajectories/particleFilter-0/add neutrino
-#/vis/filtering/trajectories/particleFilter-0/add proton
+/vis/filtering/trajectories/particleFilter-0/add proton
 #/vis/filtering/trajectories/particleFilter-0/add neutron
 /vis/filtering/trajectories/particleFilter-0/add pi+
 #/vis/filtering/trajectories/particleFilter-0/add pi-

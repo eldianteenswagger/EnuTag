@@ -12,13 +12,13 @@
     G4double yWorld = 500. * m / 2;
     G4double zWorld = 500. * m / 2;
 
-    G4double BRHO = 8.5 * 3.3356;// / 0.299792458;
+    G4double BRHO = 8.5 / 0.299792458;
     G4double MID_ANGLE = 0.;
 
     G4double thicknessTarget = 1.3 * m / 2; //ok
     G4double sideTarget = 0.1 * m / 2;
     G4double targetRadius = 3 * mm; //ok
-    G4double targetBlockLength = 3.0 * m / 2;
+    G4double targetBlockLength = 1.3001 * m / 2;
     G4double targetBlockSize = 0.8 * m / 2;
     G4double targetBaseHeight = 0.6 * m / 2;
     G4double targetBaseSize = 0.78 * m / 2;
@@ -92,27 +92,27 @@
 
     //lead cup
     G4double leadThickness = 0.012 * m / 2;
-    G4double leadRadius = 0.16 * m;
+    G4double leadRadius = 0.16 * m / 2;
 
     //collimators
     G4double EC1Thickness = (0.45 * m / 2) - (2 * leadThickness);
-    G4double EC1Side = (quadrupole5Radius + quadrupoleThickness);
+    G4double EC1Side = 0.98 * m / 2;//(quadrupole5Radius + quadrupoleThickness);
     G4double EC1holeX = 0.09 * m;
     G4double EC1holeY = 0.1 * m;
     G4double EC2Thickness = 0.25 * m / 2;
-    G4double EC2Side = (quadrupole5Radius + quadrupoleThickness);
+    G4double EC2Side = 0.98 * m / 2;//(quadrupole5Radius + quadrupoleThickness);
     G4double EC2holeX = 0.1 * m;
     G4double EC2holeY = 0.1 * m;
     G4double EC3Thickness = 0.25 * m / 2;
-    G4double EC3Side = (quadrupole6Radius + quadrupoleThickness);
+    G4double EC3Side = 1.55 * m / 2; //(quadrupole6Radius + quadrupoleThickness);
     G4double EC3holeX = 0.1 * m;
     G4double EC3holeY = 0.1 * m;
-    G4double EC6Thickness = 2.2 * m / 2;
-    G4double EC6Side = (quadrupole9Radius + quadrupoleThickness);
-    G4double EC6holeX = 0.13 * m;
-    G4double EC6holeY = 0.11 * m;
+    G4double EC6Thickness = 2.2 * m / 2; //ok
+    G4double EC6Side = 2.04 * m / 2; //(quadrupole9Radius + quadrupoleThickness);
+    G4double EC6holeX = 0.13 * m; //ok
+    G4double EC6holeY = 0.11 * m; //ok
 
-    G4double dumpLength = 3.0 * m / 2;
+    G4double dumpLength = 3.0 * m / 2; //ok
     G4double dumpBuffer = 2.5 * m;
 
     G4double dumpRadiusIn = 0.2 * m;
@@ -189,8 +189,8 @@
     G4double silicon3X = drift7X - ((drift7Length - SiThickness) * dx4);
     G4double silicon4X = silicon3X + (Si4pos * dx4);
     G4double silicon5X = driftBUFFX - ((driftBUFFLength - SiThickness) * dx4);
-    G4double USVD1X = targetX + thicknessTarget + SiThickness + 2;
-    G4double USVD2X = targetX + targetBlockLength + SiThickness;
+    //G4double USVD1X = targetX + thicknessTarget + SiThickness + 2;
+    G4double USVDX = targetX + targetBlockLength + 3.*SiThickness;
     G4double FVDX = DSVD2X + ((FVDdistance + 2*SiThickness) * dx4);
 
     //y
@@ -233,8 +233,8 @@
     G4double silicon3Z = drift7Z - ((drift7Length - SiThickness) * dz4);
     G4double silicon4Z = silicon3Z + (Si4pos * dz4);
     G4double silicon5Z = driftBUFFZ - ((driftBUFFLength - SiThickness) * dz4);
-    G4double USVD1Z = targetZ;
-    G4double USVD2Z = targetZ;
+    //G4double USVD1Z = targetZ;
+    G4double USVDZ = targetZ;
     G4double FVDZ = DSVD2Z + ((FVDdistance + 2*SiThickness) * dz4);
 
     //target coordinates
@@ -340,6 +340,9 @@
     //Concretes
     G4RotationMatrix* Concrete1Rotation = new G4RotationMatrix();
     G4RotationMatrix* Concrete2Rotation = new G4RotationMatrix();
+    //target rotation
+    G4double targetAngle = 0.00872665;
+    G4RotationMatrix* TargetRotation = new G4RotationMatrix();
 
     //field parameters
     G4double quadrupole1Field = -0.692447; //ok
@@ -350,7 +353,7 @@
     G4double quadrupole8Field = -0.419312; //ok
     G4double quadrupole9Field = 0.305695; //ok
 
-    G4double dipoleField = 1.789;
+    G4double dipoleField = 1.799;
 
     //custom materials
     //G4NistManager *nist = G4NistManager::Instance();
@@ -379,6 +382,9 @@ void ENUTAG_Construction::DefineRotations(){
     //Concrete1&2
     Concrete1Rotation->rotateY(2.*dipole1Deg);
     Concrete2Rotation->rotateY(4.*dipole1Deg);
+    //target
+    TargetRotation->rotateY(90.*deg);
+    TargetRotation->rotateY(targetAngle*rad);
     return;
 }
 
@@ -561,23 +567,22 @@ G4VPhysicalVolume *ENUTAG_Construction::Construct(){
 
 void ENUTAG_Construction::ConstructSDandField(){
     //sensitive detectors
-    ENUTAG_SensitiveDetector *sensUSVD1 = new ENUTAG_SensitiveDetector("sensUSVD1",0);
-    ENUTAG_SensitiveDetector *sensUSVD2 = new ENUTAG_SensitiveDetector("sensUSVD2",1);
-    ENUTAG_SensitiveDetector *sensMiddle1 = new ENUTAG_SensitiveDetector("sensMiddle1",2);
-    ENUTAG_SensitiveDetector *sensMiddle2 = new ENUTAG_SensitiveDetector("sensMiddle2",3);
-    ENUTAG_SensitiveDetector *sensMiddle3 = new ENUTAG_SensitiveDetector("sensMiddle3",4);
-    ENUTAG_SensitiveDetector *sensMiddle4 = new ENUTAG_SensitiveDetector("sensMiddle4",5);
-    ENUTAG_SensitiveDetector *sensMiddle5 = new ENUTAG_SensitiveDetector("sensMiddle5",6);
-    ENUTAG_SensitiveDetector *sensDet1 = new ENUTAG_SensitiveDetector("sensDet1",7);
-    ENUTAG_SensitiveDetector *sensDet2 = new ENUTAG_SensitiveDetector("sensDet2",8);
-    ENUTAG_SensitiveDetector *sensDet3 = new ENUTAG_SensitiveDetector("sensDet3",9);
-    ENUTAG_SensitiveDetector *sensDet4 = new ENUTAG_SensitiveDetector("sensDet4",10);
-    ENUTAG_SensitiveDetector *sensDet5 = new ENUTAG_SensitiveDetector("sensDet5",11);
-    ENUTAG_SensitiveDetector *sensDSVD1 = new ENUTAG_SensitiveDetector("sensDSVD1",12);
-    ENUTAG_SensitiveDetector *sensDSVD2 = new ENUTAG_SensitiveDetector("sensDSVD2",13);
-    ENUTAG_SensitiveDetector *sensFVD = new ENUTAG_SensitiveDetector("sensFVD",14);
-    logicDSVD1->SetSensitiveDetector(sensDSVD1);
-    logicDSVD2->SetSensitiveDetector(sensDSVD2);
+    //ENUTAG_SensitiveDetector *sensUSVD1 = new ENUTAG_SensitiveDetector("sensUSVD1",0);
+    ENUTAG_SensitiveDetector *sensUSVD = new ENUTAG_SensitiveDetector("sensUSVD",0);
+    ENUTAG_SensitiveDetector *sensMiddle1 = new ENUTAG_SensitiveDetector("sensMiddle1",1);
+    ENUTAG_SensitiveDetector *sensMiddle2 = new ENUTAG_SensitiveDetector("sensMiddle2",2);
+    ENUTAG_SensitiveDetector *sensMiddle3 = new ENUTAG_SensitiveDetector("sensMiddle3",3);
+    ENUTAG_SensitiveDetector *sensMiddle4 = new ENUTAG_SensitiveDetector("sensMiddle4",4);
+    ENUTAG_SensitiveDetector *sensMiddle5 = new ENUTAG_SensitiveDetector("sensMiddle5",5);
+    ENUTAG_SensitiveDetector *sensDet1 = new ENUTAG_SensitiveDetector("sensDet1",6);
+    ENUTAG_SensitiveDetector *sensDet2 = new ENUTAG_SensitiveDetector("sensDet2",7);
+    ENUTAG_SensitiveDetector *sensDet3 = new ENUTAG_SensitiveDetector("sensDet3",8);
+    ENUTAG_SensitiveDetector *sensDet4 = new ENUTAG_SensitiveDetector("sensDet4",9);
+    ENUTAG_SensitiveDetector *sensDet5 = new ENUTAG_SensitiveDetector("sensDet5",10);
+    ENUTAG_SensitiveDetector *sensDSVD1 = new ENUTAG_SensitiveDetector("sensDSVD1",11);
+    ENUTAG_SensitiveDetector *sensDSVD2 = new ENUTAG_SensitiveDetector("sensDSVD2",12);
+    ENUTAG_SensitiveDetector *sensFVD = new ENUTAG_SensitiveDetector("sensFVD",13);
+    logicUSVD->SetSensitiveDetector(sensUSVD);
     logicMiddle1->SetSensitiveDetector(sensMiddle1);
     logicMiddle2->SetSensitiveDetector(sensMiddle2);
     logicMiddle3->SetSensitiveDetector(sensMiddle3);
@@ -588,11 +593,11 @@ void ENUTAG_Construction::ConstructSDandField(){
     logicDetector3->SetSensitiveDetector(sensDet3);
     logicDetector4->SetSensitiveDetector(sensDet4);
     logicDetector5->SetSensitiveDetector(sensDet5);
-    logicUSVD1->SetSensitiveDetector(sensUSVD1);
-    logicUSVD2->SetSensitiveDetector(sensUSVD2);
+    logicDSVD1->SetSensitiveDetector(sensDSVD1);
+    logicDSVD2->SetSensitiveDetector(sensDSVD2);
     logicFVD->SetSensitiveDetector(sensFVD);
-    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD1);
-    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD2);
+    //G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD1);
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensUSVD);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensMiddle1);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensMiddle2);
     G4SDManager::GetSDMpointer()->AddNewDetector(sensMiddle3);
@@ -1032,6 +1037,9 @@ void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
     G4double pressure = 0.5 * bar;*/
     //1.5" enter,4" esc
 
+    G4double newTargetX = thicknessTarget * (1.- std::cos(targetAngle));
+    G4double newTargetZ = -1. * thicknessTarget * std::sin(targetAngle);
+
     //SOLID
     //main target
     G4Tubs *solidTarget = new G4Tubs("solidTarget",0.,targetRadius,thicknessTarget,0.*deg,360.*deg);
@@ -1050,7 +1058,7 @@ void ENUTAG_Construction::DoTarget(G4LogicalVolume* lWorld){
     G4LogicalVolume *logicTarget = new G4LogicalVolume(solidTarget, Material("graphite"), "logicTarget");
     
     //PHYS
-    G4VPhysicalVolume *physTarget = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,targetY,targetZ),logicTarget,"physTarget",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTarget = new G4PVPlacement(TargetRotation,G4ThreeVector(newTargetX-(0.1*mm),targetY,newTargetZ),logicTarget,"physTarget",lWorld,false,checkOverlaps);
 
     G4cout << "Target built;" << G4endl;
 
@@ -1068,8 +1076,7 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     G4Box *solidFVD = new G4Box("solidFVD",SiThickness,FVDsize,FVDsize);
 
     //LOGIC
-    logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
-    logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
+    logicUSVD = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD");
     logicMiddle1 = new G4LogicalVolume(solidSilicon,Material("vacuum"),"logicMiddle1");
     logicMiddle2 = new G4LogicalVolume(solidSilicon,Material("vacuum"),"logicMiddle2");
     logicMiddle3 = new G4LogicalVolume(solidSilicon,Material("vacuum"),"logicMiddle3");
@@ -1080,13 +1087,14 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
     logicDetector3 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector3");
     logicDetector4 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector4");
     logicDetector5 = new G4LogicalVolume(solidSilicon,Material("silicon"),"logicDetector5");
-    logicUSVD1 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD1");
-    logicUSVD2 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD2");
+    //logicUSVD1 = new G4LogicalVolume(solidUSVD,Material("vacuum"),"logicUSVD1");
+    logicDSVD1 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD1");
+    logicDSVD2 = new G4LogicalVolume(solidDSVD,Material("vacuum"),"logicDSVD2");
     logicFVD = new G4LogicalVolume(solidFVD,Material("vacuum"),"logicFVD");
 
     //PHYS
-    G4VPhysicalVolume *physUSVD1 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD1X,0.,USVD1Z),logicUSVD1,"physUSVD1",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physUSVD2 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD2X,0.,USVD2Z),logicUSVD2,"physUSVD2",lWorld,false,checkOverlaps);
+    //G4VPhysicalVolume *physUSVD1 = new G4PVPlacement(TubeRotation,G4ThreeVector(USVD1X,0.,USVD1Z),logicUSVD1,"physUSVD1",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physUSVD = new G4PVPlacement(TubeRotation,G4ThreeVector(USVDX,0.,USVDZ),logicUSVD,"physUSVD",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector1 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(silicon1X,0.,silicon1Z),logicDetector1,"physDetector1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector2 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(silicon2X,0.,silicon2Z),logicDetector2,"physDetector2",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDetector3 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(silicon3X,0.,silicon3Z),logicDetector3,"physDetector3",lWorld,false,checkOverlaps);
@@ -1105,6 +1113,120 @@ void ENUTAG_Construction::DoDetectors(G4LogicalVolume* lWorld){
 
     return;
 };
+
+void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
+
+    G4double tungstenThickness = 0.5 * concreteSTwidth * 0.5;
+    G4double TungstenOffset = 0.25*m;
+    G4double testOffset = 0.1 * m;
+
+    //SOLID
+    //shielding around target
+    G4Box *solidTargetBlock = new G4Box("solidTargetBlock",targetBlockLength,targetBlockSize,targetBlockSize+testOffset);
+    G4Box *solidTargetBase = new G4Box("solidTargetBase",targetBlockLength,targetBaseHeight+(3.*testOffset),targetBaseSize-(2.*testOffset));
+    G4Box *solidTargetUppers = new G4Box("solidTargetUppers",targetBlockLength,targetUpperHeight,targetBlockSize+(2.*testOffset));
+    G4Box *solidTargetRoof = new G4Box("solidTargetRoof",targetBlockLength,targetUpperHeight,targetRoofWidth);
+    G4Box *solidTargetTopper = new G4Box("solidTargetTopper",targetBlockLength,targetUpperHeight,targetTopperWidth);
+
+    //after target
+    G4Tubs *solidTungstenCAP = new G4Tubs("solidTungstenCAP",0.,utY,drift1Length,0.*deg,360.*deg);
+    G4Tubs *solidTungstenREMOVE = new G4Tubs("solidTungstenREMOVE",0.,driftRadius + driftThick,drift1Length+2,0.*deg,360.*deg);
+    G4SubtractionSolid *solidTungstenCLOSE = new G4SubtractionSolid("solidTungstenCLOSE",solidTungstenCAP,solidTungstenREMOVE,0,G4ThreeVector(0.,-TungstenOffset,0.));
+
+    //along drifts and quadrupoles
+    G4double tungstenInline1Length = quadrupole1Length + drift2Length + quadrupole2Length + drift3Length + quadrupole3Length + drift4Length;
+    G4Tubs *solidTungstenInline1 = new G4Tubs("solidTungstenInline1",quadrupole2Radius+quadrupoleThickness+2,quadrupole2Radius+quadrupoleThickness+(2.*tungstenThickness),tungstenInline1Length,0.*deg,360.*deg);
+    //G4double tungstenInline2Length = drift7Length + quadrupole6Length + EC3Thickness + drift8Length + quadrupole8Length + EC3Thickness + drift9Length + quadrupole9Length + EC3Thickness + driftBUFFLength;
+    
+    G4double ENDCAPwidth = concreteFTwidth - (2. * concreteSTwidth);
+    //G4Box *solidInline2CAP = new G4Box("solidInline2CAP",tungstenInline2Length,ENDCAPwidth,ENDCAPwidth);
+    //G4Box *solidInline2REMOVE = new G4Box("solidInline2REMOVE",tungstenInline2Length+2,quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness);
+    //G4SubtractionSolid *solidTungstenInline2 = new G4SubtractionSolid("solidTungstenInline2",solidInline2CAP,solidInline2REMOVE,0,G4ThreeVector(0.,-rtY,0.));
+
+    //lead cup after Quadrupole5
+    G4Tubs *solidLeadCup = new G4Tubs("solidLeadCup",0.,leadRadius,leadThickness,0.*deg,360.*deg);
+
+    //G4Tubs *solidTungstenInline2 = new G4Tubs("solidTungstenInline2",quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness+(3.*tungstenThickness),tungstenInline2Length,0.*deg,360.*deg);
+
+    //dipole 1&2
+    G4Tubs *solidTungstenSD1R = new G4Tubs("solidTungstenSD1R",CD1OuterRadius - (2.5 * concreteSTwidth),CD1OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
+    G4Tubs *solidTungstenSD1L = new G4Tubs("solidTungstenSD1L",CD1InnerRadius + (2 * concreteSTwidth),CD1InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
+    //G4Box *solidTungstenS1 = new G4Box("solidTungstenS1",concrete1Length,concreteSheight,tungstenThickness);
+    G4Tubs *solidTungstenSD2R = new G4Tubs("solidTungstenSD2R",CD2OuterRadius - (2.5 * concreteSTwidth),CD2OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
+    G4Tubs *solidTungstenSD2L = new G4Tubs("solidTungstenSD2L",CD2InnerRadius + (2 * concreteSTwidth),CD2InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
+
+    //EClast
+    G4Box *solidTungstenECCAP = new G4Box("solidTungstenECCAP",EC6Thickness,concreteSheight,ENDCAPwidth);
+    G4Box *solidTungstenECREMOVE = new G4Box("solidTungstenECREMOVE",EC6Thickness+2,EC6Side,EC6Side);
+    //G4SubtractionSolid *solidTungstenECLAST = new G4SubtractionSolid("solidTungstenECLAST",solidTungstenECCAP,solidTungstenECREMOVE,0,G4ThreeVector(0.,-rtY,0.));
+
+    //LOGIC
+
+    G4LogicalVolume *logicTargetBlockSteel = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockSteel");
+    G4LogicalVolume *logicTargetBlockIron = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockIron");
+    G4LogicalVolume *logicTargetBase = new G4LogicalVolume(solidTargetBase, Material("tungsten"), "logicTargetBase");
+    G4LogicalVolume *logicTargetUppers = new G4LogicalVolume(solidTargetUppers, Material("tungsten"), "logicTargetUppers");
+    G4LogicalVolume *logicTargetRoof = new G4LogicalVolume(solidTargetRoof, Material("tungsten"), "logicTargetRoof");
+    G4LogicalVolume *logicTargetTopper = new G4LogicalVolume(solidTargetTopper, Material("tungsten"), "logicTargetTopper");
+
+    G4LogicalVolume *logicTungstenCLOSE = new G4LogicalVolume(solidTungstenCLOSE,Material("tungsten"),"logicTungstenCLOSE");
+
+    G4LogicalVolume *logicTungstenInline1 = new G4LogicalVolume(solidTungstenInline1, Material("tungsten"), "logicTungstenInline1");
+
+    G4LogicalVolume *logicTungstenSD1R = new G4LogicalVolume(solidTungstenSD1R,Material("tungsten"),"logicTungstenSD1R");
+    G4LogicalVolume *logicTungstenSD1L = new G4LogicalVolume(solidTungstenSD1L,Material("tungsten"),"logicTungstenSD1L");
+    //G4LogicalVolume *logicTungstenS1 = new G4LogicalVolume(solidTungstenS1,Material("tungsten"),"logicTungstenS1");
+    G4LogicalVolume *logicTungstenSD2R = new G4LogicalVolume(solidTungstenSD2R,Material("tungsten"),"logicTungstenSD2R");
+    G4LogicalVolume *logicTungstenSD2L = new G4LogicalVolume(solidTungstenSD2L,Material("tungsten"),"logicTungstenSD2L");
+
+    //G4LogicalVolume *logicTungstenInline2 = new G4LogicalVolume(solidTungstenInline2, Material("tungsten"), "logicTungstenInline2");
+
+    //G4LogicalVolume *logicTungstenECLAST = new G4LogicalVolume(solidTungstenECLAST,Material("tungsten"),"logicTungstenECLAST");
+
+    G4LogicalVolume *logicLeadCup = new G4LogicalVolume(solidLeadCup,Material("lead"),"logicLeadCup");
+
+
+    //PHYS
+    G4double TInLine1X = ((drift4X + drift4Length) + (quad1X - quadrupole1Length)) * 0.5;
+    G4double TInLine2X = ((driftBUFFX + (driftBUFFLength*dx4)) + (drift7X - (drift7Length*dx4))) * 0.5;
+    G4double TInLine2Z = ((driftBUFFZ + (driftBUFFLength*dz4)) + (drift7Z - (drift7Length*dz4))) * 0.5;
+
+    G4VPhysicalVolume *physTargetBlockSteelL = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelLZ+testOffset),logicTargetBlockSteel,"physTargetBlockSteelL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockSteelR = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelRZ-testOffset),logicTargetBlockSteel,"physTargetBlockSteelR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockIronL = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironLZ+testOffset),logicTargetBlockIron,"physTargetBlockIronL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBlockIronR = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironRZ-testOffset),logicTargetBlockIron,"physTargetBlockIronR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetBase = new G4PVPlacement(0,G4ThreeVector(tbaseX,tbaseY+(3.*testOffset),tbaseZ),logicTargetBase,"physTargetBase",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetUppersL = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupLZ+(2.*testOffset)-(1*cm)),logicTargetUppers,"physTargetUppersL",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetUppersR = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupRZ-(2.*testOffset)+(1*cm)),logicTargetUppers,"physTargetUppersR",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetRoof = new G4PVPlacement(0,G4ThreeVector(tbaseX,roofY,tbaseZ),logicTargetRoof,"physTargetRoof",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physTargetTopper = new G4PVPlacement(0,G4ThreeVector(tbaseX,topperY,tbaseZ),logicTargetTopper,"physTargetTopper",lWorld,false,checkOverlaps);
+
+    G4PVPlacement *physTungstenCLOSE = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,TungstenOffset,0.),logicTungstenCLOSE,"physTungstenCLOSE",lWorld,false,checkOverlaps);
+
+    G4VPhysicalVolume *physTungstenInline1 = new G4PVPlacement(TubeRotation,G4ThreeVector(TInLine1X,0.,0.),logicTungstenInline1,"physTungstenInline1",lWorld,false,checkOverlaps);
+
+    G4double tungsten1XR = concrete1XR - ((tungstenThickness - concreteFTwidth) * dz2);
+    G4double tungsten1XL = concrete1XL + ((tungstenThickness - concreteFTwidth) * dz2);
+    G4double tungsten1ZR = concrete1ZR + ((tungstenThickness - concreteFTwidth) * dx2);
+    G4double tungsten1ZL = concrete1ZL - ((tungstenThickness - concreteFTwidth) * dx2);
+    G4PVPlacement *physTungstenSD1R = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicTungstenSD1R,"physTungstenSD1R",lWorld,false,checkOverlaps);
+    G4PVPlacement *physTungstenSD1L = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicTungstenSD1L,"physTungstenSD1L",lWorld,false,checkOverlaps);
+    //G4PVPlacement *physR1Tungsten = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(tungsten1XR,rtY,tungsten1ZR),logicTungstenS1,"physTungstenR1",lWorld,false,checkOverlaps);
+    //G4PVPlacement *physL1Tungsten = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(tungsten1XL,rtY,tungsten1ZL),logicTungstenS1,"physTungstenL1",lWorld,false,checkOverlaps);
+    G4PVPlacement *physTungstenSD2R = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2R,"physTungstenSD2R",lWorld,false,checkOverlaps);
+    G4PVPlacement *physTungstenSD2L = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2L,"physTungstenSD2L",lWorld,false,checkOverlaps);
+
+    //G4VPhysicalVolume *physTungstenInline2 = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(TInLine2X,rtY,TInLine2Z),logicTungstenInline2,"physTungstenInline2",lWorld,false,checkOverlaps);
+
+    //G4PVPlacement *physTungstenECLAST = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(EC6X,rtY,EC6Z),logicTungstenECLAST,"physTungstenECLAST",lWorld,false,checkOverlaps);
+
+    G4PVPlacement *physLeadCup = new G4PVPlacement(NewTubeRotation,G4ThreeVector(leadX,0.,leadZ),logicLeadCup,"physLeadCup",lWorld,false,checkOverlaps);
+
+
+    G4cout << "Sheildings placed;" << G4endl;
+
+    return;
+}
 
 void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
@@ -1133,7 +1255,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     G4Tubs *solidConcreteSD2L = new G4Tubs("solidConcreteSD2L",CD2InnerRadius,CD2InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
     G4Tubs *solidConcreteSD2R = new G4Tubs("solidConcreteSD2R",CD2OuterRadius - (2 * concreteSTwidth),CD2OuterRadius,concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
-    G4Box *solidConcreteS2 = new G4Box("solidConcreteS2",concrete2Length,concreteSheight,concreteSTwidth);
+    G4Box *solidConcreteS2 = new G4Box("solidConcreteS2",concrete2Length,concreteSheight + (0.2*m),concreteSTwidth - (0.3 * m));
 
     //LOGIC
     G4LogicalVolume *logicConcrete0 = new G4LogicalVolume(solidConcrete0,Material("concrete"),"logicConcrete0");
@@ -1166,7 +1288,7 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4PVPlacement *physD2upConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,utY,D2Z),logicConcreteD2,"physD2upConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physD2dnConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,ftY,D2Z),logicConcreteD2,"physD2dnConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physConcrete2up = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2X,utY,concrete2Z),logicConcrete2,"physConcrete2up",lWorld,false,checkOverlaps);
-    G4PVPlacement *physConcrete2dn = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2X,ftY,concrete2Z),logicConcrete2,"physConcrete2dn",lWorld,false,checkOverlaps);
+    G4PVPlacement *physConcrete2dn = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2X,ftY-(2*0.2*m),concrete2Z),logicConcrete2,"physConcrete2dn",lWorld,false,checkOverlaps);
 
     //sides
     G4PVPlacement *physR0Concrete = new G4PVPlacement(0,G4ThreeVector(concrete0X,rtY,rtZ),logicConcreteS0,"physR0Concrete",lWorld,false,checkOverlaps);
@@ -1177,8 +1299,8 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4PVPlacement *physL1Concrete = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(concrete1XL,rtY,concrete1ZL),logicConcreteS1,"physL1Concrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physSD2LConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicConcreteSD2L,"physSD2LConcrete",lWorld,false,checkOverlaps);
     G4PVPlacement *physSD2RConcrete = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicConcreteSD2R,"physSD2RConcrete",lWorld,false,checkOverlaps);
-    G4PVPlacement *physR2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XR,rtY,concrete2ZR),logicConcreteS2,"physR2Concrete",lWorld,false,checkOverlaps);
-    G4PVPlacement *physL2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XL,rtY,concrete2ZL),logicConcreteS2,"physL2Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physR2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XR,rtY-(0.2*m),concrete2ZR),logicConcreteS2,"physR2Concrete",lWorld,false,checkOverlaps);
+    G4PVPlacement *physL2Concrete = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(concrete2XL,rtY-(0.2*m),concrete2ZL),logicConcreteS2,"physL2Concrete",lWorld,false,checkOverlaps);
 
     //target
     G4PVPlacement *physConcreteTARGET = new G4PVPlacement(TubeRotation,G4ThreeVector(targetX,concreteTargetY,concreteTargetZ),logicConcreteTARGET,"physConcreteTARGET",lWorld,false,checkOverlaps);
@@ -1188,120 +1310,6 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
 
     return;
 };
-
-void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
-
-    G4double tungstenThickness = 0.5 * concreteSTwidth * 0.5;
-    G4double TungstenOffset = 0.25*m;
-    G4double testOffset = 0.1 * m;
-
-    //SOLID
-    //shielding around target
-    G4Box *solidTargetBlock = new G4Box("solidTargetBlock",targetBlockLength,targetBlockSize,targetBlockSize+testOffset);
-    G4Box *solidTargetBase = new G4Box("solidTargetBase",targetBlockLength,targetBaseHeight+(3.*testOffset),targetBaseSize-(2.*testOffset));
-    G4Box *solidTargetUppers = new G4Box("solidTargetUppers",targetBlockLength,targetUpperHeight,targetBlockSize+(2.*testOffset));
-    G4Box *solidTargetRoof = new G4Box("solidTargetRoof",targetBlockLength,targetUpperHeight,targetRoofWidth);
-    G4Box *solidTargetTopper = new G4Box("solidTargetTopper",targetBlockLength,targetUpperHeight,targetTopperWidth);
-
-    //after target
-    G4Tubs *solidTungstenCAP = new G4Tubs("solidTungstenCAP",0.,utY,drift1Length,0.*deg,360.*deg);
-    G4Tubs *solidTungstenREMOVE = new G4Tubs("solidTungstenREMOVE",0.,driftRadius + driftThick,drift1Length+2,0.*deg,360.*deg);
-    G4SubtractionSolid *solidTungstenCLOSE = new G4SubtractionSolid("solidTungstenCLOSE",solidTungstenCAP,solidTungstenREMOVE,0,G4ThreeVector(0.,-TungstenOffset,0.));
-
-    //along drifts and quadrupoles
-    G4double tungstenInline1Length = quadrupole1Length + drift2Length + quadrupole2Length + drift3Length + quadrupole3Length + drift4Length;
-    G4Tubs *solidTungstenInline1 = new G4Tubs("solidTungstenInline1",quadrupole2Radius+quadrupoleThickness+2,quadrupole2Radius+quadrupoleThickness+(2.*tungstenThickness),tungstenInline1Length,0.*deg,360.*deg);
-    G4double tungstenInline2Length = drift7Length + quadrupole6Length + EC3Thickness + drift8Length + quadrupole8Length + EC3Thickness + drift9Length + quadrupole9Length + EC3Thickness + driftBUFFLength;
-    
-    G4double ENDCAPwidth = concreteFTwidth - (2. * concreteSTwidth);
-    G4Box *solidInline2CAP = new G4Box("solidInline2CAP",tungstenInline2Length,ENDCAPwidth,ENDCAPwidth);
-    G4Box *solidInline2REMOVE = new G4Box("solidInline2REMOVE",tungstenInline2Length+2,quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness);
-    G4SubtractionSolid *solidTungstenInline2 = new G4SubtractionSolid("solidTungstenInline2",solidInline2CAP,solidInline2REMOVE,0,G4ThreeVector(0.,-rtY,0.));
-
-    //lead cup after Quadrupole5
-    G4Tubs *solidLeadCup = new G4Tubs("solidLeadCup",0.,leadRadius,leadThickness,0.*deg,360.*deg);
-
-    //G4Tubs *solidTungstenInline2 = new G4Tubs("solidTungstenInline2",quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness+(3.*tungstenThickness),tungstenInline2Length,0.*deg,360.*deg);
-
-    //dipole 1&2
-    G4Tubs *solidTungstenSD1R = new G4Tubs("solidTungstenSD1R",CD1OuterRadius - (2.5 * concreteSTwidth),CD1OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
-    G4Tubs *solidTungstenSD1L = new G4Tubs("solidTungstenSD1L",CD1InnerRadius + (2 * concreteSTwidth),CD1InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
-    G4Box *solidTungstenS1 = new G4Box("solidTungstenS1",concrete1Length,concreteSheight,tungstenThickness);
-    G4Tubs *solidTungstenSD2R = new G4Tubs("solidTungstenSD2R",CD2OuterRadius - (2.5 * concreteSTwidth),CD2OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
-    G4Tubs *solidTungstenSD2L = new G4Tubs("solidTungstenSD2L",CD2InnerRadius + (2 * concreteSTwidth),CD2InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
-
-    //EClast
-    G4Box *solidTungstenECCAP = new G4Box("solidTungstenECCAP",EC6Thickness,concreteSheight,ENDCAPwidth);
-    G4Box *solidTungstenECREMOVE = new G4Box("solidTungstenECREMOVE",EC6Thickness+2,EC6Side,EC6Side);
-    G4SubtractionSolid *solidTungstenECLAST = new G4SubtractionSolid("solidTungstenECLAST",solidTungstenECCAP,solidTungstenECREMOVE,0,G4ThreeVector(0.,-rtY,0.));
-
-    //LOGIC
-
-    G4LogicalVolume *logicTargetBlockSteel = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockSteel");
-    G4LogicalVolume *logicTargetBlockIron = new G4LogicalVolume(solidTargetBlock, Material("tungsten"), "logicTargetBlockIron");
-    G4LogicalVolume *logicTargetBase = new G4LogicalVolume(solidTargetBase, Material("tungsten"), "logicTargetBase");
-    G4LogicalVolume *logicTargetUppers = new G4LogicalVolume(solidTargetUppers, Material("tungsten"), "logicTargetUppers");
-    G4LogicalVolume *logicTargetRoof = new G4LogicalVolume(solidTargetRoof, Material("tungsten"), "logicTargetRoof");
-    G4LogicalVolume *logicTargetTopper = new G4LogicalVolume(solidTargetTopper, Material("tungsten"), "logicTargetTopper");
-
-    G4LogicalVolume *logicTungstenCLOSE = new G4LogicalVolume(solidTungstenCLOSE,Material("tungsten"),"logicTungstenCLOSE");
-
-    G4LogicalVolume *logicTungstenInline1 = new G4LogicalVolume(solidTungstenInline1, Material("tungsten"), "logicTungstenInline1");
-
-    G4LogicalVolume *logicTungstenSD1R = new G4LogicalVolume(solidTungstenSD1R,Material("tungsten"),"logicTungstenSD1R");
-    G4LogicalVolume *logicTungstenSD1L = new G4LogicalVolume(solidTungstenSD1L,Material("tungsten"),"logicTungstenSD1L");
-    G4LogicalVolume *logicTungstenS1 = new G4LogicalVolume(solidTungstenS1,Material("tungsten"),"logicTungstenS1");
-    G4LogicalVolume *logicTungstenSD2R = new G4LogicalVolume(solidTungstenSD2R,Material("tungsten"),"logicTungstenSD2R");
-    G4LogicalVolume *logicTungstenSD2L = new G4LogicalVolume(solidTungstenSD2L,Material("tungsten"),"logicTungstenSD2L");
-
-    G4LogicalVolume *logicTungstenInline2 = new G4LogicalVolume(solidTungstenInline2, Material("tungsten"), "logicTungstenInline2");
-
-    G4LogicalVolume *logicTungstenECLAST = new G4LogicalVolume(solidTungstenECLAST,Material("tungsten"),"logicTungstenECLAST");
-
-    G4LogicalVolume *logicLeadCup = new G4LogicalVolume(solidLeadCup,Material("lead"),"logicLeadCup");
-
-
-    //PHYS
-    G4double TInLine1X = ((drift4X + drift4Length) + (quad1X - quadrupole1Length)) * 0.5;
-    G4double TInLine2X = ((driftBUFFX + (driftBUFFLength*dx4)) + (drift7X - (drift7Length*dx4))) * 0.5;
-    G4double TInLine2Z = ((driftBUFFZ + (driftBUFFLength*dz4)) + (drift7Z - (drift7Length*dz4))) * 0.5;
-
-    G4VPhysicalVolume *physTargetBlockSteelL = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelLZ+testOffset),logicTargetBlockSteel,"physTargetBlockSteelL",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlockSteelR = new G4PVPlacement(0,G4ThreeVector(steelX,steelY,steelRZ-testOffset),logicTargetBlockSteel,"physTargetBlockSteelR",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlockIronL = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironLZ+testOffset),logicTargetBlockIron,"physTargetBlockIronL",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBlockIronR = new G4PVPlacement(0,G4ThreeVector(ironX,ironY,ironRZ-testOffset),logicTargetBlockIron,"physTargetBlockIronR",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetBase = new G4PVPlacement(0,G4ThreeVector(tbaseX,tbaseY+(3.*testOffset),tbaseZ),logicTargetBase,"physTargetBase",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetUppersL = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupLZ+(2.*testOffset)-(1*cm)),logicTargetUppers,"physTargetUppersL",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetUppersR = new G4PVPlacement(0,G4ThreeVector(tupX,tupY,tupRZ-(2.*testOffset)+(1*cm)),logicTargetUppers,"physTargetUppersR",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetRoof = new G4PVPlacement(0,G4ThreeVector(tbaseX,roofY,tbaseZ),logicTargetRoof,"physTargetRoof",lWorld,false,checkOverlaps);
-    G4VPhysicalVolume *physTargetTopper = new G4PVPlacement(0,G4ThreeVector(tbaseX,topperY,tbaseZ),logicTargetTopper,"physTargetTopper",lWorld,false,checkOverlaps);
-
-    G4PVPlacement *physTungstenCLOSE = new G4PVPlacement(TubeRotation,G4ThreeVector(drift1X,TungstenOffset,0.),logicTungstenCLOSE,"physTungstenCLOSE",lWorld,false,checkOverlaps);
-
-    G4VPhysicalVolume *physTungstenInline1 = new G4PVPlacement(TubeRotation,G4ThreeVector(TInLine1X,0.,0.),logicTungstenInline1,"physTungstenInline1",lWorld,false,checkOverlaps);
-
-    G4double tungsten1XR = concrete1XR - ((tungstenThickness - concreteFTwidth) * dz2);
-    G4double tungsten1XL = concrete1XL + ((tungstenThickness - concreteFTwidth) * dz2);
-    G4double tungsten1ZR = concrete1ZR + ((tungstenThickness - concreteFTwidth) * dx2);
-    G4double tungsten1ZL = concrete1ZL - ((tungstenThickness - concreteFTwidth) * dx2);
-    G4PVPlacement *physTungstenSD1R = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicTungstenSD1R,"physTungstenSD1R",lWorld,false,checkOverlaps);
-    G4PVPlacement *physTungstenSD1L = new G4PVPlacement(DipoleRotation,G4ThreeVector(D1X,rtY,D1Z),logicTungstenSD1L,"physTungstenSD1L",lWorld,false,checkOverlaps);
-    G4PVPlacement *physR1Tungsten = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(tungsten1XR,rtY,tungsten1ZR),logicTungstenS1,"physTungstenR1",lWorld,false,checkOverlaps);
-    G4PVPlacement *physL1Tungsten = new G4PVPlacement(Concrete1Rotation,G4ThreeVector(tungsten1XL,rtY,tungsten1ZL),logicTungstenS1,"physTungstenL1",lWorld,false,checkOverlaps);
-    G4PVPlacement *physTungstenSD2R = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2R,"physTungstenSD2R",lWorld,false,checkOverlaps);
-    G4PVPlacement *physTungstenSD2L = new G4PVPlacement(DipoleRotation,G4ThreeVector(D2X,rtY,D2Z),logicTungstenSD2L,"physTungstenSD2L",lWorld,false,checkOverlaps);
-
-    G4VPhysicalVolume *physTungstenInline2 = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(TInLine2X,rtY,TInLine2Z),logicTungstenInline2,"physTungstenInline2",lWorld,false,checkOverlaps);
-
-    G4PVPlacement *physTungstenECLAST = new G4PVPlacement(Concrete2Rotation,G4ThreeVector(EC6X,rtY,EC6Z),logicTungstenECLAST,"physTungstenECLAST",lWorld,false,checkOverlaps);
-
-    G4PVPlacement *physLeadCup = new G4PVPlacement(NewTubeRotation,G4ThreeVector(leadX,0.,leadZ),logicLeadCup,"physLeadCup",lWorld,false,checkOverlaps);
-
-
-    G4cout << "Sheildings placed;" << G4endl;
-
-    return;
-}
 
 void ENUTAG_Construction::DoHadronDump(G4LogicalVolume* lWorld){
 
@@ -1380,7 +1388,7 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
 
     G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"logicSoilBig");
 
-    G4double SoilBigX = USVD2X + 2 * drift1Length;
+    G4double SoilBigX = USVDX + 2 * drift1Length;
     G4double SoilBigZ = targetZ + soilBigRadius + EC6Z;
     G4double SoilBigYup = rtY + solidSoilHeight + soilBigSize;
     G4double SoilBigYdn = rtY - solidSoilHeight - soilBigSize;

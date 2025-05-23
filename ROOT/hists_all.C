@@ -1,7 +1,13 @@
 void hists_all(){
 
     //define all tchains
-    TChain* tUSVD = new TChain("tUSVD");
+    TChain* tUSVD1 = new TChain("tUSVD1");
+    TChain* tUSVD2 = new TChain("tUSVD2");
+    TChain* tMiddle1 = new TChain("tMiddle1");
+    TChain* tMiddle2 = new TChain("tMiddle2");
+    TChain* tMiddle3 = new TChain("tMiddle3");
+    TChain* tMiddle4 = new TChain("tMiddle4");
+    TChain* tMiddle5 = new TChain("tMiddle5");
     TChain* tDet1 = new TChain("tDet1");
     TChain* tDet2 = new TChain("tDet2");
     TChain* tDet3 = new TChain("tDet3");
@@ -15,7 +21,13 @@ void hists_all(){
     //unite all files
     for (int i=0;i<1;i++){
         std::string fileName = "runOut"+to_string(i)+".root";
-        tUSVD->AddFile((fileName+"/USVD").c_str());
+        tUSVD1->AddFile((fileName+"/USVD_1").c_str());
+        tUSVD2->AddFile((fileName+"/USVD_2").c_str());
+        tMiddle1->AddFile((fileName+"/Middle_1").c_str());
+        tMiddle2->AddFile((fileName+"/Middle_2").c_str());
+        tMiddle3->AddFile((fileName+"/Middle_3").c_str());
+        tMiddle4->AddFile((fileName+"/Middle_4").c_str());
+        tMiddle5->AddFile((fileName+"/Middle_5").c_str());
         tDet1->AddFile((fileName+"/Det_1").c_str());
         tDet2->AddFile((fileName+"/Det_2").c_str());
         tDet3->AddFile((fileName+"/Det_3").c_str());
@@ -46,9 +58,9 @@ void hists_all(){
     std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
     Double_t absAngle = 9.09 * 3.141592 / 90;
 
-    std::vector<TChain*> treeSelect = {tUSVD,tDet1,tDet2,tDet3,tDet4,tDet5,tDSVD1,tDSVD2,tFVD,tNeutrinos};
-    std::vector<std::string> treeName = {"USVD","Det1","Det2","Det3","Det4","Det5","DSVD1","DSVD2","FVD","Neutrinos"};
-    std::vector<bool> treeVD = {true,false,false,false,false,false,true,true,true};
+    std::vector<TChain*> treeSelect = {tUSVD1,tUSVD2,tMiddle1,tMiddle2,tMiddle3,tMiddle4,tMiddle5,tDet1,tDet2,tDet3,tDet4,tDet5,tDSVD1,tDSVD2,tFVD,tNeutrinos};
+    std::vector<std::string> treeName = {"USVD1","USVD2","Middle1","Middle2","Middle3","Middle4","Middle5","Det1","Det2","Det3","Det4","Det5","DSVD1","DSVD2","FVD","Neutrinos"};
+    std::vector<bool> treeVD = {true,true,true,true,true,true,true,false,false,false,false,false,true,true,true};
     std::map<std::string, int> colorMap = {
         {"nu_e", kGray},
         {"nu_mu", kGray},

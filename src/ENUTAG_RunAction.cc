@@ -34,24 +34,24 @@ void ENUTAG_RunAction::DefineFileName(G4String newFileName){
 }
 
 void ENUTAG_RunAction::DefineFile(){
-    NTupleCreate("USVD_1");//0
-    NTupleCreate("USVD_2");//1
-    NTupleCreate("Middle_1");//2
-    NTupleCreate("Middle_2");//3
-    NTupleCreate("Middle_3");//4
-    NTupleCreate("Middle_4");//5
-    NTupleCreate("Middle_5");//6
-    NTupleCreate("Det_1");//7
-    NTupleCreate("Det_2");//8
-    NTupleCreate("Det_3");//9
-    NTupleCreate("Det_4");//10
-    NTupleCreate("Det_5");//11
-    NTupleCreate("DSVD_1");//12
-    NTupleCreate("DSVD_2");//13
-    NTupleCreate("FVD");//14
+    //NTupleCreate("USVD_1");
+    NTupleCreate("USVD");
+    NTupleCreate("Middle_1");
+    NTupleCreate("Middle_2");
+    NTupleCreate("Middle_3");
+    NTupleCreate("Middle_4");
+    NTupleCreate("Middle_5");
+    NTupleCreate("Det_1");
+    NTupleCreate("Det_2");
+    NTupleCreate("Det_3");
+    NTupleCreate("Det_4");
+    NTupleCreate("Det_5");
+    NTupleCreate("DSVD_1");
+    NTupleCreate("DSVD_2");
+    NTupleCreate("FVD");
 
     //for neutrinos
-    analysisManager->CreateNtuple("neutrinos", "neutrinos");//15
+    analysisManager->CreateNtuple("neutrinos", "neutrinos");
     analysisManager->CreateNtupleDColumn("nu_x");
     analysisManager->CreateNtupleDColumn("nu_y");
     analysisManager->CreateNtupleDColumn("nu_z");

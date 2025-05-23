@@ -36,11 +36,17 @@ void ENUTAG_PrimaryGenerator::TestMode(G4bool test){
     }
     else{
 
-        G4cout << "TEST MODE OFF" << G4endl; 
+        G4cout << "TEST MODE OFF" << G4endl;
+
+        G4double prodAngle = 0.00872665;
 
         G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-        fParticleGun -> SetParticlePosition(G4ThreeVector(-0.65*m,0.,0.));
-        fParticleGun -> SetParticleMomentum(G4ThreeVector(400.*GeV,0.,0.));
+        G4double startX = -0.651*m*(1.-(std::sin(prodAngle)*std::sin(prodAngle) / std::cos(prodAngle)));
+        G4double startY = 0.;
+        G4double startZ = -0.651*2*m*std::sin(prodAngle);
+        fParticleGun -> SetParticlePosition(G4ThreeVector(startX,startY,startZ));
+        fParticleGun -> SetParticleEnergy(400.*GeV);
+        fParticleGun -> SetParticleMomentumDirection(G4ThreeVector(std::cos(prodAngle),0.,std::sin(prodAngle)));
         fParticleGun -> SetParticleDefinition(particleTable -> FindParticle("proton"));
     }
 }
