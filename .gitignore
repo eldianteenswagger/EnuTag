@@ -1,4 +1,4 @@
-$GIT_DIR/build
-$GIT_DIR/ROOT/*.root
-$GIT_DIR/.vscode
-$GIT_DIR/*.pdf
+build/
+ROOT/*.root
+.vscode/
+*.pdf
