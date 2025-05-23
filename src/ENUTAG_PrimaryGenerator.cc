@@ -38,7 +38,7 @@ void ENUTAG_PrimaryGenerator::TestMode(G4bool test){
 
         G4cout << "TEST MODE OFF" << G4endl;
 
-        G4double prodAngle = 0.00872665;
+        G4double prodAngle = -0.00872665;
 
         G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
         G4double startX = -0.651*m*(1.-(std::sin(prodAngle)*std::sin(prodAngle) / std::cos(prodAngle)));

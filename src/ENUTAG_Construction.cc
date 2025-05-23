@@ -34,7 +34,7 @@
     G4double drift4Length = 0.661739 * m / 2; //ok
     G4double drift5Length = 0.855000 * m / 2; //ok
     G4double drift6Length = 0.143000 * m / 2; //ok
-    G4double drift7Length = 0.400662 * m / 2; //ok
+    G4double drift7Length = 0.150662 * m / 2; //ok
     G4double drift8Length = 0.425953 * m / 2; //ok
     G4double drift9Length = 0.516867 * m / 2; //ok
 
@@ -168,7 +168,8 @@
     G4double dipole3X = EC2X + (EC2Thickness * dx2) - (dipole3Radius * dz2);
     G4double driftDipole2X = dipole3X + (dipole3Radius * dz3) + (driftDipole2Length * dx3);
     G4double dipole4X = driftDipole2X + (driftDipole2Length * dx3) - (dipole4Radius * dz3);
-    G4double drift7X = dipole4X + (dipole4Radius * dz4) + (drift7Length * dx4);
+    G4double driftBUFF1X = dipole4X + (dipole4Radius * dz4) + (driftBUFFLength * dx4);
+    G4double drift7X = driftBUFF1X + (driftBUFFLength * dx4) + (drift7Length * dx4);
     G4double EC3X = drift7X  + (drift7Length * dx4) + (EC3Thickness * dx4);
     G4double quad6X = EC3X + (EC3Thickness * dx4) + (quadrupole6Length * dx4);
     G4double drift8X = quad6X + (quadrupole6Length * dx4) + (drift8Length * dx4);
@@ -211,7 +212,8 @@
     G4double dipole3Z = EC2Z + (drift6Length * dz2) + (dipole3Radius * dx2);
     G4double driftDipole2Z = dipole3Z - (dipole2Radius *  dx3) + (driftDipole2Length * dz3);
     G4double dipole4Z = driftDipole2Z + (dipole4Radius * dx3) + (driftDipole2Length * dz3);
-    G4double drift7Z = dipole4Z - (dipole4Radius *  dx4) + (drift7Length * dz4);
+    G4double driftBUFF1Z = dipole4Z - (dipole4Radius *  dx4) + (driftBUFFLength * dz4);
+    G4double drift7Z = driftBUFF1Z + (driftBUFFLength * dz4) + (drift7Length * dz4);
     G4double EC3Z = drift7Z  + (drift7Length * dz4) + (EC3Thickness * dz4);
     G4double quad6Z = EC3Z + (EC3Thickness * dz4) + (quadrupole6Length * dz4);
     G4double drift8Z = quad6Z + (quadrupole6Length * dz4) + (drift8Length * dz4);
@@ -271,7 +273,7 @@
     G4double concreteFTLength = targetBlockLength + drift1Length;
     G4double concrete0Length = (dipole1X - 2.*drift1Length - targetBlockLength)*0.5;
     G4double concrete1Length = drift5Length + quadrupole5Length + EC1Thickness + drift6Length + EC2Thickness;
-    G4double concrete2Length = drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
+    G4double concrete2Length = driftBUFFLength + drift7Length + EC3Thickness + quadrupole6Length + drift8Length + EC3Thickness + quadrupole8Length + drift9Length + EC3Thickness + quadrupole9Length + driftBUFFLength + EC6Thickness;
 
     //Concrete positions
     G4double concrete_t_X_offset = 1.0 * m;
@@ -341,7 +343,7 @@
     G4RotationMatrix* Concrete1Rotation = new G4RotationMatrix();
     G4RotationMatrix* Concrete2Rotation = new G4RotationMatrix();
     //target rotation
-    G4double targetAngle = 0.00872665;
+    G4double targetAngle = -0.00872665;
     G4RotationMatrix* TargetRotation = new G4RotationMatrix();
 
     //field parameters
@@ -1018,6 +1020,7 @@ void ENUTAG_Construction::DoDrifts(G4LogicalVolume* lWorld){
     G4VPhysicalVolume *physDrift5 = new G4PVPlacement(NewTubeRotation,G4ThreeVector(drift5X,0.,drift5Z),logicDrift5,"physDrift5",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDrift6 = new G4PVPlacement(NewTubeRotation,G4ThreeVector(drift6X,0.,drift6Z),logicDrift6,"physDrift6",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDriftDipole2 = new G4PVPlacement(driftDipole22Rotation,G4ThreeVector(driftDipole2X,0.,driftDipole2Z),logicDriftDipole2,"physDriftDipole2",lWorld,false,checkOverlaps);
+    G4VPhysicalVolume *physDriftBUFF1 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(driftBUFF1X,0.,driftBUFF1Z),logicDriftBUFF,"logicDriftBUFF1",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDrift7 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(drift7X,0.,drift7Z),logicDrift7,"physDrift7",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDrift8 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(drift8X,0.,drift8Z),logicDrift8,"physDrift8",lWorld,false,checkOverlaps);
     G4VPhysicalVolume *physDrift9 = new G4PVPlacement(NewNewTubeRotation,G4ThreeVector(drift9X,0.,drift9Z),logicDrift9,"physDrift9",lWorld,false,checkOverlaps);
