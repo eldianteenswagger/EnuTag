@@ -64,31 +64,17 @@
     G4double dipoleWidth = 1. * m / 2;
     G4double dipoleSize = 0.125 * m;
     G4double dipoleHeight = 0.04 * m;
+    G4double dipoleAngle = 0.079349166;
+    G4double dipoleDeg = dipoleAngle * (180 / M_PI) * deg;
+    G4double dipoleRadius = 1.25 * m / dipoleAngle;
 
     G4double driftDipole1Radius = 0.012 * m;
     G4double driftDipole1Length = 0.6 * m / 2;
     G4double driftDipole2Radius = 0.012 * m;
     G4double driftDipole2Length = 0.61 * m / 2;
 
-    G4double dipole1Radius = 15.76 * m;
-    G4double dipole1InnerRadius = dipole1Radius - dipoleSize;
-    G4double dipole1OuterRadius = dipole1Radius + dipoleSize;
-    G4double dipole1Deg = 9.09/2 * deg;
-
-    G4double dipole2Radius = 15.76 * m;
-    G4double dipole2InnerRadius = dipole2Radius - dipoleSize;
-    G4double dipole2OuterRadius = dipole2Radius + dipoleSize;
-    G4double dipole2Deg = 9.09/2 * deg;
-
-    G4double dipole3Radius = 15.76 * m;
-    G4double dipole3InnerRadius = dipole3Radius - dipoleSize;
-    G4double dipole3OuterRadius = dipole3Radius + dipoleSize;
-    G4double dipole3Deg = 9.09/2 * deg;
-
-    G4double dipole4Radius = 15.76 * m;
-    G4double dipole4InnerRadius = dipole4Radius - dipoleSize;
-    G4double dipole4OuterRadius = dipole4Radius + dipoleSize;
-    G4double dipole4Deg = 9.09/2 * deg;
+    G4double dipoleInnerRadius = dipoleRadius - dipoleSize;
+    G4double dipoleOuterRadius = dipoleRadius + dipoleSize;
 
     //lead cup
     G4double leadThickness = 0.012 * m / 2;
@@ -157,18 +143,18 @@
     G4double quad3X = drift3X + drift3Length + quadrupole3Length;
     G4double drift4X = quad3X + quadrupole3Length + drift4Length;
     G4double dipole1X = drift4X + drift4Length;
-    G4double driftDipole1X = dipole1X + (dipole1Radius * dz1) + (driftDipole1Length * dx1);
-    G4double dipole2X = driftDipole1X + driftDipole1Length - (dipole2Radius * dz1);
-    G4double drift5X = dipole2X + (dipole2Radius * dz2) + (drift5Length * dx2);
+    G4double driftDipole1X = dipole1X + (dipoleRadius * dz1) + (driftDipole1Length * dx1);
+    G4double dipole2X = driftDipole1X + driftDipole1Length - (dipoleRadius * dz1);
+    G4double drift5X = dipole2X + (dipoleRadius * dz2) + (drift5Length * dx2);
     G4double quad5X = drift5X + (drift5Length * dx2) + (quadrupole5Length * dx2);
     G4double leadX = quad5X + (quadrupole5Length * dx2) + (leadThickness * dx2);
     G4double EC1X = leadX  + (leadThickness * dx2) + (EC1Thickness * dx2);
     G4double drift6X = EC1X + (EC1Thickness * dx2) + (drift6Length * dx2);
     G4double EC2X = drift6X  + (drift6Length * dx2) + (EC2Thickness * dx2);
-    G4double dipole3X = EC2X + (EC2Thickness * dx2) - (dipole3Radius * dz2);
-    G4double driftDipole2X = dipole3X + (dipole3Radius * dz3) + (driftDipole2Length * dx3);
-    G4double dipole4X = driftDipole2X + (driftDipole2Length * dx3) - (dipole4Radius * dz3);
-    G4double driftBUFF1X = dipole4X + (dipole4Radius * dz4) + (driftBUFFLength * dx4);
+    G4double dipole3X = EC2X + (EC2Thickness * dx2) - (dipoleRadius * dz2);
+    G4double driftDipole2X = dipole3X + (dipoleRadius * dz3) + (driftDipole2Length * dx3);
+    G4double dipole4X = driftDipole2X + (driftDipole2Length * dx3) - (dipoleRadius * dz3);
+    G4double driftBUFF1X = dipole4X + (dipoleRadius * dz4) + (driftBUFFLength * dx4);
     G4double drift7X = driftBUFF1X + (driftBUFFLength * dx4) + (drift7Length * dx4);
     G4double EC3X = drift7X  + (drift7Length * dx4) + (EC3Thickness * dx4);
     G4double quad6X = EC3X + (EC3Thickness * dx4) + (quadrupole6Length * dx4);
@@ -200,19 +186,19 @@
 
     //z
     G4double targetZ = 0.;
-    G4double dipole1Z = targetZ + dipole1Radius;
-    G4double driftDipole1Z = dipole1Z - (dipole1Radius *  dx1) + (driftDipole1Length * dz1);
-    G4double dipole2Z = driftDipole1Z + (dipole2Radius * dx1) + (driftDipole1Length * dz1);
-    G4double drift5Z = dipole2Z - (dipole2Radius * dx2) + (drift5Length * dz2);
+    G4double dipole1Z = targetZ + dipoleRadius;
+    G4double driftDipole1Z = dipole1Z - (dipoleRadius *  dx1) + (driftDipole1Length * dz1);
+    G4double dipole2Z = driftDipole1Z + (dipoleRadius * dx1) + (driftDipole1Length * dz1);
+    G4double drift5Z = dipole2Z - (dipoleRadius * dx2) + (drift5Length * dz2);
     G4double quad5Z = drift5Z + (drift5Length * dz2) + (quadrupole5Length * dz2);
     G4double leadZ = quad5Z + (quadrupole5Length * dz2) + (leadThickness * dz2);
     G4double EC1Z = leadZ + (leadThickness * dz2) + (EC1Thickness * dz2);
     G4double drift6Z = EC1Z + (EC1Thickness * dz2) + (drift6Length * dz2);
     G4double EC2Z = drift6Z  + (drift6Length * dz2) + (EC2Thickness * dz2);
-    G4double dipole3Z = EC2Z + (drift6Length * dz2) + (dipole3Radius * dx2);
-    G4double driftDipole2Z = dipole3Z - (dipole2Radius *  dx3) + (driftDipole2Length * dz3);
-    G4double dipole4Z = driftDipole2Z + (dipole4Radius * dx3) + (driftDipole2Length * dz3);
-    G4double driftBUFF1Z = dipole4Z - (dipole4Radius *  dx4) + (driftBUFFLength * dz4);
+    G4double dipole3Z = EC2Z + (drift6Length * dz2) + (dipoleRadius * dx2);
+    G4double driftDipole2Z = dipole3Z - (dipoleRadius *  dx3) + (driftDipole2Length * dz3);
+    G4double dipole4Z = driftDipole2Z + (dipoleRadius * dx3) + (driftDipole2Length * dz3);
+    G4double driftBUFF1Z = dipole4Z - (dipoleRadius *  dx4) + (driftBUFFLength * dz4);
     G4double drift7Z = driftBUFF1Z + (driftBUFFLength * dz4) + (drift7Length * dz4);
     G4double EC3Z = drift7Z  + (drift7Length * dz4) + (EC3Thickness * dz4);
     G4double quad6Z = EC3Z + (EC3Thickness * dz4) + (quadrupole6Length * dz4);
@@ -312,8 +298,8 @@
     G4double concrete0X = (dipole1X + targetBlockLength + 2.*drift1Length) * 0.5;
     G4double D1X = dipole1X;
     G4double D1Z = CD1radius;
-    G4double concrete1X = dipole2X + (dipole2Radius * dz2) + (concrete1Length * dx2);
-    G4double concrete1Z = dipole2Z - (dipole2Radius * dx2) + (concrete1Length * dz2);
+    G4double concrete1X = dipole2X + (dipoleRadius * dz2) + (concrete1Length * dx2);
+    G4double concrete1Z = dipole2Z - (dipoleRadius * dx2) + (concrete1Length * dz2);
     G4double concrete1XR = concrete1X - (2 * concreteSTwidth * dz2);
     G4double concrete1XL = concrete1X + (2 * concreteSTwidth * dz2);
     G4double concrete1ZR = concrete1Z + (2 * concreteSTwidth * dx2);
@@ -371,19 +357,19 @@ void ENUTAG_Construction::DefineRotations(){
     DipoleRotation->rotateX(90.*deg);
     //driftDipole1
     driftDipole11Rotation->rotateY(90.*deg);
-    driftDipole11Rotation->rotateY(dipole1Deg);
+    driftDipole11Rotation->rotateY(dipoleDeg);
     //after first dipole
     NewTubeRotation->rotateY(90.*deg);
-    NewTubeRotation->rotateY(dipole1Deg+dipole2Deg);
+    NewTubeRotation->rotateY(2.*dipoleDeg);
     //driftDipole2
     driftDipole22Rotation->rotateY(90.*deg);
-    driftDipole22Rotation->rotateY(dipole1Deg+dipole2Deg+dipole3Deg);
+    driftDipole22Rotation->rotateY(3.*dipoleDeg);
     //after second dipole
     NewNewTubeRotation->rotateY(90.*deg);
-    NewNewTubeRotation->rotateY(dipole1Deg+dipole2Deg+dipole3Deg+dipole4Deg);
+    NewNewTubeRotation->rotateY(4.*dipoleDeg);
     //Concrete1&2
-    Concrete1Rotation->rotateY(2.*dipole1Deg);
-    Concrete2Rotation->rotateY(4.*dipole1Deg);
+    Concrete1Rotation->rotateY(2.*dipoleDeg);
+    Concrete2Rotation->rotateY(4.*dipoleDeg);
     //target
     TargetRotation->rotateY(90.*deg);
     TargetRotation->rotateY(targetAngle*rad);
@@ -687,46 +673,28 @@ void ENUTAG_Construction::ConstructSDandField(){
 void ENUTAG_Construction::DoDipole(G4int dipoleNumber, G4LogicalVolume* lWorld){
 
     //parameters
-    G4double dipoleInnerRadius;
-    G4double dipoleOuterRadius;
-    G4double dipoleDeg;
     G4double dipoleX;
     G4double dipoleZ;
     G4LogicalVolume *logicDipoleField = nullptr;
 
     switch(dipoleNumber){
         case 1:{
-            dipoleInnerRadius = dipole1InnerRadius;
-            dipoleOuterRadius = dipole1OuterRadius;
-            dipoleDeg = dipole1Deg;
             dipoleX = dipole1X;
             dipoleZ = dipole1Z;
             break;}
         case 2:{
-            dipoleInnerRadius = dipole2InnerRadius;
-            dipoleOuterRadius = dipole2OuterRadius;
-            dipoleDeg = dipole2Deg;
             dipoleX = dipole2X;
             dipoleZ = dipole2Z;
             break;}
         case 3:{
-            dipoleInnerRadius = dipole3InnerRadius;
-            dipoleOuterRadius = dipole3OuterRadius;
-            dipoleDeg = dipole3Deg;
             dipoleX = dipole3X;
             dipoleZ = dipole3Z;
             break;}
         case 4:{
-            dipoleInnerRadius = dipole4InnerRadius;
-            dipoleOuterRadius = dipole4OuterRadius;
-            dipoleDeg = dipole4Deg;
             dipoleX = dipole4X;
             dipoleZ = dipole4Z;
             break;}
         default:{
-            dipoleInnerRadius = 0.;
-            dipoleOuterRadius = 0.;
-            dipoleDeg = 0.;
             dipoleX = 0.;
             dipoleZ = 0.;
             logicDipoleField = nullptr;
@@ -1152,11 +1120,11 @@ void ENUTAG_Construction::DoShieldings(G4LogicalVolume* lWorld){
     //G4Tubs *solidTungstenInline2 = new G4Tubs("solidTungstenInline2",quadrupole9Radius+quadrupoleThickness,quadrupole9Radius+quadrupoleThickness+(3.*tungstenThickness),tungstenInline2Length,0.*deg,360.*deg);
 
     //dipole 1&2
-    G4Tubs *solidTungstenSD1R = new G4Tubs("solidTungstenSD1R",CD1OuterRadius - (2.5 * concreteSTwidth),CD1OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
-    G4Tubs *solidTungstenSD1L = new G4Tubs("solidTungstenSD1L",CD1InnerRadius + (2 * concreteSTwidth),CD1InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (2. * dipole4Deg),2. * dipole4Deg);
+    G4Tubs *solidTungstenSD1R = new G4Tubs("solidTungstenSD1R",CD1OuterRadius - (2.5 * concreteSTwidth),CD1OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidTungstenSD1L = new G4Tubs("solidTungstenSD1L",CD1InnerRadius + (2 * concreteSTwidth),CD1InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
     //G4Box *solidTungstenS1 = new G4Box("solidTungstenS1",concrete1Length,concreteSheight,tungstenThickness);
-    G4Tubs *solidTungstenSD2R = new G4Tubs("solidTungstenSD2R",CD2OuterRadius - (2.5 * concreteSTwidth),CD2OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
-    G4Tubs *solidTungstenSD2L = new G4Tubs("solidTungstenSD2L",CD2InnerRadius + (2 * concreteSTwidth),CD2InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (4. * dipole4Deg),2. * dipole4Deg);
+    G4Tubs *solidTungstenSD2R = new G4Tubs("solidTungstenSD2R",CD2OuterRadius - (2.5 * concreteSTwidth),CD2OuterRadius - (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidTungstenSD2L = new G4Tubs("solidTungstenSD2L",CD2InnerRadius + (2 * concreteSTwidth),CD2InnerRadius + (2.5 * concreteSTwidth),concreteSheight, 90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
 
     //EClast
     G4Box *solidTungstenECCAP = new G4Box("solidTungstenECCAP",EC6Thickness,concreteSheight,ENDCAPwidth);
@@ -1248,16 +1216,16 @@ void ENUTAG_Construction::DoConcrete(G4LogicalVolume* lWorld){
     G4Box *solidConcrete1 = new G4Box("solidConcrete1",concrete1Length,concreteFTheight,concreteFTwidth);
     G4Box *solidConcrete2 = new G4Box("solidConcrete2",concrete2Length,concreteFTheight,concreteFTwidth);
     //dipoles
-    G4Tubs *solidConcreteD1 = new G4Tubs("solidConcreteD1",CD1InnerRadius,CD1OuterRadius,concreteFTheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
-    G4Tubs *solidConcreteD2 = new G4Tubs("solidConcreteD2",CD2InnerRadius,CD2OuterRadius,concreteFTheight,90. * deg - (4. * dipole1Deg),2. * dipole1Deg);
+    G4Tubs *solidConcreteD1 = new G4Tubs("solidConcreteD1",CD1InnerRadius,CD1OuterRadius,concreteFTheight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidConcreteD2 = new G4Tubs("solidConcreteD2",CD2InnerRadius,CD2OuterRadius,concreteFTheight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
     //sides
     G4Box *solidConcreteS0 = new G4Box("solidConcreteS0",concrete0Length,concreteSheight,concreteSTwidth);
-    G4Tubs *solidConcreteSD1L = new G4Tubs("solidConcreteSD1L",CD1InnerRadius,CD1InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
-    G4Tubs *solidConcreteSD1R = new G4Tubs("solidConcreteSD1R",CD1OuterRadius - (2 * concreteSTwidth),CD1OuterRadius,concreteSheight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
+    G4Tubs *solidConcreteSD1L = new G4Tubs("solidConcreteSD1L",CD1InnerRadius,CD1InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidConcreteSD1R = new G4Tubs("solidConcreteSD1R",CD1OuterRadius - (2 * concreteSTwidth),CD1OuterRadius,concreteSheight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
     G4Box *solidConcreteS1 = new G4Box("solidConcreteS1",concrete1Length,concreteSheight,concreteSTwidth);
 
-    G4Tubs *solidConcreteSD2L = new G4Tubs("solidConcreteSD2L",CD2InnerRadius,CD2InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
-    G4Tubs *solidConcreteSD2R = new G4Tubs("solidConcreteSD2R",CD2OuterRadius - (2 * concreteSTwidth),CD2OuterRadius,concreteSheight,90. * deg - (4. * dipole3Deg),2. * dipole4Deg);
+    G4Tubs *solidConcreteSD2L = new G4Tubs("solidConcreteSD2L",CD2InnerRadius,CD2InnerRadius + (2 * concreteSTwidth),concreteSheight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidConcreteSD2R = new G4Tubs("solidConcreteSD2R",CD2OuterRadius - (2 * concreteSTwidth),CD2OuterRadius,concreteSheight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
     G4Box *solidConcreteS2 = new G4Box("solidConcreteS2",concrete2Length,concreteSheight + (0.2*m),concreteSTwidth - (0.3 * m));
 
     //LOGIC
@@ -1346,10 +1314,10 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
     G4Box *solidSoilS0 = new G4Box("solidSoilS0",concrete0Length,solidSoilHeight,CD1InnerRadius*0.5);
     G4Box *solidSoilS1 = new G4Box("solidSoilS1",concrete1Length,solidSoilHeight,CD1InnerRadius*0.5);
     G4Box *solidSoilS2 = new G4Box("solidSoilS2",concrete2Length,solidSoilHeight,CD1InnerRadius*0.5);
-    G4Tubs *solidSoilSD1L = new G4Tubs("solidSoilSD1L",0.,CD1InnerRadius,solidSoilHeight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
-    G4Tubs *solidSoilSD1R = new G4Tubs("solidSoilSD1R",CD1OuterRadius,CD1OuterRadius+CD1InnerRadius,solidSoilHeight,90. * deg - (2. * dipole1Deg),2. * dipole1Deg);
-    G4Tubs *solidSoilSD2L = new G4Tubs("solidSoilSD2L",0.,CD2InnerRadius,solidSoilHeight,90. * deg - (4. * dipole1Deg),2. * dipole1Deg);
-    G4Tubs *solidSoilSD2R = new G4Tubs("solidSoilSD2R",CD2OuterRadius,CD2OuterRadius+CD2InnerRadius,solidSoilHeight,90. * deg - (4. * dipole1Deg),2. * dipole1Deg);
+    G4Tubs *solidSoilSD1L = new G4Tubs("solidSoilSD1L",0.,CD1InnerRadius,solidSoilHeight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidSoilSD1R = new G4Tubs("solidSoilSD1R",CD1OuterRadius,CD1OuterRadius+CD1InnerRadius,solidSoilHeight,90. * deg - (2. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidSoilSD2L = new G4Tubs("solidSoilSD2L",0.,CD2InnerRadius,solidSoilHeight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
+    G4Tubs *solidSoilSD2R = new G4Tubs("solidSoilSD2R",CD2OuterRadius,CD2OuterRadius+CD2InnerRadius,solidSoilHeight,90. * deg - (4. * dipoleDeg),2. * dipoleDeg);
 
     G4LogicalVolume *logicSoilS0 = new G4LogicalVolume(solidSoilS0,Material("stone"),"logicSoilS0");
     G4LogicalVolume *logicSoilS1 = new G4LogicalVolume(solidSoilS1,Material("stone"),"logicSoilS1");
@@ -1387,7 +1355,7 @@ void ENUTAG_Construction::DoSoil(G4LogicalVolume* lWorld){
     G4double soilBigSize = 8. * m;
 
     G4double soilBigRadius = 73.108 * m;
-    G4Tubs *solidSoilBig = new G4Tubs("solidSoilBig",soilBigRadius - CD1InnerRadius,soilBigRadius + CD1OuterRadius,soilBigSize,90. * deg - (4. * dipole1Deg),4. * dipole1Deg);
+    G4Tubs *solidSoilBig = new G4Tubs("solidSoilBig",soilBigRadius - CD1InnerRadius,soilBigRadius + CD1OuterRadius,soilBigSize,90. * deg - (4. * dipoleDeg),4. * dipoleDeg);
 
     G4LogicalVolume *logicSoilBig = new G4LogicalVolume(solidSoilBig,Material("stone"),"logicSoilBig");
 

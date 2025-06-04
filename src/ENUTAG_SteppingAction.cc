@@ -35,8 +35,10 @@ void ENUTAG_SteppingAction::UserSteppingAction(const G4Step* step){
     G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
 
     G4Track* track = (G4Track*)(step->GetTrack());
-    G4double Ekin = track->GetKineticEnergy();
-    if (Ekin < Emin) track->SetTrackStatus(fStopAndKill);
+    G4double Ekin = track -> GetKineticEnergy();
+    if (Ekin < Emin) track -> SetTrackStatus(fStopAndKill);
+    std::string pID = (track -> GetParticleDefinition() -> GetParticleName()).c_str();
+    if (pID=="gamma" || pID=="neutron" || pID=="anti_neutron") track -> SetTrackStatus(fStopAndKill);
 
     //analysis
     //step stuff

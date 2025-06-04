@@ -1,6 +1,6 @@
 /run/numberOfThreads 18
 /run/initialize
 /ENUTAG/testMode false
-/ENUTAG/outName ../ROOT/runOut0.root
+/ENUTAG/outName ../ROOT/runOut_prove20k_noPhotons.root
 #/run/printProgress 100
-/run/beamOn 2000
+/run/beamOn 20000

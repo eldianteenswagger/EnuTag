@@ -2,6 +2,7 @@
     "files.associations": {
         "neutrino_map.C": "cpp",
         "hist_salad.C": "cpp",
-        "hist.C": "cpp"
+        "hist.C": "cpp",
+        "hists_all.C": "cpp"
     }
 }
