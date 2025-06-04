@@ -3,4 +3,3 @@ ROOT/*.root
 ROOT/OUT/
 .vscode/
 *.pdf
-sbatch/
