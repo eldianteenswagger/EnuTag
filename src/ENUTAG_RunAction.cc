@@ -55,6 +55,10 @@ void ENUTAG_RunAction::DefineFile(){
     analysisManager->CreateNtupleDColumn("nu_x");
     analysisManager->CreateNtupleDColumn("nu_y");
     analysisManager->CreateNtupleDColumn("nu_z");
+    analysisManager->CreateNtupleDColumn("nu_ix");
+    analysisManager->CreateNtupleDColumn("nu_iy");
+    analysisManager->CreateNtupleDColumn("nu_E");
+    analysisManager->CreateNtupleSColumn("nu_PDG");
     analysisManager->FinishNtuple();
 }
 

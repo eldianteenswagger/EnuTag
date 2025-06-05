@@ -19,6 +19,10 @@ ENUTAG_SensitiveDetector::ENUTAG_SensitiveDetector(G4String name,G4int id) : G4V
     fnuX = 0.;
     fnuY = 0.;
     fnuZ = 0.;
+    fnuIX = 0.;
+    fnuIY = 0.;
+    fnuE = 0.;
+    fnuPDG = "";
     neutrinoTrack = false;
 }
 
@@ -42,6 +46,10 @@ void ENUTAG_SensitiveDetector::Initialize(G4HCofThisEvent *){
     fnuX = 0.;
     fnuY = 0.;
     fnuZ = 0.;
+    fnuIX = 0.;
+    fnuIY = 0.;
+    fnuE = 0.;
+    fnuPDG = "";
     neutrinoTrack = false;
 }
 
@@ -88,6 +96,10 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
             fnuX = track->GetVertexPosition().x();
             fnuY = track->GetVertexPosition().y();
             fnuZ = track->GetVertexPosition().z();
+            fnuIX = fX/std::cos(18.18*3.141592/180);
+            fnuIY = fY;
+            fnuE =  fParticleEnergy;
+            fnuPDG = fPDG;
             neutrinoTrack = true;
         }
     }
@@ -132,6 +144,10 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
         analysisManager->FillNtupleDColumn(14,0,fnuX/m);
         analysisManager->FillNtupleDColumn(14,1,fnuY/m);
         analysisManager->FillNtupleDColumn(14,2,fnuZ/m);
+        analysisManager->FillNtupleDColumn(14,3,fnuIX/mm);
+        analysisManager->FillNtupleDColumn(14,4,fnuIY/mm);
+        analysisManager->FillNtupleDColumn(14,5,fnuE/MeV);
+        analysisManager->FillNtupleSColumn(14,6,fnuPDG);
         analysisManager->AddNtupleRow(14);
         neutrinoTrack = false;
     }

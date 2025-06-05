@@ -3,6 +3,11 @@
         "neutrino_map.C": "cpp",
         "hist_salad.C": "cpp",
         "hist.C": "cpp",
-        "hists_all.C": "cpp"
+        "hists_all.C": "cpp",
+        "hist_single.C": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "span": "cpp"
     }
 }

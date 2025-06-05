@@ -37,7 +37,11 @@ private:
     G4bool neutrinoTrack;
     G4double fnuX;
     G4double fnuY;
+    G4double fnuIX;
+    G4double fnuIY;
     G4double fnuZ;
+    G4double fnuE;
+    G4String fnuPDG;
     G4String volumeName;
 
     std::vector<std::string> partSelect = {"nu_e","nu_mu","nu_tau","anti_nu_e","anti_nu_mu","anti_nu_tau"};
