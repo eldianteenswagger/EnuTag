@@ -1,7 +1,12 @@
+#include <fstream>
 void combine_out(){
 
-    int nJobs = 2000;
+    int nJobs = 2;
     int fileCount;
+    double Ebin = 100.;
+
+    ofstream txtFile;
+    txtFile.open("outMerge/verbose_out.txt");
 
     std::vector<std::string> treeName = {"USVD","Middle1","Middle2","Middle3","Middle4","Middle5","Det1","Det2","Det3","Det4","Det5","DSVD1","DSVD2","FVD","Neutrinos","Extra"};
     std::vector<bool> treeVD = {true,true,true,true,true,true,false,false,false,false,false,true,true,true,false};
@@ -40,6 +45,14 @@ void combine_out(){
     std::map<std::string, TH1D*> kaonsHist_lim;
     std::map<std::string, TH1D*> pionsSpectrum_lim;
     std::map<std::string, TH1D*> kaonsSpectrum_lim;
+
+    TH1D* p_before = nullptr;
+    TH1D* p_after = nullptr;
+
+    //TFile* pdfOut = new TFile("outMerge/StraordinariDiAprile.pdf","RECREATE");
+    std::string pdfOut = "outMerge/StraordinariDiAprile.pdf";
+    TCanvas* cOpen = new TCanvas();
+    cOpen->Print((pdfOut+"[").c_str());
     
     for(int d = 0; d<treeName.size(); ++d){
         fileCount = 0;
@@ -119,10 +132,11 @@ void combine_out(){
                 }
                 hnui_TOT->Add(hnui_local);
                 file->Close();
-                if(j%100==0)std::cout<<"Neutrinos: "<<j/100<<" %"<<endl;
+                //if(j%100==0)std::cout<<"Neutrinos: "<<j/100<<" %"<<endl;
             }
 
             //out
+            TCanvas* cNu = new TCanvas("nu","nu",1920,1200);
             hnux_TOT->Scale(1./fileCount);
             hnux_TOT->SetStats(1);
             hnux_TOT->SetTitle("Neutrino x");
@@ -135,14 +149,26 @@ void combine_out(){
             hnuxy_TOT->Scale(1./fileCount);
             hnuxy_TOT->SetStats(1);
             hnuxy_TOT->SetTitle("Neutrino production, xy");
+            hnuxy_TOT->Draw();
+            cNu->Update();
+            cNu->Print(pdfOut.c_str());
             hnuzy_TOT->Scale(1./fileCount);
             hnuzy_TOT->SetStats(1);
             hnuzy_TOT->SetTitle("Neutrino production, zy");
+            hnuzy_TOT->Draw();
+            cNu->Update();
+            cNu->Print(pdfOut.c_str());
             hnuxz_TOT->Scale(1./fileCount);
             hnuxz_TOT->SetStats(1);
             hnuxz_TOT->SetTitle("Neutrino production, xz");
-            hnui_TOT->SetStats(1);
+            hnuxz_TOT->Draw();
+            cNu->Update();
+            cNu->Print(pdfOut.c_str());
+            hnui_TOT->SetStats(0);
             hnui_TOT->SetTitle("Neutrino impacts on FVD");
+            hnui_TOT->Draw();
+            cNu->Update();
+            cNu->Print(pdfOut.c_str());
 
             outFile->WriteObject(hnux_TOT,"hnux");
             outFile->WriteObject(hnuy_TOT,"hnuy");
@@ -153,7 +179,9 @@ void combine_out(){
             outFile->WriteObject(hnui_TOT,"hnui");
 
 
-            std::cout<<treeName[d]<<": "<<fileCount<<std::endl;
+            txtFile<<treeName[d]<<": "<<fileCount<<"\n";
+
+            outFile->Close();
 
 
         }else if(treeName[d]=="Extra"){
@@ -179,12 +207,13 @@ void combine_out(){
                     tree->GetEntry(i);
                     pionsInts[i]+=intp;
                     kaonsInts[i]+=intk;
-                    if(j==0){x[i]=id;}
+                    if(j==0){x[i]=i+1;}
                 }
             }
             for(int i=0;i<pionsInts.size();++i){
                 pionsInts[i]/=fileCount;
                 kaonsInts[i]/=fileCount;
+                txtFile<<treeName[i]<<": pi+ "<<pionsInts[i]<<" k+ "<<kaonsInts[i]<<"\n";
             }
 
             TGraph* pGraph = new TGraph(pionsInts.size(), &x[0], &pionsInts[0]);
@@ -196,26 +225,45 @@ void combine_out(){
             pGraph->SetStats(0);
             kGraph->SetStats(0);
             pGraph->SetMarkerStyle(21);
+            pGraph->SetLineStyle(0);
             pGraph->SetMarkerColor(colorMap["pi+"]);
             kGraph->SetMarkerStyle(21);
-            kGraph->SetMarkerColor(colorMap["kaon+"]);
+            kGraph->SetLineStyle(0);
+            kGraph->SetMarkerColor(colorMap["pi-"]);
             pGraph->SetTitle("Pion/Kaon yields");
-            pGraph->Draw();
-            kGraph->Draw("SAME");
+            c1->SetLogy();
+            pGraph->GetYaxis()->SetRangeUser(1e-5,10.);
+            kGraph->GetYaxis()->SetRangeUser(1e-5,10.);
+            pGraph->GetYaxis()->SetTitle("Yield/POT");
+            c1->SetGrid();
+            pGraph->Draw("AP");
+            kGraph->Draw("P SAME");
+            c1->Print(pdfOut.c_str());
             outFile->WriteObject(c1,"pk");
-            TCanvas *c2 = new TCanvas("c1", "Pion/Kaon yields", 1920, 1200);
+            TCanvas *c2 = new TCanvas("c2", "Pion/Kaon yields 2", 1920, 1200);
             pGraphS->SetStats(0);
-            kGraphS->SetStats(0);
             pGraphS->SetMarkerStyle(21);
+            pGraphS->SetLineStyle(0);
             pGraphS->SetMarkerColor(colorMap["pi+"]);
+            kGraphS->SetStats(0);
             kGraphS->SetMarkerStyle(21);
-            kGraphS->SetMarkerColor(colorMap["kaon+"]);
+            kGraphS->SetLineStyle(0);
+            kGraphS->SetMarkerColor(colorMap["pi-"]);
             pGraphS->SetTitle("Pion/Kaon yields (S)");
-            pGraphS->Draw();
-            kGraphS->Draw("SAME");
+            c2->SetLogy();
+            pGraphS->GetYaxis()->SetRangeUser(1e-5,10.);
+            kGraphS->GetYaxis()->SetRangeUser(1e-5,10.);
+            pGraphS->GetXaxis()->SetTitle("S [m]");
+            pGraphS->GetYaxis()->SetTitle("Yield/POT");
+            c2->SetGrid();
+            pGraphS->Draw("AP");
+            kGraphS->Draw("P SAME");
+            c2->Print(pdfOut.c_str());
             outFile->WriteObject(c2,"pkS");
 
-            std::cout<<treeName[d]<<": "<<fileCount<<std::endl;
+            txtFile<<treeName[d]<<": "<<fileCount<<"\n";
+
+            outFile->Close();
 
         }else{
 
@@ -229,10 +277,10 @@ void combine_out(){
 
             TH1D* hpx_TOT = nullptr;
             TH1D* hpy_TOT = nullptr;
-            //TH1D* hpz_TOT = nullptr;
+            TH1D* hpz_TOT = nullptr;
             TH1D* ht_TOT = nullptr;
             TH1D* hdE_TOT = nullptr;
-            //spectrum_histogram
+
             //neutrino_histograms
             TH1D* momHist_TOT = nullptr;
             TH2D* momangleHistX_TOT = nullptr;
@@ -328,13 +376,13 @@ void combine_out(){
                 }
                 hpy_TOT->Add(hpy_local);
 
-                /*TH1D* hpz_local = (TH1D*)file->Get("hpz");
+                TH1D* hpz_local = (TH1D*)file->Get("hpz");
                 if(!hpz_TOT){
                     hpz_TOT = (TH1D*)hpz_local->Clone("hpz_TOT");
                     hpz_TOT->SetDirectory(0);
                     hpz_TOT->Reset();
                 }
-                hpz_TOT->Add(hpz_local);*/
+                hpz_TOT->Add(hpz_local);
 
                 TH1D* ht_local = (TH1D*)file->Get("ht");
                 if(!ht_TOT){
@@ -472,7 +520,6 @@ void combine_out(){
                         }
                         entry.second->Add(h);
                     }
-                    std::cout<<entry.second<<std::endl;
                 }
                 for(auto& entry : histMapEE_lim_TOT){
                     TString hName("SPECTRA_LIM_"+entry.first);
@@ -532,10 +579,10 @@ void combine_out(){
             hpy_TOT->SetTitle("pY");
             outFile->WriteObject(hpy_TOT,"hpy");
 
-            /*hpz_TOT->Scale(1./fileCount);
+            hpz_TOT->Scale(1./fileCount);
             hpz_TOT->SetStats(1);
             hpz_TOT->SetTitle("pZ");
-            outFile->WriteObject(hpz_TOT,"hpz");*/
+            outFile->WriteObject(hpz_TOT,"hpz");
 
             ht_TOT->Scale(1./fileCount);
             ht_TOT->SetStats(1);
@@ -614,14 +661,21 @@ void combine_out(){
                 if(!entry.second){continue;}
                 entry.second->Scale(1./fileCount);
                 entry.second->GetYaxis()->SetRangeUser(1e-6, 100.);
-                if(entry.first=="pi+"){pionsHist.insert(std::make_pair(entry.first,entry.second));}
-                if(entry.first=="k+"){kaonsHist.insert(std::make_pair(entry.first,entry.second));}
+                entry.second->SetTitle(("Particle count ["+treeName[d]+"]").c_str());
+                if(entry.first=="pi+"){pionsHist.insert(std::make_pair(treeName[d],entry.second));}
+                if(entry.first=="kaon+"){kaonsHist.insert(std::make_pair(treeName[d],entry.second));}
+                if(entry.first=="e+"){
+                    if(treeName[d]=="Middle4"){p_before = (TH1D*)entry.second->Clone("pi before");}
+                    if(treeName[d]=="Middle5"){p_after = (TH1D*)entry.second->Clone("pi after");}
+                }
+
                 entry.second->Draw((aa==1 ? "HIST" : "HIST SAME"));
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 ++aa;
             }
             legend->Draw();
             c->Update();
+            c->Print(pdfOut.c_str());
             outFile->WriteObject(c,"histMapE_TOT");
             c->Clear();
 
@@ -630,13 +684,17 @@ void combine_out(){
             for (auto &entry : histMapEE_TOT) {
                 if(!entry.second){continue;}
                 entry.second->Scale(1./fileCount);
+                entry.second->SetTitle(("Particle flux ["+treeName[d]+"]").c_str());
                 entry.second->GetYaxis()->SetRangeUser(1e-4, 10000.);
+                if(entry.first=="pi+"){pionsSpectrum.insert(std::make_pair(treeName[d],entry.second));}
+                if(entry.first=="kaon+"){kaonsSpectrum.insert(std::make_pair(treeName[d],entry.second));}
                 entry.second->Draw((aa==1 ? "HIST" : "HIST SAME"));
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 ++aa;
             }
             legend->Draw();
             c->Update();
+            c->Print(pdfOut.c_str());
             outFile->WriteObject(c,"histMapEE_TOT");
             c->Clear();
 
@@ -646,12 +704,16 @@ void combine_out(){
                 if(!entry.second){continue;}
                 entry.second->Scale(1./fileCount);
                 entry.second->GetYaxis()->SetRangeUser(1e-6, 100.);
+                entry.second->SetTitle(("Particle count ["+treeName[d]+" lim]").c_str());
+                if(entry.first=="pi+"){pionsHist_lim.insert(std::make_pair(treeName[d],entry.second));}
+                if(entry.first=="kaon+"){kaonsHist_lim.insert(std::make_pair(treeName[d],entry.second));}
                 entry.second->Draw((aa==1 ? "HIST" : "HIST SAME"));
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 ++aa;
             }
             legend->Draw();
             c->Update();
+            c->Print(pdfOut.c_str());
             outFile->WriteObject(c,"histMapElim_TOT");
             c->Clear();
 
@@ -661,16 +723,20 @@ void combine_out(){
                 if(!entry.second){continue;}
                 entry.second->Scale(1./fileCount);
                 entry.second->GetYaxis()->SetRangeUser(1e-4, 10000.);
+                entry.second->SetTitle(("Particle flux ["+treeName[d]+" lim]").c_str());
+                if(entry.first=="pi+"){pionsSpectrum_lim.insert(std::make_pair(treeName[d],entry.second));}
+                if(entry.first=="kaon+"){kaonsSpectrum_lim.insert(std::make_pair(treeName[d],entry.second));}
                 entry.second->Draw((aa==1 ? "HIST" : "HIST SAME"));
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 ++aa;
             }
             legend->Draw();
             c->Update();
+            c->Print(pdfOut.c_str());
             outFile->WriteObject(c,"histMapEElim_TOT");
             c->Clear();
 
-            std::cout<<treeName[d]<<": "<<fileCount<<std::endl;
+            txtFile<<treeName[d]<<": "<<fileCount<<"\n";
 
             delete hE_TOT;
             delete hx_TOT;
@@ -680,7 +746,7 @@ void combine_out(){
             delete habsz_TOT;
             delete hpx_TOT;
             delete hpy_TOT;
-            //delete hpz_TOT;
+            delete hpz_TOT;
             delete ht_TOT;
             delete hdE_TOT;
             delete momHist_TOT;
@@ -693,6 +759,233 @@ void combine_out(){
             delete rapidTimeHist_TOT;
             delete energyTimeHist_TOT;
 
+            outFile->Close();
+
         }
     }
+
+    std::string finalOutName = "outMerge/Spectra_merge.root";
+    TFile *finalOut = new TFile(finalOutName.data(),"RECREATE");
+    TCanvas *clog = new TCanvas("CanvasLog","CanvasLog",1920,1200);
+    clog->SetLogy();
+
+    //pion stuff
+    int colorP = 0;
+    TLegend *legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog->Clear();
+    gStyle->SetPalette(kSolar);
+    for (int i=0;i<pionsHist.size()-1;i++) {
+        pionsHist[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        pionsHist[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){pionsHist[treeName[i]]->SetLineColor(kYellow);}
+        pionsHist[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        pionsHist[treeName[i]]->GetYaxis()->SetTitle("Count");
+        pionsHist[treeName[i]]->SetTitle("Pions count");
+        legend->AddEntry(pionsHist[treeName[i]], treeName[i].c_str(), "f");
+        clog->Update();
+        colorP++;
+    }
+    legend->Draw();
+    clog->Update();
+    finalOut->WriteObject(clog,"pions");
+    clog->Print(pdfOut.c_str());
+    clog->Clear();
+    cOpen->Update();
+
+    colorP = 0;
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog->Update();
+    gStyle->SetPalette(kSolar);
+    for (int i=0;i<pionsSpectrum.size()-1;i++) {
+        pionsSpectrum[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        pionsSpectrum[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){pionsSpectrum[treeName[i]]->SetLineColor(kYellow);}
+        pionsSpectrum[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        pionsSpectrum[treeName[i]]->GetYaxis()->SetTitle("Count");
+        pionsSpectrum[treeName[i]]->SetTitle("Pions flux");
+        legend->AddEntry(pionsSpectrum[treeName[i]], treeName[i].c_str(), "f");
+        clog->Update();
+        colorP++;
+    }
+    legend->Draw();
+    clog->Update();
+    finalOut->WriteObject(clog,"pions_flux");
+    clog->Print(pdfOut.c_str());
+    clog->Clear();
+    cOpen->Update();
+
+    colorP = 0;
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog->Update();
+    gStyle->SetPalette(kSolar);
+    for (int i=0;i<pionsHist_lim.size()-1;i++) {
+        pionsHist_lim[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        pionsHist_lim[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){pionsHist_lim[treeName[i]]->SetLineColor(kYellow);}
+        pionsHist_lim[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        pionsHist_lim[treeName[i]]->GetYaxis()->SetTitle("Count");
+        pionsHist_lim[treeName[i]]->SetTitle("Pions count [lim]");
+        legend->AddEntry(pionsHist_lim[treeName[i]], treeName[i].c_str(), "f");
+        clog->Update();
+        colorP++;
+    }
+    legend->Draw();
+    clog->Update();
+    finalOut->WriteObject(clog,"pions_lim");
+    clog->Print(pdfOut.c_str());
+    clog->Clear();
+    cOpen->Update();
+
+    colorP = 0;
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog->Update();
+    gStyle->SetPalette(kSolar);
+    for (int i=0;i<pionsSpectrum_lim.size()-1;i++) {
+        pionsSpectrum_lim[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        pionsSpectrum_lim[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){pionsSpectrum_lim[treeName[i]]->SetLineColor(kYellow);}
+        pionsSpectrum_lim[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        pionsSpectrum_lim[treeName[i]]->GetYaxis()->SetTitle("Count");
+        pionsSpectrum_lim[treeName[i]]->SetTitle("Pions flux [lim]");
+        legend->AddEntry(pionsSpectrum_lim[treeName[i]], treeName[i].c_str(), "f");
+        clog->Update();
+        colorP++;
+    }
+    legend->Draw();
+    clog->Update();
+    finalOut->WriteObject(clog,"pions_flux_lim");
+    clog->Print(pdfOut.c_str());
+    clog->Clear();
+    cOpen->Update();
+
+    //kaon stuff
+    TCanvas *clog2 = new TCanvas("CanvasLog2","CanvasLog2",1920,1200);
+    clog2->SetLogy();
+
+    int colorK = 0;
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog2->Clear();
+    gStyle->SetPalette(kRust);
+    for (int i=0;i<kaonsHist.size()-1;i++) {
+        kaonsHist[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        kaonsHist[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){kaonsHist[treeName[i]]->SetLineColor(kYellow);}
+        kaonsHist[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        kaonsHist[treeName[i]]->GetYaxis()->SetTitle("Count");
+        kaonsHist[treeName[i]]->SetTitle("Kaons count");
+        legend->AddEntry(kaonsHist[treeName[i]], treeName[i].c_str(), "f");
+        clog2->Update();
+        colorK++;
+    }
+    legend->Draw();
+    clog2->Update();
+    finalOut->WriteObject(clog2,"kaons");
+    clog2->Print(pdfOut.c_str());
+    clog2->Clear();
+    cOpen->Update();
+
+    colorK = 0;
+    clog2 = new TCanvas("CanvasLog2","CanvasLog2",1920,1200);
+    clog2->SetLogy();
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog2->Update();
+    gStyle->SetPalette(kRust);
+    for (int i=0;i<kaonsSpectrum.size()-1;i++) {
+        kaonsSpectrum[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        kaonsSpectrum[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){kaonsSpectrum[treeName[i]]->SetLineColor(kYellow);}
+        kaonsSpectrum[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        kaonsSpectrum[treeName[i]]->GetYaxis()->SetTitle("Count");
+        kaonsSpectrum[treeName[i]]->SetTitle("Kaons flux");
+        legend->AddEntry(kaonsSpectrum[treeName[i]], treeName[i].c_str(), "f");
+        clog2->Update();
+        colorK++;
+    }
+    legend->Draw();
+    clog2->Update();
+    finalOut->WriteObject(clog2,"kaons_flux");
+    clog2->Print(pdfOut.c_str());
+    clog2->Clear();
+    cOpen->Update();
+
+    colorK = 0;
+    clog2 = new TCanvas("CanvasLog2","CanvasLog2",1920,1200);
+    clog2->SetLogy();
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog2->Update();
+    gStyle->SetPalette(kRust);
+    for (int i=0;i<kaonsHist_lim.size()-1;i++) {
+        kaonsHist_lim[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        kaonsHist_lim[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){kaonsHist_lim[treeName[i]]->SetLineColor(kYellow);}
+        kaonsHist_lim[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        kaonsHist_lim[treeName[i]]->GetYaxis()->SetTitle("Count");
+        kaonsHist_lim[treeName[i]]->SetTitle("Kaons count [lim]");
+        legend->AddEntry(kaonsHist_lim[treeName[i]], treeName[i].c_str(), "f");
+        clog2->Update();
+        colorK++;
+    }
+    legend->Draw();
+    clog2->Update();
+    finalOut->WriteObject(clog2,"kaons_lim");
+    clog2->Print(pdfOut.c_str());
+    clog2->Clear();
+    cOpen->Update();
+
+    colorK = 0;
+    clog2 = new TCanvas("CanvasLog2","CanvasLog2",1920,1200);
+    clog2->SetLogy();
+    legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    clog2->Update();
+    gStyle->SetPalette(kRust);
+    for (int i=0;i<kaonsSpectrum_lim.size()-1;i++) {
+        kaonsSpectrum_lim[treeName[i]]->Draw((colorP == 0 ? "HIST PFC PLC" : (treeName[i]=="DSVD1" ? "HIST SAME PFC" : "HIST SAME PFC PLC")));
+        kaonsSpectrum_lim[treeName[i]]->SetStats(0);
+        if(treeName[i]=="DSVD1"){kaonsSpectrum_lim[treeName[i]]->SetLineColor(kYellow);}
+        kaonsSpectrum_lim[treeName[i]]->GetXaxis()->SetTitle("E [MeV]");
+        kaonsSpectrum_lim[treeName[i]]->GetYaxis()->SetTitle("Count");
+        kaonsSpectrum_lim[treeName[i]]->SetTitle("Kaons flux [lim]");
+        legend->AddEntry(kaonsSpectrum_lim[treeName[i]], treeName[i].c_str(), "f");
+        clog2->Update();
+        colorK++;
+    }
+    legend->Draw();
+    clog2->Update();
+    finalOut->WriteObject(clog2,"kaons_flux_lim");
+    clog2->Print(pdfOut.c_str());
+    clog2->Clear();
+    cOpen->Update();
+
+    //positron cut
+    TCanvas *cpi = new TCanvas("cpi","cpi",1920,1200);
+    TLegend* pLeg = new TLegend(0.6,0.7,0.9,0.9);
+    cpi->SetLogy();
+    cpi->SetGrid();
+    p_before->SetTitle("Positron cut");
+    p_before->SetLineColor(kRed-6);
+    p_before->SetLineWidth(3);
+    Double_t p_before_tot = p_before->Integral();
+    Double_t p_before_lim = p_before->Integral(7500/Ebin,9500/Ebin);
+    p_after->SetTitle("Positron cut");
+    p_after->SetLineColor(kRed);
+    p_after->SetLineWidth(3);
+    Double_t p_after_tot = p_after->Integral();
+    Double_t p_after_lim = p_after->Integral(7500/Ebin,9500/Ebin);
+
+    pLeg->AddEntry(p_before, "Before Pb", "l");
+    pLeg->AddEntry(p_after, "After Pb", "l");
+
+    p_before->Draw("HIST");
+    p_after->Draw("HIST SAME");
+    pLeg->Draw();
+    cpi->Update();
+    finalOut->WriteObject(clog2,"kaons_lim");
+    cpi->Print(pdfOut.c_str());
+
+    txtFile<<p_after_tot<<" "<<p_before_tot<<"\n";
+    txtFile<<p_after_lim<<" "<<p_before_lim<<"\n";
+
+    cOpen->Print((pdfOut+"]").c_str());
+    finalOut->Close();
+    txtFile.close();
 }

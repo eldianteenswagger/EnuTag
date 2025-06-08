@@ -99,7 +99,7 @@ void hist_single(){
         {"e+", kRed+2}
     };
 
-    double norm = count * 50000.;
+    double norm = count * 20000.;
 
     //outfile
 
@@ -168,8 +168,8 @@ void hist_single(){
             hnui->GetYaxis()->SetTitle("y [mm]");
             
             //out files
-            //std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
-            std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
+            std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
+            //std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
             TFile* outFile = new TFile(outFileName.data(), "RECREATE");
                         
             outFile->WriteObject(hnux,"hnux");
@@ -351,8 +351,8 @@ void hist_single(){
             hID->Scale(1./norm);
 
             //out files
-            //std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
-            std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
+            std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
+            //std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
             TFile* outFile = new TFile(outFileName.data(), "RECREATE");
 
             outFile->WriteObject(hE,"hE");
@@ -505,8 +505,8 @@ void hist_single(){
     Double_t intk;
     UInt_t id;
 
-    //std::string ExtraOut = "./OUT/Extra_"+to_string(idx)+".root";
-    std::string ExtraOut = "/sps/gdrnu/lzappacosta01/jobsOut_new/Extra"+to_string(idx)+".root";
+    std::string ExtraOut = "./OUT/Extra_"+to_string(idx)+".root";
+    //std::string ExtraOut = "/sps/gdrnu/lzappacosta01/jobsOut_new/Extra"+to_string(idx)+".root";
     TFile* outFileExtra = new TFile(ExtraOut.data(), "RECREATE");
     //outFileExtra->Open();
 

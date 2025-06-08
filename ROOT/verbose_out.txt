@@ -1,0 +1,31 @@
+USVD: 2
+Middle1: 2
+Middle2: 2
+Middle3: 2
+Middle4: 2
+Middle5: 2
+Det1: 2
+Det2: 2
+Det3: 2
+Det4: 2
+Det5: 2
+DSVD1: 2
+DSVD2: 2
+FVD: 2
+Neutrinos: 2
+USVD: pi+ 0.48295 k+ 0.057425
+Middle1: pi+ 0.08185 k+ 0.0062
+Middle2: pi+ 0.07835 k+ 0.00635
+Middle3: pi+ 0.0665 k+ 0.005225
+Middle4: pi+ 0.059675 k+ 0.0041
+Middle5: pi+ 0.029875 k+ 0.002025
+Det1: pi+ 0.0212 k+ 0.0012
+Det2: pi+ 0.0195 k+ 0.00115
+Det3: pi+ 0.0127 k+ 0.00095
+Det4: pi+ 0.011975 k+ 0.00085
+Det5: pi+ 0.0051 k+ 0.0003
+DSVD1: pi+ 0.00435 k+ 0.000225
+DSVD2: pi+ 0.00385 k+ 0.00015
+Extra: 2
+0.14915 0.174775
+0 0.092125
