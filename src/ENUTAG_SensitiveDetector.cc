@@ -96,7 +96,7 @@ G4bool ENUTAG_SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *t
             fnuX = track->GetVertexPosition().x();
             fnuY = track->GetVertexPosition().y();
             fnuZ = track->GetVertexPosition().z();
-            fnuIX = fX/std::cos(18.18*3.141592/180);
+            fnuIX = -1.*fX/std::cos(9.09*3.141592/90);
             fnuIY = fY;
             fnuE =  fParticleEnergy;
             fnuPDG = fPDG;

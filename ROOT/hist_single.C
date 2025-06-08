@@ -21,7 +21,7 @@ void hist_single(){
 
     int count = 1;
 
-    double Elim = 10000.;
+    double Elim = 12000.;
     double Ebin = 100.;
 
     std::string fileName = "runOut"+to_string(idx)+".root";
@@ -76,8 +76,8 @@ void hist_single(){
     std::vector<TTree*> treeSelect = {tUSVD,tMiddle1,tMiddle2,tMiddle3,tMiddle4,tMiddle5,tDet1,tDet2,tDet3,tDet4,tDet5,tDSVD1,tDSVD2,tFVD,tNeutrinos};
     std::vector<std::string> treeName = {"USVD","Middle1","Middle2","Middle3","Middle4","Middle5","Det1","Det2","Det3","Det4","Det5","DSVD1","DSVD2","FVD","Neutrinos"};
     std::vector<bool> treeVD = {true,true,true,true,true,true,false,false,false,false,false,true,true,true};
-    std::vector<double> pionsIntegral = {};
-    std::vector<double> kaonsIntegral = {};
+    std::vector<Double_t> pionsIntegral = {};
+    std::vector<Double_t> kaonsIntegral = {};
     std::map<std::string, int> colorMap = {
         {"nu_e", kGray},
         {"nu_mu", kGray},
@@ -99,24 +99,22 @@ void hist_single(){
         {"e+", kRed+2}
     };
 
-    double norm = count * 2000.;
+    double norm = count * 50000.;
 
     //outfile
 
     //std::string ExtraOut = "/sps/gdrnu/lzappacosta01/jobsOut_new/Extra"+to_string(idx)+".root";
-    std::string ExtraOut = "./OUT/extra_"+to_string(idx)+".root";
-    TFile* outFileExtra = new TFile(ExtraOut.data(), "RECREATE");
-    TCanvas* c = new TCanvas("Canvas","Canvas",1920,1200);
-    c->Clear();
+    //TCanvas* c = new TCanvas("Canvas","Canvas",1920,1200);
+    //c->Clear();
 
-    TCanvas* clog = new TCanvas("CanvasLog","CanvasLog",1920,1200);
-    clog->SetLogy();
+    //TCanvas* clog = new TCanvas("CanvasLog","CanvasLog",1920,1200);
+    //clog->SetLogy();
 
-    std::map<std::string, TH1D*> histMapPions;
+    /*std::map<std::string, TH1D*> histMapPions;
     std::map<std::string, TH1D*> histMapKaons;
 
     std::map<std::string, TH1D*> histMapPionsLim;
-    std::map<std::string, TH1D*> histMapKaonsLim;
+    std::map<std::string, TH1D*> histMapKaonsLim;*/
 
     for(int i = 0; i<treeSelect.size();++i){
 
@@ -129,30 +127,30 @@ void hist_single(){
             treeSelect[i]->SetBranchAddress("nu_E", &nu_E);
             treeSelect[i]->SetBranchAddress("nu_PDG", &nu_PDG);
 
-            auto neutrinoMap = new TGraph2D();
+            //auto neutrinoMap = new TGraph2D();
 
             TH1D* hnux = new TH1D("hnux", "hnux", 710, -1., 70.);
-            TH1D* hnuy = new TH1D("hnuy", "hnuy", 20, -1., 1.);
-            TH1D* hnuz = new TH1D("hnuz", "hnuz", 80, -1., 7.);
+            TH1D* hnuy = new TH1D("hnuy", "hnuy", 20, -2., 2.);
+            TH1D* hnuz = new TH1D("hnuz", "hnuz", 120, -2., 10.);
 
-            TH2D* hnuxy = new TH2D("hnuxy", "hnuxy", 7100, -1., 70.,200, -1., 1.);
-            TH2D* hnuzy = new TH2D("hnuzy", "hnuzy", 800, -1., 7., 200, -1., 1.);
-            TH2D* hnuxz = new TH2D("hnuxz", "hnuxz", 7100, -1., 70.,800, -1., 7.);
+            TH2D* hnuxy = new TH2D("hnuxy", "hnuxy", 710, -1., 70.,20, -2., 2.);
+            TH2D* hnuzy = new TH2D("hnuzy", "hnuzy", 120, -2., 10., 20, -2., 2.);
+            TH2D* hnuxz = new TH2D("hnuxz", "hnuxz", 710, -1., 70.,120, -2., 10.);
 
-            TH2D* hnui = new TH2D("hnui", "hnui", 500, -10., 10., 500, -10., 10.);
+            TH2D* hnui = new TH2D("hnui", "hnui", 500, -10000., 10000., 500, -10000., 10000.);
 
             // Loop over the tree entries
             Long64_t nEntries = treeSelect[i]->GetEntries();
             for (Long64_t j = 0; j < nEntries; ++j) {
                 treeSelect[i]->GetEntry(j);
-                neutrinoMap->SetPoint(j,nu_z,nu_x,nu_y);
+                //neutrinoMap->SetPoint(j,nu_z,nu_x,nu_y);
                 hnux->Fill(nu_x);
                 hnuy->Fill(nu_y);
                 hnuz->Fill(nu_z);
                 hnuxy->Fill(nu_x,nu_y,nu_E);
                 hnuzy->Fill(nu_z,nu_y,nu_E);
                 hnuxz->Fill(nu_x,nu_z,nu_E);
-                hnui->Fill(nu_ix,nu_iy);
+                hnui->Fill(nu_ix,nu_iy,nu_E);
             }
 
             hnux->GetXaxis()->SetTitle("x [m]");
@@ -170,7 +168,8 @@ void hist_single(){
             hnui->GetYaxis()->SetTitle("y [mm]");
             
             //out files
-            std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
+            //std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
+            std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
             TFile* outFile = new TFile(outFileName.data(), "RECREATE");
                         
             outFile->WriteObject(hnux,"hnux");
@@ -181,10 +180,10 @@ void hist_single(){
             outFile->WriteObject(hnuxz,"hnuxz");
             outFile->WriteObject(hnui,"hnui");
 
-            c->Clear();
-            neutrinoMap->Draw("box");
-            outFileExtra->WriteObject(neutrinoMap,"neutrinoMap");
-            c->Clear();
+            //c->Clear();
+            /*neutrinoMap->Draw("box");
+            outFileExtra->WriteObject(neutrinoMap,"neutrinoMap");*/
+            //c->Clear();
         }
         else {
             treeSelect[i]->SetBranchAddress("E", &E);
@@ -290,22 +289,22 @@ void hist_single(){
                     if (histMapE.find(pdgStr) == histMapE.end()) {
                         // Create a new histogram for this PDG
                         std::string histNameE = "h_" + pdgStr+"_E";
-                        histMapE[pdgStr] = new TH1D(histNameE.c_str(), ("Energy_"+treeName[i]).c_str(), Elim/Ebin, 0, Elim);
+                        histMapE[pdgStr] = new TH1D(histNameE.c_str(), ("Energy_"+pdgStr).c_str(), Elim/Ebin, 0, Elim);
                         histMapE[pdgStr]->SetLineWidth(2);
                         histMapE[pdgStr]->GetYaxis()->SetRangeUser(1e-8, 10.);
                         histMapE[pdgStr]->SetLineColor(colorMap[pdgStr]);
                         std::string histNameEE = "h_" + pdgStr+"_EE";
-                        histMapEE[pdgStr] = new TH1D(histNameEE.c_str(), ("Spectrum_"+treeName[i]).c_str(), Elim/Ebin, 0, Elim);
+                        histMapEE[pdgStr] = new TH1D(histNameEE.c_str(), ("Spectrum_"+pdgStr).c_str(), Elim/Ebin, 0, Elim);
                         histMapEE[pdgStr]->SetLineWidth(2);
                         histMapEE[pdgStr]->GetYaxis()->SetRangeUser(1e-6, 1000.);
                         histMapEE[pdgStr]->SetLineColor(colorMap[pdgStr]);
                         std::string histNameElim = "h_" + pdgStr+"_E_lim";
-                        histMapElim[pdgStr] = new TH1D(histNameElim.c_str(), ("Energy_"+treeName[i]).c_str(), 2000/Ebin, 7500, 9500);
+                        histMapElim[pdgStr] = new TH1D(histNameElim.c_str(), ("Energy_lim_"+pdgStr).c_str(), 2000/Ebin, 7500, 9500);
                         histMapElim[pdgStr]->SetLineWidth(2);
                         histMapElim[pdgStr]->GetYaxis()->SetRangeUser(1e-8, 10.);
                         histMapElim[pdgStr]->SetLineColor(colorMap[pdgStr]);
                         std::string histNameEElim = "h_" + pdgStr+"_EE_lim";
-                        histMapEElim[pdgStr] = new TH1D(histNameEElim.c_str(), ("Spectrum_"+treeName[i]).c_str(), 2000/Ebin, 7500, 9500);
+                        histMapEElim[pdgStr] = new TH1D(histNameEElim.c_str(), ("Spectrum_lim_"+pdgStr).c_str(), 2000/Ebin, 7500, 9500);
                         histMapEElim[pdgStr]->SetLineWidth(2);
                         histMapEElim[pdgStr]->GetYaxis()->SetRangeUser(1e-6, 1000.);
                         histMapEElim[pdgStr]->SetLineColor(colorMap[pdgStr]);
@@ -352,8 +351,8 @@ void hist_single(){
             hID->Scale(1./norm);
 
             //out files
-            std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
-            //std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
+            //std::string outFileName = "./OUT/"+treeName[i]+"_"+to_string(idx)+".root";
+            std::string outFileName = "/sps/gdrnu/lzappacosta01/jobsOut_new/"+treeName[i]+"_"+to_string(idx)+".root";
             TFile* outFile = new TFile(outFileName.data(), "RECREATE");
 
             outFile->WriteObject(hE,"hE");
@@ -364,7 +363,7 @@ void hist_single(){
             outFile->WriteObject(habsz,"habsz");
             outFile->WriteObject(hpx,"hpx");
             outFile->WriteObject(hpy,"hpy");
-            outFile->WriteObject(hpz,"hpy");
+            outFile->WriteObject(hpz,"hpz");
             outFile->WriteObject(ht,"ht");
             //outFile->WriteObject(treeSelect[i]->Get("PDG"),"hPDG");
             outFile->WriteObject(hID,"hID");
@@ -415,8 +414,8 @@ void hist_single(){
                 outFile->WriteObject(hdE,"hdE");
             }
 
-            clog->Clear();
-            clog->Update();
+            //clog->Clear();
+            //clog->Update();
 
             TLegend *legend = new TLegend(0.9, 0.9, 0.99, 0.1);
             int color = 1;
@@ -425,84 +424,111 @@ void hist_single(){
                 if(entry.first=="kaon+"){kaonsIntegral.push_back(entry.second->Integral(7500/Ebin,9500/Ebin)*(1./norm));}
                 entry.second->Scale(1./norm);
                 entry.second->GetYaxis()->SetRangeUser(1e-6, 10.);
-                entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
+                //entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
                 entry.second->SetStats(0);
-                legend->AddEntry(entry.second, entry.first.c_str(), "l");
+                //legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 entry.second->GetXaxis()->SetTitle("E [MeV]");
                 entry.second->GetYaxis()->SetTitle("Count/POT");
+                outFile->WriteObject(entry.second,("HISTS_"+entry.first).c_str());
                 color++;
             }
-            legend->Draw();
-            clog->Update();
-            outFile->WriteObject(clog,("histMapE_"+treeName[i]).c_str());
-            clog->Clear();
+            /*legend->Draw();
+            outFile->WriteObject(clog,("histMapE_"+treeName[i]).c_str());*/
 
             legend = new TLegend(0.9, 0.9, 0.99, 0.1);
             color = 1;
             for (auto &entry : histMapEE) {
                 entry.second->Scale(1./norm);
                 entry.second->GetYaxis()->SetRangeUser(1e-4, 1000.);
-                entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
+                //entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
                 entry.second->SetStats(0);
-                legend->AddEntry(entry.second, entry.first.c_str(), "l");
+                //legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 entry.second->GetXaxis()->SetTitle("E [MeV]");
                 entry.second->GetYaxis()->SetTitle("Flux/POT [MeV]");
+                outFile->WriteObject(entry.second,("SPECTRA_"+entry.first).c_str());
                 color++;
             }
-            legend->Draw();
-            clog->Update();
-            outFile->WriteObject(clog,("histMapS_"+treeName[i]).c_str());
-            clog->Clear();
-            clog->Update();
+            /*legend->Draw();
+            outFile->WriteObject(clog,("histMapS_"+treeName[i]).c_str());*/
 
             legend = new TLegend(0.9, 0.9, 0.99, 0.1);
             color = 1;
             for (auto &entry : histMapElim) {
                 entry.second->Scale(1./norm);
                 entry.second->GetYaxis()->SetRangeUser(1e-6, 10.);
-                entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
+                //entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
                 entry.second->SetStats(0);
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 entry.second->GetXaxis()->SetTitle("E [MeV]");
                 entry.second->GetYaxis()->SetTitle("Count/POT");
+                outFile->WriteObject(entry.second,("HISTS_LIM_"+entry.first).c_str());
                 color++;
             }
-            legend->Draw();
-            clog->Update();
-            outFile->WriteObject(clog,("histMapElim_"+treeName[i]).c_str());
-            clog->Clear();
+            /*legend->Draw();
+
+            outFile->WriteObject(clog,("histMapElim_"+treeName[i]).c_str());*/
 
             legend = new TLegend(0.9, 0.9, 0.99, 0.1);
             color = 1;
             for (auto &entry : histMapEElim) {
                 entry.second->Scale(1./norm);
                 entry.second->GetYaxis()->SetRangeUser(1e-4, 1000.);
-                entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
+                //entry.second->Draw((color == 1 ? "HIST" : "HIST SAME"));
                 entry.second->SetStats(0);
                 legend->AddEntry(entry.second, entry.first.c_str(), "l");
                 entry.second->GetXaxis()->SetTitle("E [MeV]");
                 entry.second->GetYaxis()->SetTitle("Flux/POT [MeV]");
+                outFile->WriteObject(entry.second,("SPECTRA_LIM_"+entry.first).c_str());
                 color++;
             }
-            legend->Draw();
+            /*legend->Draw();
             clog->Update();
             outFile->WriteObject(clog,("histMapSlim_"+treeName[i]).c_str());
-            clog->Clear();
-            clog->Update();
-
-            c->Update();
+            clog->Clear();*/
+            //clog->Update();
+            //c->Update();
       
-            if(treeName[i]!="FVD"){
+            /*if(treeName[i]!="FVD"){
                 histMapPions.insert(std::make_pair(treeName[i],histMapE["pi+"]));
                 histMapKaons.insert(std::make_pair(treeName[i],histMapE["kaon+"]));
                 histMapPionsLim.insert(std::make_pair(treeName[i],histMapElim["pi+"]));
                 histMapKaonsLim.insert(std::make_pair(treeName[i],histMapElim["kaon+"]));
-            }
+            }*/
 
         }
     }
 
-    TLegend *legend = new TLegend(0.9, 0.9, 0.99, 0.1);
+    //outFileExtra->mkdir("pionsIntegral");
+    //outFileExtra->mkdir("kaonsIntegral");
+
+    Double_t intp;
+    Double_t intk;
+    UInt_t id;
+
+    //std::string ExtraOut = "./OUT/Extra_"+to_string(idx)+".root";
+    std::string ExtraOut = "/sps/gdrnu/lzappacosta01/jobsOut_new/Extra"+to_string(idx)+".root";
+    TFile* outFileExtra = new TFile(ExtraOut.data(), "RECREATE");
+    //outFileExtra->Open();
+
+    TTree* pkInt = new TTree("pkIntegrals","p");
+    pkInt -> Branch("intp",&intp,"intp/D");
+    pkInt -> Branch("intk",&intk,"intk/D");
+    pkInt -> Branch("id",&id,"id/i");
+
+    for(int i=0;i<pionsIntegral.size();++i){
+        intp = pionsIntegral[i];
+        intk = kaonsIntegral[i];
+        id = i;
+        pkInt->Fill();
+
+        //pInt->Write(treeName[i],&pionsIntegral[i]);//,("pionsIntegral/"+treeName[i]).c_str());
+        //kInt->Write(&kaonsIntegral[i]);//,("kaonsIntegral/"+treeName[i]).c_str());
+    }
+
+    outFileExtra->Write();    
+    outFileExtra->Close();
+
+    /*TLegend *legend = new TLegend(0.9, 0.9, 0.99, 0.1);
     clog->Clear();
     int colorP = 0;
     gStyle->SetPalette(kSolar);
@@ -580,8 +606,8 @@ void hist_single(){
     outFileExtra->WriteObject(clog,"kaons_lim");
     clog->Clear();
     c->Update();
-    c->Clear();
-    TGraph* pionYield = new TGraph(pionsIntegral.size());
+    c->Clear();*/
+    /*TGraph* pionYield = new TGraph(pionsIntegral.size());
     TGraph* pionYieldS = new TGraph(pionsIntegral.size());
     TGraph* kaonYield = new TGraph(kaonsIntegral.size());
     TGraph* kaonYieldS = new TGraph(kaonsIntegral.size());
@@ -595,9 +621,6 @@ void hist_single(){
     pionYieldS->GetYaxis()->SetName("Count");
     auto axp = pionYield->GetXaxis();
     axp->SetNdivisions(pionsIntegral.size());
-    for(int i=0;i<pionsIntegral.size();++i){
-        axp->ChangeLabelByValue(i+1,-1,-100,-1,1,-1,treeName[i].c_str());
-    }
     for(int i=0;i<kaonsIntegral.size();++i){
         kaonYield->SetPoint(i,i+1,kaonsIntegral[i]);
         kaonYieldS->SetPoint(i,s[i],kaonsIntegral[i]);
@@ -606,15 +629,12 @@ void hist_single(){
     kaonYield->GetYaxis()->SetName("Count");
     kaonYieldS->GetYaxis()->SetName("Count");
     auto axk = kaonYield->GetXaxis();
-    axk->SetNdivisions(kaonsIntegral.size());
-    for(int i=0;i<kaonsIntegral.size();++i){
-        axk->ChangeLabelByValue(i+1, -1,-100,-1,1,-1,treeName[i].c_str());
-    }
-    outFileExtra->WriteObject(pionYield,"pionYield");
+    axk->SetNdivisions(kaonsIntegral.size());*/
+    /*outFileExtra->WriteObject(pionYield,"pionYield");
     outFileExtra->WriteObject(kaonYield,"kaonYield");
     outFileExtra->WriteObject(pionYieldS,"pionYieldS");
-    outFileExtra->WriteObject(kaonYieldS,"kaonYieldS");
+    outFileExtra->WriteObject(kaonYieldS,"kaonYieldS");*/
 
-    std::cout<<"File count: "<<count<<std::endl;
+    //std::cout<<"File count: "<<count<<std::endl;
 
 }
